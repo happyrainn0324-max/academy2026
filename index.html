@@ -32,7 +32,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .pn{position:sticky;top:0;z-index:200;background:rgba(254,248,242,0.97);backdrop-filter:blur(18px);border-bottom:1.5px solid var(--nv5);}
 .pn-in{max-width:1120px;margin:0 auto;padding:0 20px;height:72px;display:flex;align-items:center;justify-content:center;}
 .pn-brand{display:flex;align-items:center;gap:9px;flex-shrink:0;min-width:0;}
-.pn-flower{font-size:26px;flex-shrink:0;filter:hue-rotate(200deg) saturate(1.5);}
+.pn-flower{font-size:26px;flex-shrink:0;}
 .pn-text{display:flex;flex-direction:column;line-height:1;min-width:0;}
 .pn-main{font-family:var(--fk);font-size:18px;font-weight:600;color:var(--nv1);letter-spacing:0.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .pn-sub{font-family:var(--fb);font-size:13px;color:var(--nv4);font-weight:300;letter-spacing:0.8px;margin-top:4px;white-space:nowrap;}
@@ -131,6 +131,9 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .pb-card{background:rgba(255,255,255,.84);border:1px solid var(--nv5);border-radius:13px;padding:18px 20px;margin-bottom:10px;transition:all .22s;backdrop-filter:blur(4px);}
 .pb-card:hover{border-color:var(--nv4);box-shadow:0 4px 16px rgba(61,48,112,.1);}
 .pb-badge{display:inline-block;font-family:var(--fb);font-size:10.5px;font-weight:500;letter-spacing:.4px;padding:3px 10px;border-radius:11px;background:var(--nv6);color:var(--nv2);border:1px solid var(--nv5);}
+.pb-badge-1{background:rgba(168,216,192,.25);color:#2A7858;border-color:rgba(168,216,192,.5);}
+.pb-badge-2{background:rgba(168,200,240,.25);color:#2A5898;border-color:rgba(168,200,240,.5);}
+.pb-badge-3{background:rgba(240,200,224,.25);color:#984878;border-color:rgba(240,200,224,.5);}
 .pb-badge-g{background:rgba(248,184,136,.2);color:var(--o1);border-color:rgba(248,184,136,.4);}
 .pb-admin{font-family:var(--fb);font-size:11px;font-weight:400;letter-spacing:.5px;padding:5px 13px;background:none;border:1px solid var(--nv5);border-radius:8px;color:var(--nv3);cursor:pointer;transition:all .2s;margin-top:9px;display:block;}
 .pb-admin:hover{border-color:var(--accent);color:var(--accent);}
@@ -162,16 +165,16 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   .pn-sub,.pn-rule{display:none;}
   .pn-main{font-size:13px;}
   .pn-btn{font-size:11px;padding:5px 7px;}
-  .pn-flower{font-size:20px;filter:hue-rotate(200deg) saturate(1.5);}
+  .pn-flower{font-size:20px;}
 
   /* HERO */
   .ph-inner{padding:0 16px;}
   .ph-left{padding:36px 0 40px;align-items:center;text-align:center;}
   .ph-flower-inline{width:100%;max-width:340px;}
   .ph-title{font-size:clamp(26px,7vw,36px);line-height:1.45;letter-spacing:0.2px;margin-bottom:14px;word-break:keep-all;overflow-wrap:break-word;}
-  .ph-desc{font-size:14px;line-height:1.9;margin-bottom:24px;}
+  .ph-desc{font-size:14px;line-height:1.9;margin-bottom:24px;word-break:keep-all;overflow-wrap:break-word;}
   .ph-cta{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .ph-btn-p,.ph-btn-o{text-align:center;padding:13px 10px;font-size:14px;border-radius:14px;}
+  .ph-btn-p,.ph-btn-o,.ph-btn-pink,.ph-btn-lavender{text-align:center;padding:13px 10px;font-size:14px;border-radius:14px;}
 
   /* SECTIONS */
   .ps{padding:32px 16px;}
@@ -206,6 +209,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   /* ADMIN */
   .padmin-pw{width:100%;font-size:16px;}
   .padmin-btn{font-size:15px;padding:12px 18px;}
+  .admin-nav-btn{display:none!important;}
 
   /* FOOTER */
   .pfooter{padding:26px 16px;}
@@ -418,7 +422,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       </div>
     </div>
     <div class="pn-rule"></div>
-    <button onclick="openAdminLogin()" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);">🔐 관리자</button>
+    <button onclick="openAdminLogin()" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);" class="admin-nav-btn">🔐 관리자</button>
   </div>
 </nav>
 
@@ -434,7 +438,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <h1 class="ph-title"><span style="-webkit-text-fill-color:var(--nv1);background:none;">질문</span>으로 발견하는<br/><em>자녀의 <span style="-webkit-text-fill-color:#E8956A;background:none;">꿈</span>과 <span style="-webkit-text-fill-color:#D85880;background:none;">진로</span></em></h1>
       <div class="orn"><div class="orn-line orn-line-lc"></div><span style="font-size:14px;color:#D4907A;line-height:1">✿</span><span style="font-size:10px;color:#EAC0A8;line-height:1">✾</span><span style="font-size:14px;color:#D4907A;line-height:1">✿</span><div class="orn-line orn-line-rc"></div></div>
       <p class="ph-desc">
-        학부모님의 사전 질문을 받아 좋은 질문 10개를 선정하고 도서를 선물합니다.<br/>선정된 질문은 아카데미 강의와 상담 주제로 연결됩니다.
+        학부모님의 사전 질문을 받아<br/>좋은 질문 10개를 선정하고 도서를 선물합니다.<br/>선정된 질문은 아카데미 강의와 상담 주제로 연결됩니다.
       </p>
       <div class="ph-cta">
         <button class="ph-btn-o" onclick="openModal('modal-apply')">📋 특강신청</button>
@@ -505,13 +509,13 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
             </div>
             <span style="font-family:var(--fd);font-size:17px;font-weight:600;background:linear-gradient(135deg,var(--nv2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">16:30 – 17:00</span>
           </div>
-          <div style="padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;">
+          <div style="padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
             <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
               <span style="font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--nv1);">인천공항중학교 알아보기</span>
             </div>
             <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(135deg,rgba(248,184,136,.12),rgba(245,192,208,.12));border:1px solid rgba(232,112,58,.25);border-radius:9px;padding:8px 14px;text-align:center;flex-shrink:0;">
               <span style="font-size:16px;">🎁</span>
-              <span style="font-family:var(--fb);font-size:11px;color:var(--o1);font-weight:500);white-space:nowrap;">선착순 10분께</span>
+              <span style="font-family:var(--fb);font-size:11px;color:var(--o1);font-weight:500;white-space:nowrap;">선착순 10분께</span>
               <span style="font-family:var(--fb);font-size:11px;color:var(--o1);font-weight:500;white-space:nowrap;">도서 증정</span>
             </div>
           </div>
@@ -596,7 +600,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         <form id="question-form-top" style="display:flex;flex-direction:column;gap:12px" onsubmit="submitFormTop(event)">
           <div class="pf-input-row">
             <select class="pf-select" id="ft-grade">
-              <option>1학년</option><option>2학년</option><option>3학년</option><option>전체</option>
+              <option>1학년</option><option>2학년</option><option>3학년</option>
             </select>
             <input class="pf-input" id="ft-name" placeholder="학부모 성명 *" required/>
           </div>
@@ -625,7 +629,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <div class="pb-card" style="margin-bottom:12px;position:relative;" id="sample-card-1">
         <button onclick="this.closest('.pb-card').remove()" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
-          <span class="pb-badge">1학년</span>
+          <span class="pb-badge pb-badge-1">1학년</span>
           <span class="pb-badge">중학생활</span>
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">김○○ 학부모</span>
         </div>
@@ -634,7 +638,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <div class="pb-card" style="margin-bottom:12px;position:relative;" id="sample-card-2">
         <button onclick="this.closest('.pb-card').remove()" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
-          <span class="pb-badge">2학년</span>
+          <span class="pb-badge pb-badge-2">2학년</span>
           <span class="pb-badge">진로탐색</span>
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">이○○ 학부모</span>
         </div>
@@ -643,7 +647,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <div class="pb-card" style="margin-bottom:20px;position:relative;" id="sample-card-3">
         <button onclick="this.closest('.pb-card').remove()" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
-          <span class="pb-badge">3학년</span>
+          <span class="pb-badge pb-badge-3">3학년</span>
           <span class="pb-badge">고입준비</span>
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">박○○ 학부모</span>
         </div>
@@ -1194,7 +1198,7 @@ function renderBoard(){
       <div class="pb-card" style="margin-bottom:12px;position:relative;">
         <button onclick="deleteQuestion(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
-          <span class="pb-badge">${q.grade}</span>
+          <span class="pb-badge ${q.grade==='1학년'?'pb-badge-1':q.grade==='2학년'?'pb-badge-2':q.grade==='3학년'?'pb-badge-3':''}">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${q.name}</span>
         </div>
