@@ -32,7 +32,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .pn{position:sticky;top:0;z-index:200;background:rgba(254,248,242,0.97);backdrop-filter:blur(18px);border-bottom:1.5px solid var(--nv5);}
 .pn-in{max-width:1120px;margin:0 auto;padding:0 20px;height:72px;display:flex;align-items:center;justify-content:center;}
 .pn-brand{display:flex;align-items:center;gap:9px;flex-shrink:0;min-width:0;}
-.pn-flower{font-size:26px;flex-shrink:0;}
+.pn-flower{font-size:26px;flex-shrink:0;filter:hue-rotate(200deg) saturate(1.5);}
 .pn-text{display:flex;flex-direction:column;line-height:1;min-width:0;}
 .pn-main{font-family:var(--fk);font-size:18px;font-weight:600;color:var(--nv1);letter-spacing:0.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .pn-sub{font-family:var(--fb);font-size:13px;color:var(--nv4);font-weight:300;letter-spacing:0.8px;margin-top:4px;white-space:nowrap;}
@@ -162,7 +162,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   .pn-sub,.pn-rule{display:none;}
   .pn-main{font-size:13px;}
   .pn-btn{font-size:11px;padding:5px 7px;}
-  .pn-flower{font-size:20px;}
+  .pn-flower{font-size:20px;filter:hue-rotate(200deg) saturate(1.5);}
 
   /* HERO */
   .ph-inner{padding:0 16px;}
@@ -622,24 +622,27 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         </div>
       </div>
       <!-- 사전질문 샘플 카드 3개 -->
-      <div class="pb-card" style="margin-bottom:12px;">
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;">
+      <div class="pb-card" style="margin-bottom:12px;position:relative;" id="sample-card-1">
+        <button onclick="this.closest('.pb-card').remove()" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge">1학년</span>
           <span class="pb-badge">중학생활</span>
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">김○○ 학부모</span>
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">아이가 중학교에 올라와 스스로 공부하는 습관을 만들려면 부모는 어떤 질문을 해주는 것이 좋을까요?</p>
       </div>
-      <div class="pb-card" style="margin-bottom:12px;">
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;">
+      <div class="pb-card" style="margin-bottom:12px;position:relative;" id="sample-card-2">
+        <button onclick="this.closest('.pb-card').remove()" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge">2학년</span>
           <span class="pb-badge">진로탐색</span>
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">이○○ 학부모</span>
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">아이가 아직 꿈이 없다고 할 때, 부모가 억지로 방향을 제시하기보다 어떤 질문을 통해 스스로 탐색하도록 도울 수 있을까요?</p>
       </div>
-      <div class="pb-card" style="margin-bottom:20px;">
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;">
+      <div class="pb-card" style="margin-bottom:20px;position:relative;" id="sample-card-3">
+        <button onclick="this.closest('.pb-card').remove()" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge">3학년</span>
           <span class="pb-badge">고입준비</span>
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">박○○ 학부모</span>
@@ -656,7 +659,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <div style="text-align:center;margin-bottom:6px;">
         <span class="ps-label ps-label-p" style="display:block;text-align:center;margin-bottom:8px;">Parent Concern</span>
         <h3 class="ps-title" style="text-align:center;margin-bottom:8px;">자녀에 대해 가장 고민되는 점은 무엇인가요?</h3>
-        <p class="ps-sub" style="text-align:center;margin-bottom:24px;">해당되는 항목을 모두 선택해 주세요 · 여러 개 선택 가능</p>
+        <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;text-align:center;margin-bottom:24px;">해당되는 항목을 모두 선택해 주세요 · 여러 개 선택 가능</p>
       </div>
 
       <!-- 체크박스 그리드 -->
@@ -683,7 +686,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
     <div style="text-align:center;margin-bottom:36px">
       <span class="ps-label ps-label-p" style="display:block;text-align:center;">Good Question Lab</span>
       <h2 class="ps-title" style="text-align:center;">진로설계를 위한 좋은 질문 만들기</h2>
-      <p class="ps-sub" style="text-align:center;">주제를 선택하고 키워드를 클릭해 나만의 질문을 완성해 보세요</p>
+      <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;text-align:center;">주제를 선택하고 키워드를 클릭해 나만의 질문을 완성해 보세요</p>
     </div>
 
     <!-- 주제 선택 -->
@@ -711,7 +714,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <p class="qb-block-label">질문 작성 후 공유하기</p>
       <textarea class="qb-ta" id="qb-ta" placeholder="선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요..."></textarea>
       <div style="display:flex;justify-content:center;margin-top:16px;">
-        <button class="qb-submit" onclick="submitQBuilder()">✨ 질문 공유하기</button>
+        <button class="qb-submit" onclick="submitQBuilder()">✨ 좋은 질문 공유하기</button>
       </div>
       <div id="qb-success" style="display:none;margin-top:14px;font-family:var(--fb);font-size:13px;color:#5A8840;background:rgba(144,196,120,.12);border:1px solid rgba(144,196,120,.35);border-radius:10px;padding:12px 15px;font-weight:300;">🌿 질문이 공유되었습니다! 아래 질문 모음에서 확인해보세요.</div>
     </div>
@@ -747,6 +750,26 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   </div>
 </section>
 
+<!-- 질문으로 자녀의 꿈과 진로 찾기 섹션 -->
+<style>
+#cq-grid-static { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch; }
+#cq-grid-static > div { height:100%; box-sizing:border-box; }
+@media(max-width:900px){#cq-grid-static{grid-template-columns:repeat(2,1fr)!important;}}
+@media(max-width:640px){#cq-grid-static{grid-template-columns:1fr!important;}}
+</style>
+<section style="background:linear-gradient(155deg,#EDE8FA 0%,#F0EBF8 40%,#FBE8F0 75%,#FDF4EE 100%);padding:64px 0;">
+  <div class="ps" style="padding-top:0;padding-bottom:0;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <span class="ps-label ps-label-p" style="display:block;text-align:center;">Check Questions</span>
+      <h2 class="ps-title" style="text-align:center;">질문으로 자녀의 꿈과 진로 찾기</h2>
+      <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;text-align:center;margin-top:6px;">오늘 저녁 아이와 나눌 수 있는 질문들을 주제별로 모았습니다</p>
+    </div>
+    <div id="cq-grid-static">
+<div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;overflow:hidden;display:flex;flex-direction:column;"><div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#3D3070,#7B5EA7);"></div><div style="padding:28px 20px 16px;border-bottom:1px solid #EDE8FA;text-align:center;"><div style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;font-weight:600;color:#8878C8;opacity:.85;margin-bottom:4px;">01</div><div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#2A1F5C;">슬기로운 중학생활</div></div><div style="padding:4px 20px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">1</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">학교에서 요즘 가장 재미있는 일이 뭐야? 반대로 가장 힘든 건?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">2</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">친구들이랑 사이좋게 지내고 있어? 요즘 친하게 지내는 친구는 누구야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">3</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">스마트폰을 하루에 얼마나 쓰는 것 같아? 스스로는 어떻게 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">4</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">밤에 잠은 잘 자고 있어? 몇 시에 자고 몇 시에 일어나?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">5</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">요즘 읽고 있는 책이 있어? 어떤 책이 재미있었어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">6</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">학교 수업 중에 제일 재미있는 과목이 뭐야? 이유가 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">7</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">선생님이랑은 잘 지내고 있어? 도움받고 싶은 게 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">8</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">동아리 활동은 어때? 하고 싶은 활동이 더 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">9</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">요즘 스트레스받는 게 있으면 어떻게 풀어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;"><span style="min-width:18px;height:18px;border-radius:50%;background:#8878C8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">10</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">학교생활에서 내가 도와줬으면 하는 게 있어?</p></div></div></div><div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;overflow:hidden;display:flex;flex-direction:column;"><div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F9B8C0,#E888A8);"></div><div style="padding:28px 20px 16px;border-bottom:1px solid #EDE8FA;text-align:center;"><div style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;font-weight:600;color:#C05878;opacity:.85;margin-bottom:4px;">02</div><div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#2A1F5C;">학습전략</div></div><div style="padding:4px 20px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">1</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">오늘 공부한 것 중에서 나중에 꼭 다시 확인해야 할 부분이 어디야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">2</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">공부하다가 모르는 게 생기면 어떻게 해결해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">3</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">오늘 공부 계획은 어떻게 세웠어? 다 지켰어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">4</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">어떤 과목이 가장 어렵게 느껴져? 어떤 부분에서 막혀?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">5</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">공부할 때 집중이 잘 되는 시간이 언제야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">6</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">틀린 문제는 어떻게 정리하고 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">7</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">수행평가 준비는 어떻게 하고 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">8</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">오늘 배운 것 중에 나한테 설명해줄 수 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">9</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">공부 환경이 불편한 점이 있어? 바꾸고 싶은 게 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C05878;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">10</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">시험이 끝나고 나면 어떤 기분이야? 뭘 잘 했고 뭘 아쉬워했어?</p></div></div></div><div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;overflow:hidden;display:flex;flex-direction:column;"><div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#A8D8C0,#90CEB8);"></div><div style="padding:28px 20px 16px;border-bottom:1px solid #EDE8FA;text-align:center;"><div style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;font-weight:600;color:#3A8868;opacity:.85;margin-bottom:4px;">03</div><div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#2A1F5C;">고입 준비와 변화 이해</div></div><div style="padding:4px 20px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">1</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">네가 고등학교에 가서 가장 해보고 싶은 것, 또는 가장 잘할 수 있을 것 같은 게 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">2</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">어떤 고등학교에 가고 싶어? 그 이유가 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">3</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">특목고나 자사고에 대해 들어본 적 있어? 어떻게 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">4</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">지금 성적으로 어떤 고등학교에 지원할 수 있을 것 같아?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">5</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">좋아하는 과목이랑 잘하는 과목이 달라? 어떻게 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">6</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">고등학교 선택에서 가장 중요하게 생각하는 게 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">7</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">중학교 때 가장 기억에 남는 활동이나 경험이 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">8</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">자기소개서를 쓴다면 어떤 내용을 담고 싶어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">9</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">고등학교 입학 후 꼭 해보고 싶은 동아리나 활동이 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3A8868;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">10</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">고등학교 생활이 중학교와 어떻게 다를 것 같아?</p></div></div></div><div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;overflow:hidden;display:flex;flex-direction:column;"><div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F8C8A0,#F8B888);"></div><div style="padding:28px 20px 16px;border-bottom:1px solid #EDE8FA;text-align:center;"><div style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;font-weight:600;color:#C07030;opacity:.85;margin-bottom:4px;">04</div><div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#2A1F5C;">고교학점제 대입전략</div></div><div style="padding:4px 20px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">1</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">나중에 어떤 분야에서 일하고 싶어? 그 꿈을 위해 고등학교에서 어떤 과목을 배워야 할까?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">2</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">고교학점제에 대해 들어본 적 있어? 어떻게 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">3</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">고등학교에서 꼭 배우고 싶은 과목이 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">4</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">자신의 진로와 관련해서 어떤 과목이 중요할 것 같아?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">5</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">학교에서 못 배우는 과목이 있다면 어떻게 배우고 싶어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">6</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">학교 수업 시간에 가장 적극적으로 참여하는 과목이 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">7</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">선생님께 질문하거나 의견을 말하는 편이야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">8</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">수업 외에 스스로 탐구해본 주제가 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">9</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학에서 어떤 공부를 하고 싶어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;"><span style="min-width:18px;height:18px;border-radius:50%;background:#C07030;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">10</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">지금 나의 꿈과 고등학교 과목 선택이 연결되어 있다고 생각해?</p></div></div></div><div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;overflow:hidden;display:flex;flex-direction:column;"><div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#A8C8F0,#98B8E8);"></div><div style="padding:28px 20px 16px;border-bottom:1px solid #EDE8FA;text-align:center;"><div style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;font-weight:600;color:#3870B8;opacity:.85;margin-bottom:4px;">05</div><div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#2A1F5C;">변화하는 대입제도 이해</div></div><div style="padding:4px 20px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">1</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">지금 네가 가고 싶은 대학이 있어? 그 대학은 어떤 방식으로 학생을 선발하는지 같이 찾아볼까?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">2</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">수시랑 정시가 뭔지 알아? 어떤 방식이 더 잘 맞을 것 같아?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">3</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">수능이 뭔지 알아? 어떤 과목을 시험 보는지 알고 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">4</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">내신이 중요한 이유가 뭐라고 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">5</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">학생부에 어떤 내용이 적힌다고 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">6</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학에서 공부하고 싶은 학과가 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">7</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학 입시를 위해 지금부터 준비해야 할 게 뭐라고 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">8</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">논술이나 면접 전형에 대해 들어본 적 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">9</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">입시에서 가장 걱정되는 부분이 뭐야?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;"><span style="min-width:18px;height:18px;border-radius:50%;background:#3870B8;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">10</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">만약 원하는 대학에 못 가면 어떻게 할 것 같아?</p></div></div></div><div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;overflow:hidden;display:flex;flex-direction:column;"><div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#F0C8E0,#E8B8D8);"></div><div style="padding:28px 20px 16px;border-bottom:1px solid #EDE8FA;text-align:center;"><div style="font-family:'Playfair Display',serif;font-style:italic;font-size:26px;font-weight:600;color:#B85898;opacity:.85;margin-bottom:4px;">06</div><div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#2A1F5C;">최근 대입 뉴스 브리핑</div></div><div style="padding:4px 20px 16px;flex:1;display:flex;flex-direction:column;justify-content:space-between;"><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">1</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">요즘 뉴스에서 대학 입시 얘기를 많이 하던데, 혹시 네가 관심 있게 들은 내용이 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">2</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">의대에 대해 어떻게 생각해? 의사가 되고 싶다는 생각을 해본 적 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">3</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">AI나 반도체 같은 분야에 관심이 있어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">4</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">지방 대학과 서울 대학 중 어디서 공부하고 싶어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">5</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학에 가는 이유가 뭐라고 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">6</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">요즘 가장 유망한 직업이 뭔지 알아? 어떻게 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">7</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학 입시가 공정하다고 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">8</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학 졸업 후에 어떤 삶을 살고 싶어?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #EDE8FA;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">9</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">수능 한 번으로 인생이 결정된다고 생각해?</p></div><div style="display:flex;gap:9px;align-items:flex-start;padding:8px 0;"><span style="min-width:18px;height:18px;border-radius:50%;background:#B85898;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0;margin-top:3px;">10</span><p style="font-family:'Noto Serif KR',serif;font-size:13.5px;color:#2A1F5C;line-height:1.7;margin:0;word-break:keep-all;">대학 이름보다 중요한 게 뭐라고 생각해?</p></div></div></div>
+    </div>
+  </div>
+</section>
+
 <!-- ── 운영 주제 상세 모달 ── -->
 <div class="topic-modal-overlay" id="modal-topic" onclick="if(event.target===this)closeTopicModal()">
   <div class="topic-modal-box">
@@ -769,7 +792,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   <div class="orn"><div class="orn-line orn-line-l"></div><span style="font-size:14px;color:rgba(255,255,255,.7);line-height:1">✿</span><span style="font-size:10px;color:rgba(255,255,255,.4);line-height:1">✾</span><span style="font-size:14px;color:rgba(255,255,255,.7);line-height:1">✿</span><div class="orn-line orn-line-r"></div></div>
   <div style="margin-top:16px">
     <p style="font-family:var(--fk);font-size:13.5px;color:rgba(255,240,230,.95);letter-spacing:0.8px;margin-bottom:5px">© 2026 질문하는 학교 · <strong>인천공항중학교</strong></p>
-    <p style="font-family:var(--fb);font-size:11px;color:rgba(255,220,200,.45);font-weight:300;letter-spacing:0.4px;margin-top:4px">AI 플랫폼 디자이너 · 진로상담부 조유진</p>
+    <p style="font-family:var(--fb);font-size:13px;color:rgba(255,220,200,.65);font-weight:300;letter-spacing:0.4px;margin-top:4px">AI 플랫폼 디자이너 · 진로상담부 조유진</p>
   </div>
 </footer>
 
@@ -867,16 +890,9 @@ const topics=[
   {title:"최근 대입 뉴스 브리핑",desc:"최근 진학 이슈를 선별해 가정에서\n확인해야 할 핵심 질문으로 바꿉니다.",num:"06"},
 ];
 let questions=[
-  {id:1,name:"김○○ 학부모",grade:"1학년",category:"중학생활",question:"아이가 중학교에 올라와 스스로 공부하는 습관을 만들려면 부모는 어떤 질문을 해주는 것이 좋을까요?",selected:true},
-  {id:2,name:"박○○ 학부모",grade:"2학년",category:"고입준비",question:"고등학교 선택을 앞두고 성적보다 먼저 확인해야 할 진로 관련 기준은 무엇인가요?",selected:true},
+  {id:1,name:"김○○ 학부모",grade:"1학년",category:"중학생활",question:"아이가 중학교에 올라와 스스로 공부하는 습관을 만들려면 부모는 어떤 질문을 해주는 것이 좋을까요?",selected:false},
+  {id:2,name:"박○○ 학부모",grade:"2학년",category:"고입준비",question:"고등학교 선택을 앞두고 성적보다 먼저 확인해야 할 진로 관련 기준은 무엇인가요?",selected:false},
   {id:3,name:"이○○ 학부모",grade:"3학년",category:"대입제도",question:"고교학점제에서 과목 선택이 대입에 어떤 영향을 주는지 중학생 부모가 미리 알아야 할 점은 무엇인가요?",selected:false},
-  {id:4,name:"최○○ 학부모",grade:"1학년",category:"학습전략",question:"수행평가 비중이 늘어난 요즘, 아이가 수행평가를 효과적으로 준비할 수 있는 방법이 있을까요?",selected:false},
-  {id:5,name:"정○○ 학부모",grade:"2학년",category:"진로탐색",question:"아이가 아직 진로를 정하지 못했는데, 중학교 시기에 어떤 경험을 통해 적성을 발견할 수 있을까요?",selected:true},
-  {id:6,name:"강○○ 학부모",grade:"3학년",category:"고교학점제",question:"고교학점제에서 선택 과목을 잘못 고르면 대입에 불이익이 생기나요? 어떻게 선택해야 할까요?",selected:false},
-  {id:7,name:"윤○○ 학부모",grade:"1학년",category:"중학생활",question:"스마트폰 사용 시간을 스스로 조절하지 못하는 아이에게 부모가 어떻게 접근해야 할까요?",selected:false},
-  {id:8,name:"장○○ 학부모",grade:"2학년",category:"대입제도",question:"수시와 정시의 비율이 바뀌고 있다고 하는데, 지금 중2 아이는 어떤 방향으로 준비해야 할까요?",selected:false},
-  {id:9,name:"한○○ 학부모",grade:"3학년",category:"고입준비",question:"특목고와 자사고 입학을 고민 중인데 일반고와 비교했을 때 대입에서 실질적인 차이가 있나요?",selected:true},
-  {id:10,name:"임○○ 학부모",grade:"1학년",category:"학습전략",question:"영어와 수학 중 어느 과목에 먼저 집중해야 고등학교 입학 후 유리한지 궁금합니다.",selected:false},
 ];
 let adminMode=false;
 let boardPage=1;
@@ -909,24 +925,32 @@ const concerns = [
 ];
 
 // 응답 누적 카운트 (새로고침 유지 위해 sessionStorage 활용)
-let concernCounts = (() => {
-  try { return JSON.parse(sessionStorage.getItem('concernCounts')) || {}; } catch(e){ return {}; }
-})();
+let concernCounts = {};
 let mySelections = new Set(
-  (() => { try { return JSON.parse(sessionStorage.getItem('mySelections')) || []; } catch(e){ return []; }})()
+  (() => { try { return JSON.parse(localStorage.getItem('mySelections')) || []; } catch(e){ return []; }})()
 );
-let totalRespondents = parseInt(sessionStorage.getItem('concernTotal') || '0');
 
-function saveConcernStorage(){
-  sessionStorage.setItem('concernCounts', JSON.stringify(concernCounts));
-  sessionStorage.setItem('mySelections', JSON.stringify([...mySelections]));
-  sessionStorage.setItem('concernTotal', totalRespondents);
+// Supabase에서 전체 고민 집계 불러오기
+async function loadConcernCounts(){
+  try {
+    const res = await fetch(`${SUPA_URL}/rest/v1/concerns?select=concern_id,count`, {
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+    const rows = await res.json();
+    if(Array.isArray(rows)){
+      concernCounts = {};
+      rows.forEach(r => { concernCounts[r.concern_id] = (concernCounts[r.concern_id]||0) + 1; });
+    }
+  } catch(e){}
+  renderConcernGrid();
+  renderConcernChart();
 }
 
-function toggleConcern(id){
+async function toggleConcern(id){
   const chip = document.querySelector(`.concern-chip[data-id="${id}"]`);
   const c = concerns.find(x=>x.id===id);
   if(mySelections.has(id)){
+    // 취소 — Supabase에서 삭제
     mySelections.delete(id);
     concernCounts[id] = Math.max(0,(concernCounts[id]||0)-1);
     chip.classList.remove('on');
@@ -934,7 +958,14 @@ function toggleConcern(id){
     chip.style.borderColor='';
     chip.querySelector('.concern-chip-label').style.color='';
     chip.querySelector('.concern-chip-sub').style.color='';
+    try {
+      await fetch(`${SUPA_URL}/rest/v1/concerns?concern_id=eq.${id}&session_id=eq.${getSessionId()}`, {
+        method:'DELETE',
+        headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+      });
+    } catch(e){}
   } else {
+    // 선택 — Supabase에 저장
     mySelections.add(id);
     concernCounts[id] = (concernCounts[id]||0)+1;
     chip.classList.add('on');
@@ -942,9 +973,18 @@ function toggleConcern(id){
     chip.style.borderColor='transparent';
     chip.querySelector('.concern-chip-label').style.color='#fff';
     chip.querySelector('.concern-chip-sub').style.color='rgba(255,255,255,.8)';
+    try {
+      await supaInsert('concerns', { concern_id: id, session_id: getSessionId() });
+    } catch(e){}
   }
-  saveConcernStorage();
+  localStorage.setItem('mySelections', JSON.stringify([...mySelections]));
   renderConcernChart();
+}
+
+function getSessionId(){
+  let sid = localStorage.getItem('sessionId');
+  if(!sid){ sid = Math.random().toString(36).slice(2)+Date.now(); localStorage.setItem('sessionId', sid); }
+  return sid;
 }
 
 function renderConcernGrid(){
@@ -961,7 +1001,7 @@ function renderConcernGrid(){
 function renderConcernChart(){
   const total = Object.values(concernCounts).reduce((a,b)=>a+b,0);
   const maxVal = Math.max(...concerns.map(c=>concernCounts[c.id]||0), 1);
-  document.getElementById('concern-total-label').textContent = `총 ${total}개 선택`;
+  document.getElementById('concern-total-label').textContent = `총 ${total}건 응답`;
   const sorted = [...concerns].sort((a,b)=>(concernCounts[b.id]||0)-(concernCounts[a.id]||0));
   document.getElementById('concern-chart').innerHTML = sorted.map(c=>{
     const val = concernCounts[c.id]||0;
@@ -979,8 +1019,7 @@ function renderConcernChart(){
   }).join('');
 }
 
-renderConcernGrid();
-renderConcernChart();
+loadConcernCounts();
 
 function renderPrograms(){
   document.getElementById('prog-grid').innerHTML=topics.map((t,i)=>`
@@ -1152,15 +1191,14 @@ function renderBoard(){
 
   listEl.innerHTML=pageItems.length
     ?pageItems.map(q=>`
-      <div class="pb-card" style="margin-bottom:12px;">
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;">
+      <div class="pb-card" style="margin-bottom:12px;position:relative;">
+        <button onclick="deleteQuestion(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${q.name}</span>
-          ${q.selected?'<span class="pb-badge pb-badge-g">선정 ✿</span>':''}
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">${q.question}</p>
-        ${adminMode?`<button class="pb-admin" onclick="toggle(${q.id})">${q.selected?'✕ 선정 해제':'✿ 좋은 질문 선정'}</button>`:''}
       </div>`).join('')
     :'<p style="font-family:var(--fb);font-size:14px;color:var(--nv4);padding:32px 0;font-weight:300;text-align:center;">아직 접수된 질문이 없습니다.<br/>첫 번째 질문을 남겨보세요 🌸</p>';
 
@@ -1184,6 +1222,16 @@ function renderBoard(){
   pgEl.innerHTML=pgHtml;
 }
 
+function deleteQuestion(id){
+  if(!confirm('이 질문을 삭제하시겠습니까?')) return;
+  questions = questions.filter(q => q.id !== id);
+  renderBoard(); renderSelected(); updateCounts();
+}
+function deleteQBQuestion(idx){
+  if(!confirm('이 질문을 삭제하시겠습니까?')) return;
+  qbQuestions = qbQuestions.filter((_,i) => i !== idx);
+  renderQBWall();
+}
 function goBoardPage(p){
   boardPage=p;
   renderBoard();
@@ -1496,9 +1544,11 @@ function renderQBWall() {
   }
   wall.innerHTML = filtered.map((q,idx) => {
     const c = q.colors;
-    return `<div class="qb-item" style="border-top-color:${c.border};">
+    const origIdx = qbQuestions.indexOf(q);
+    return `<div class="qb-item" style="border-top-color:${c.border};position:relative;">
+      <button onclick="deleteQBQuestion(${origIdx})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
       <span class="qb-item-topic" style="background:${c.topicBg};color:${c.topicColor};border-color:${c.topicBorderC};">${q.topic}</span>
-      <p class="qb-item-q">${q.question}</p>
+      <p class="qb-item-q" style="padding-right:24px;">${q.question}</p>
       ${q.keywords.length ? `<div class="qb-item-kws">${q.keywords.map(k=>`<span class="qb-item-kw" style="background:${c.kwBg};color:${c.kwColor};border-color:${c.kwBorderC};">#${k}</span>`).join('')}</div>` : ''}
       <div class="qb-item-foot">${q.name || '익명'} · ${q.time}</div>
     </div>`;
@@ -1511,6 +1561,32 @@ renderQBKeywords();
 renderQBWall();
 
 renderPrograms();renderSelected();renderBoard();renderFlows();updateCounts();
+
+// 질문으로 자녀의 꿈과 진로 찾기 섹션 렌더
+(function(){
+  var el = document.getElementById('cq-all');
+  if(!el) return;
+  var barColors = ['linear-gradient(90deg,#3D3070,#7B5EA7)','linear-gradient(90deg,#F9B8C0,#F8A8C8)','linear-gradient(90deg,#A8D8C0,#90CEB8)','linear-gradient(90deg,#F8C8A0,#F8B888)','linear-gradient(90deg,#A8C8F0,#98B8E8)','linear-gradient(90deg,#F0C8E0,#E8B8D8)'];
+  var dotColors = ['#8878C8','#C05878','#3A8868','#C07030','#3870B8','#B85898'];
+  var output = '';
+  for(var ti=0; ti<topicData.length; ti++){
+    var t = topicData[ti];
+    var qs = '';
+    for(var qi=0; qi<t.checkQuestion.length; qi++){
+      qs += '<div style="display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;">'
+          + '<div style="min-width:22px;height:22px;border-radius:50%;background:'+dotColors[ti]+';display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;margin-top:2px;">'+(qi+1)+'</div>'
+          + '<p style="font-family:Noto Serif KR,serif;font-size:14px;color:#2A1F5C;line-height:1.75;margin:0;word-break:keep-all;">'+t.checkQuestion[qi]+'</p>'
+          + '</div>';
+    }
+    output += '<div style="position:relative;background:rgba(255,255,255,.92);border-radius:20px;border:1px solid #C8BCEE;padding:28px 22px 22px;overflow:hidden;">'
+           + '<div style="position:absolute;top:0;left:0;right:0;height:4px;border-radius:20px 20px 0 0;background:'+barColors[ti]+';"></div>'
+           + '<div style="font-family:Playfair Display,serif;font-style:italic;font-size:30px;font-weight:600;text-align:center;margin-bottom:4px;color:#8878B8;opacity:.8;">'+t.num+'</div>'
+           + '<div style="font-family:Noto Serif KR,serif;font-size:18px;font-weight:700;color:#2A1F5C;text-align:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #EDE8FA;">'+t.title+'</div>'
+           + qs
+           + '</div>';
+  }
+  el.innerHTML = output;
+})();
 loadGalleryFromStorage();
 loadLecturerFromStorage();
 </script>
@@ -1768,15 +1844,33 @@ function adminCard(fields){
     `<span class="admin-row-label">${l}</span><div class="admin-row-val">${v||'—'}</div>`
   ).join('') + '</div>';
 }
+
+function adminSection(emoji, title, color, content){
+  return `<div style="margin-bottom:14px;">
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(200,188,238,.25);">
+      <span style="font-size:14px;">${emoji}</span>
+      <span style="font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:${color};">${title}</span>
+    </div>
+    ${content}
+  </div>`;
+}
+
+function adminField(label, value){
+  if(!value) return '';
+  return `<div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
+    <span style="font-family:var(--fb);font-size:10px;font-weight:600;letter-spacing:1px;color:#A898D8;min-width:70px;padding-top:2px;flex-shrink:0;">${label}</span>
+    <span style="font-family:var(--fb);font-size:13px;color:#EDE8FA;font-weight:300;line-height:1.7;">${value}</span>
+  </div>`;
+}
+
 async function renderAdminDash(){
-  ['admin-apply-list','admin-question-list','admin-visit-list','admin-career-list','admin-survey-list']
-    .forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML='<p class="admin-empty">불러오는 중...</p>'; });
+  const allIds = ['admin-main-list','admin-question-list','admin-visit-list','admin-career-list','admin-survey-list'];
+  allIds.forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML='<p class="admin-empty">불러오는 중...</p>'; });
 
   const [applies, questions_list, visits, careers, surveys] = await Promise.all([
     supaSelect('applies'), supaSelect('questions'), supaSelect('visits'), supaSelect('careers'), supaSelect('surveys')
   ]);
 
-  // 카운트 업데이트
   const setC = (id,n) => { const el=document.getElementById(id); if(el) el.textContent=n; };
   setC('cnt-apply', applies.length);
   setC('cnt-question', questions_list.length);
@@ -1784,61 +1878,88 @@ async function renderAdminDash(){
   setC('cnt-career', careers.length);
   setC('cnt-survey', surveys.length);
 
-  const al = document.getElementById('admin-apply-list');
-  if(al) al.innerHTML = applies.length
-    ? applies.map((d,i)=>adminCard([
-        ['번호', applies.length - i + '번'],
-        ['접수시간', d.created_at?.slice(0,19).replace('T',' ')],
-        ['학년', d.grade],
-        ['반', d.class_],
-        ['자녀 이름', d.child],
-        ['학부모 성명', d.parent],
-        ['연락처', d.phone]
-      ])).join('')
-    : '<p class="admin-empty">신청 내역이 없습니다.</p>';
+  // ── 통합 뷰: 특강신청자 기준 ──
+  const ml = document.getElementById('admin-main-list');
+  if(ml){
+    if(!applies.length){
+      ml.innerHTML = '<p class="admin-empty">특강 신청 내역이 없습니다.</p>';
+    } else {
+      ml.innerHTML = applies.map((d,i) => {
+        const no = applies.length - i;
+        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
+        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(200,188,238,.2);border-radius:16px;padding:20px;margin-bottom:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--nv2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;font-weight:600;color:#fff;">${no}</div>
+              <div>
+                <div style="font-family:var(--fk);font-size:16px;font-weight:700;color:#fff;">${d.parent||'—'} <span style="font-size:13px;font-weight:400;color:#C8BCEE;">(자녀: ${d.child||'—'})</span></div>
+                <div style="font-family:var(--fb);font-size:11px;color:#8878B8;margin-top:2px;">${d.grade||''} ${d.class_||''} · ${time}</div>
+              </div>
+            </div>
+            ${d.phone ? `<span style="font-family:var(--fb);font-size:12px;color:#C8BCEE;background:rgba(200,188,238,.15);padding:4px 12px;border-radius:20px;border:1px solid rgba(200,188,238,.3);">📞 ${d.phone}</span>` : ''}
+          </div>
+        </div>`;
+      }).join('');
+    }
+  }
 
+  // ── 사전질문 ──
   const ql = document.getElementById('admin-question-list');
   if(ql) ql.innerHTML = questions_list.length
-    ? questions_list.map((d,i)=>adminCard([
-        ['번호', questions_list.length - i + '번'],
-        ['접수시간', d.created_at?.slice(0,19).replace('T',' ')],
-        ['질문 내용', d.content]
-      ])).join('')
-    : '<p class="admin-empty">질문 내역이 없습니다.</p>';
+    ? questions_list.map((d,i) => {
+        const no = questions_list.length - i;
+        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
+        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(249,184,192,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
+          <div style="font-family:var(--fb);font-size:10px;color:#E888A8;letter-spacing:1px;margin-bottom:8px;">${no}번 · ${time}</div>
+          <p style="font-family:var(--fk);font-size:14px;color:#EDE8FA;line-height:1.8;margin:0;">${d.content||'—'}</p>
+        </div>`;
+      }).join('')
+    : '<p class="admin-empty">사전 질문 내역이 없습니다.</p>';
 
+  // ── 방문등록 ──
   const vl = document.getElementById('admin-visit-list');
   if(vl) vl.innerHTML = visits.length
-    ? visits.map((d,i)=>adminCard([
-        ['번호', visits.length - i + '번'],
-        ['접수시간', d.created_at?.slice(0,19).replace('T',' ')],
-        ['학년', d.grade],
-        ['반', d.class_],
-        ['자녀 이름', d.child],
-        ['학부모 성명', d.parent]
-      ])).join('')
+    ? visits.map((d,i) => {
+        const no = visits.length - i;
+        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
+        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(168,216,192,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
+          <div style="font-family:var(--fb);font-size:10px;color:#6AC8A8;letter-spacing:1px;margin-bottom:8px;">${no}번 · ${time}</div>
+          <div style="font-family:var(--fk);font-size:14px;color:#EDE8FA;font-weight:600;">${d.parent||'—'} <span style="font-size:12px;font-weight:400;color:#C8BCEE;">· 자녀: ${d.child||'—'} · ${d.grade||''} ${d.class_||''}</span></div>
+        </div>`;
+      }).join('')
     : '<p class="admin-empty">방문등록 내역이 없습니다.</p>';
 
+  // ── 희망진로 ──
   const cl = document.getElementById('admin-career-list');
   if(cl) cl.innerHTML = careers.length
-    ? careers.map((d,i)=>adminCard([
-        ['번호', careers.length - i + '번'],
-        ['접수시간', d.created_at?.slice(0,19).replace('T',' ')],
-        ['희망 고교', d.school],
-        ['희망 대학', d.univ],
-        ['희망 학과', d.major],
-        ['희망 직업·꿈', d.dream]
-      ])).join('')
+    ? careers.map((d,i) => {
+        const no = careers.length - i;
+        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
+        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(248,200,160,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
+          <div style="font-family:var(--fb);font-size:10px;color:#F8C080;letter-spacing:1px;margin-bottom:10px;">${no}번 · ${time}</div>
+          ${adminField('희망고교', d.school)}
+          ${adminField('희망대학', d.univ)}
+          ${adminField('희망학과', d.major)}
+          ${adminField('희망직업·꿈', d.dream)}
+        </div>`;
+      }).join('')
     : '<p class="admin-empty">희망진로 입력 내역이 없습니다.</p>';
 
+  // ── 만족도 설문 ──
   const sl = document.getElementById('admin-survey-list');
   if(sl) sl.innerHTML = surveys.length
-    ? surveys.map((d,i)=>adminCard([
-        ['번호', surveys.length - i + '번'],
-        ['접수시간', d.created_at?.slice(0,19).replace('T',' ')],
-        ['만족도', d.score ? '⭐'.repeat(Number(d.score)) + ' (' + d.score + '점)' : '—'],
-        ['강의 내용 의견', d.content],
-        ['다음에 듣고 싶은 주제', d.topic]
-      ])).join('')
+    ? surveys.map((d,i) => {
+        const no = surveys.length - i;
+        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
+        const stars = d.score ? '⭐'.repeat(Number(d.score)) + ` (${d.score}점)` : '—';
+        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(168,200,240,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
+          <div style="font-family:var(--fb);font-size:10px;color:#88B8E8;letter-spacing:1px;margin-bottom:10px;">${no}번 · ${time}</div>
+          ${adminField('만족도', stars)}
+          ${adminField('강의 의견', d.content)}
+          ${adminField('다음 주제', d.topic)}
+          ${adminField('진로상담부 제안', d.suggest)}
+        </div>`;
+      }).join('')
     : '<p class="admin-empty">만족도 설문 내역이 없습니다.</p>';
 }
 
@@ -1948,7 +2069,8 @@ async function submitSurvey() {
   await supaInsert('surveys', {
     score: surveyScore,
     content: document.getElementById('sv-content').value.trim(),
-    topic: document.getElementById('sv-topic').value.trim()
+    topic: document.getElementById('sv-topic').value.trim(),
+    suggest: document.getElementById('sv-suggest').value.trim()
   });
   showSuccess('modal-survey-form','modal-survey-success');
 }
@@ -2024,6 +2146,10 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
       <label class="modal-label">🎯 다음 학부모 아카데미에서 듣고 싶은 주제</label>
       <textarea class="modal-ta" id="sv-topic" placeholder="다음 아카데미에서 다뤄주었으면 하는 주제를 자유롭게 적어주세요." style="min-height:90px;"></textarea>
 
+      <!-- 진로상담부 제안 -->
+      <label class="modal-label">💌 인천공항중 진로상담부에 제안하고 싶은 점</label>
+      <textarea class="modal-ta" id="sv-suggest" placeholder="진로상담부 운영, 프로그램, 소통 방식 등 자유롭게 제안해 주세요." style="min-height:90px;"></textarea>
+
       <button class="modal-btn modal-btn-lav" onclick="submitSurvey()" style="margin-top:4px;">제출하기</button>
     </div>
     <div class="modal-success" id="modal-survey-success">
@@ -2070,20 +2196,20 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 
 <!-- ── 관리자 대시보드 모달 ── -->
 <div class="modal-overlay" id="modal-admin-dash">
-  <div class="modal-box" style="max-width:800px;max-height:90vh;overflow-y:auto;">
+  <div class="modal-box" style="max-width:820px;max-height:90vh;overflow-y:auto;">
     <button class="modal-close" onclick="document.getElementById('modal-admin-dash').classList.remove('show');document.body.style.overflow=''">✕</button>
     <div class="modal-title">📊 관리자 대시보드</div>
     <p class="modal-sub">접수된 모든 내역을 확인합니다.</p>
 
     <!-- 요약 카운트 -->
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;">
       <div style="background:rgba(237,232,250,.5);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
         <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--accent);" id="cnt-apply">—</div>
         <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">특강신청</div>
       </div>
       <div style="background:rgba(249,184,192,.15);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
         <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:#C05878;" id="cnt-question">—</div>
-        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">질문하기</div>
+        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">사전질문</div>
       </div>
       <div style="background:rgba(168,216,192,.15);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
         <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:#3A8868;" id="cnt-visit">—</div>
@@ -2101,9 +2227,9 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 
     <!-- 탭 + 새로고침 -->
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-      <div id="admin-tabs" style="display:flex;gap:8px;flex-wrap:wrap;">
+      <div id="admin-tabs" style="display:flex;gap:6px;flex-wrap:wrap;">
         <button onclick="showAdminTab('tab-apply')" class="atab atab-on">📋 특강신청</button>
-        <button onclick="showAdminTab('tab-question')" class="atab">🌸 질문하기</button>
+        <button onclick="showAdminTab('tab-question')" class="atab">🌸 사전질문</button>
         <button onclick="showAdminTab('tab-visit')" class="atab">🌿 방문등록</button>
         <button onclick="showAdminTab('tab-career')" class="atab">🎯 희망진로</button>
         <button onclick="showAdminTab('tab-survey')" class="atab">⭐ 만족도설문</button>
@@ -2113,22 +2239,27 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 
     <!-- 특강신청 -->
     <div id="tab-apply">
-      <div id="admin-apply-list"></div>
+      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">신청자 이름·자녀 이름·연락처·학년·반 순으로 표시됩니다.</p>
+      <div id="admin-main-list"></div>
     </div>
-    <!-- 질문하기 -->
+    <!-- 사전질문 -->
     <div id="tab-question" style="display:none;">
+      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">접수된 사전 질문 전체 목록입니다.</p>
       <div id="admin-question-list"></div>
     </div>
     <!-- 방문등록 -->
     <div id="tab-visit" style="display:none;">
+      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">방문 등록 신청 목록입니다.</p>
       <div id="admin-visit-list"></div>
     </div>
     <!-- 희망진로 -->
     <div id="tab-career" style="display:none;">
+      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">자녀의 희망 진로 입력 내역입니다.</p>
       <div id="admin-career-list"></div>
     </div>
     <!-- 만족도설문 -->
     <div id="tab-survey" style="display:none;">
+      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">만족도 설문 응답 내역입니다.</p>
       <div id="admin-survey-list"></div>
     </div>
   </div>
