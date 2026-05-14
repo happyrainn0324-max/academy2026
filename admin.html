@@ -286,8 +286,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 특강 신청 ── -->
       <div class="section" id="sec-apply">
         <div class="section-header">
-          <div class="section-title">특강 신청 목록</div>
-          <div class="section-desc">학부모 이름 · 자녀 이름 · 연락처 · 학년 · 반 기준으로 표시됩니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">특강 신청 목록</div><div class="section-desc">학부모 이름 · 자녀 이름 · 연락처 · 학년 · 반 기준으로 표시됩니다.</div></div><button onclick="dlApply()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="apply-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -295,8 +294,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 방문 등록 ── -->
       <div class="section" id="sec-visit">
         <div class="section-header">
-          <div class="section-title">방문 등록 목록</div>
-          <div class="section-desc">행사 당일 방문 등록 신청 내역입니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">방문 등록 목록</div><div class="section-desc">행사 당일 방문 등록 신청 내역입니다.</div></div><button onclick="dlVisit()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="visit-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -304,8 +302,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 희망 진로 ── -->
       <div class="section" id="sec-career">
         <div class="section-header">
-          <div class="section-title">희망 진로 입력 내역</div>
-          <div class="section-desc">자녀의 희망 고교 · 대학 · 학과 · 직업을 확인합니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">희망 진로 입력 내역</div><div class="section-desc">자녀의 희망 고교 · 대학 · 학과 · 직업을 확인합니다.</div></div><button onclick="dlCareer()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="career-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -313,8 +310,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 사전 질문 ── -->
       <div class="section" id="sec-question">
         <div class="section-header">
-          <div class="section-title">사전 질문 전체 목록</div>
-          <div class="section-desc">모달 질문 + 질문 게시판 질문이 모두 포함됩니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">사전 질문 전체 목록</div><div class="section-desc">모달 질문 + 질문 게시판 질문이 모두 포함됩니다.</div></div><button onclick="dlQuestion()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="question-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -322,8 +318,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 좋은 질문 ── -->
       <div class="section" id="sec-goodq">
         <div class="section-header">
-          <div class="section-title">좋은 질문 모음</div>
-          <div class="section-desc">학부모가 공유한 질문 카드입니다. 주제 · 키워드 · 작성자 기준으로 표시됩니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">좋은 질문 모음</div><div class="section-desc">학부모가 공유한 질문 카드입니다. 주제 · 키워드 · 작성자 기준으로 표시됩니다.</div></div><button onclick="dlGoodQ()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="goodq-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -331,8 +326,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 고민 분석 ── -->
       <div class="section" id="sec-concern">
         <div class="section-header">
-          <div class="section-title">고민 유형 분석</div>
-          <div class="section-desc">학부모가 선택한 자녀 고민 유형 누적 집계입니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">고민 유형 분석</div><div class="section-desc">학부모가 선택한 자녀 고민 유형 누적 집계입니다.</div></div><button onclick="dlConcern()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="concern-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -340,8 +334,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
       <!-- ── 만족도 설문 ── -->
       <div class="section" id="sec-survey">
         <div class="section-header">
-          <div class="section-title">만족도 설문 결과</div>
-          <div class="section-desc">점수 분포 그래프 및 전체 응답 내역입니다.</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;"><div><div class="section-title">만족도 설문 결과</div><div class="section-desc">점수 분포 그래프 및 전체 응답 내역입니다.</div></div><button onclick="dlSurvey()" style="padding:8px 18px;border:1px solid var(--border);border-radius:2px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:var(--green);cursor:pointer;font-weight:500;transition:all .15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--border)'>📥 엑셀 다운로드</button></div>
         </div>
         <div id="survey-content"><div class="loading">로딩 중...</div></div>
       </div>
@@ -376,14 +369,18 @@ function doLogin(){
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
     loadAll();
+    if(_autoRefreshTimer) clearInterval(_autoRefreshTimer);
+    _autoRefreshTimer = setInterval(loadAll, 30000);
   } else {
     document.getElementById('login-err').style.display = 'block';
   }
 }
+let _autoRefreshTimer = null;
 function doLogout(){
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('app').style.display = 'none';
   document.getElementById('login-pw').value = '';
+  if(_autoRefreshTimer){ clearInterval(_autoRefreshTimer); _autoRefreshTimer=null; }
 }
 
 // ── 섹션 전환 ──
@@ -400,10 +397,18 @@ async function supaFetch(table, extra=''){
     const res = await fetch(`${SUPA_URL}/rest/v1/${table}?order=created_at.desc${extra}`, {
       headers: { apikey: SUPA_KEY, Authorization: 'Bearer '+SUPA_KEY, Accept: 'application/json' }
     });
-    if(!res.ok) return [];
+    if(!res.ok){
+      const errText = await res.text();
+      console.error('supaFetch ['+table+'] HTTP '+res.status+':', errText);
+      return [];
+    }
     const data = await res.json();
+    console.log('supaFetch ['+table+']', Array.isArray(data) ? data.length+'건' : data);
     return Array.isArray(data) ? data : [];
-  } catch(e){ return []; }
+  } catch(e){
+    console.error('supaFetch exception ['+table+']:', e);
+    return [];
+  }
 }
 
 // ── 전체 로드 ──
@@ -672,6 +677,91 @@ function renderSurvey(data){
         ${d.suggest?`<div><span style="font-size:11px;font-weight:700;color:var(--text3);">진로상담부 제안</span><div class="q-text" style="margin-top:4px;">${d.suggest}</div></div>`:''}
       </div>`;
     }).join('')}</div>`;
+}
+
+// ── 엑셀 다운로드 공통 유틸 ──
+function toCSV(headers, rows) {
+  const BOM = '\uFEFF';
+  const escape = v => {
+    if(v == null) return '';
+    const s = String(v).replace(/"/g, '""');
+    return /[,\n\r"]/.test(s) ? '"'+s+'"' : s;
+  };
+  const lines = [headers.map(escape).join(','), ...rows.map(r => r.map(escape).join(','))];
+  return BOM + lines.join('\r\n');
+}
+function downloadCSV(filename, csv) {
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function dlApply() {
+  const d = _data.applies || [];
+  const csv = toCSV(
+    ['#','학부모','자녀','학년','반','연락처','접수일시'],
+    d.map((r,i) => [i+1, r.parent, r.child, r.grade, r.class_, r.phone, (r.created_at||'').slice(0,19).replace('T',' ')])
+  );
+  downloadCSV('특강신청_' + today() + '.csv', csv);
+}
+function dlVisit() {
+  const d = _data.visits || [];
+  const csv = toCSV(
+    ['#','학부모','자녀','학년','반','접수일시'],
+    d.map((r,i) => [i+1, r.parent, r.child, r.grade, r.class_, (r.created_at||'').slice(0,19).replace('T',' ')])
+  );
+  downloadCSV('방문등록_' + today() + '.csv', csv);
+}
+function dlCareer() {
+  const d = _data.careers || [];
+  const csv = toCSV(
+    ['#','학부모','자녀','학년','반','희망고교','희망대학','희망학과','희망직업','접수일시'],
+    d.map((r,i) => [i+1, r.parent, r.child, r.grade, r.class_, r.school, r.univ, r.major, r.dream, (r.created_at||'').slice(0,19).replace('T',' ')])
+  );
+  downloadCSV('희망진로_' + today() + '.csv', csv);
+}
+function dlQuestion() {
+  const d = [...(_data.questions||[]), ...(_data.boardQs||[])];
+  const csv = toCSV(
+    ['#','학부모','자녀','학년','반','질문내용','구분','접수일시'],
+    d.map((r,i) => [i+1, r.parent||r.session_parent||r.name||'익명', r.child||'', r.grade||'', r.class_||'', r.question||r.content||'', r.question?'게시판':'모달', (r.created_at||'').slice(0,19).replace('T',' ')])
+  );
+  downloadCSV('사전질문_' + today() + '.csv', csv);
+}
+function dlGoodQ() {
+  const d = _data.qbQs || [];
+  const csv = toCSV(
+    ['#','이름','주제','질문','키워드','접수일시'],
+    d.map((r,i) => {
+      let kws = []; try{ kws = JSON.parse(r.keywords||'[]'); }catch(e){}
+      return [i+1, r.name||'익명', r.topic||'', r.question||'', kws.join(', '), (r.created_at||'').slice(0,19).replace('T',' ')];
+    })
+  );
+  downloadCSV('좋은질문_' + today() + '.csv', csv);
+}
+function dlConcern() {
+  const rows = _data.concernRows || [];
+  const counts = {};
+  CONCERN_LIST.forEach(c => counts[c.id] = 0);
+  rows.forEach(r => { if(counts[r.concern_id]!==undefined) counts[r.concern_id]++; });
+  const csv = toCSV(
+    ['고민유형','설명','응답수'],
+    CONCERN_LIST.map(c => [c.label, c.sub, counts[c.id]])
+  );
+  downloadCSV('고민분석_' + today() + '.csv', csv);
+}
+function dlSurvey() {
+  const d = _data.surveys || [];
+  const csv = toCSV(
+    ['#','학부모','자녀','학년','반','만족도점수','강의의견','다음주제','제안사항','접수일시'],
+    d.map((r,i) => [i+1, r.parent||'익명', r.child||'', r.grade||'', r.class_||'', r.score||'', r.content||'', r.topic||'', r.suggest||'', (r.created_at||'').slice(0,19).replace('T',' ')])
+  );
+  downloadCSV('만족도설문_' + today() + '.csv', csv);
+}
+function today() {
+  return new Date().toISOString().slice(0,10).replace(/-/g,'');
 }
 </script>
 </body>

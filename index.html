@@ -955,12 +955,20 @@ async function supaInsert(table, data){
   try{
     const res = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
       method:'POST',
-      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'},
+      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=representation'},
       body:JSON.stringify(data)
     });
-    if(!res.ok){ const err=await res.text(); console.error('supaInsert ['+table+'] error:', err); return null; }
+    const resText = await res.text();
+    if(!res.ok){
+      console.error('supaInsert ['+table+'] HTTP '+res.status+':', resText);
+      return null;
+    }
+    console.log('supaInsert ['+table+'] OK:', resText.slice(0,120));
     return true;
-  }catch(e){console.error('supaInsert exception:',e);return null;}
+  }catch(e){
+    console.error('supaInsert exception ['+table+']:', e);
+    return null;
+  }
 }
 
 async function supaSelect(table){
@@ -1921,7 +1929,7 @@ setTimeout(()=>{
       <label class="modal-label">학부모 성명</label>
       <input class="modal-inp" id="a-parent" placeholder="학부모 성명"/>
       <label class="modal-label">학부모 연락처</label>
-      <input class="modal-inp" id="a-phone" placeholder="010-0000-0000" type="tel"/>
+      <input class="modal-inp" id="a-phone" placeholder="01000000000" type="tel"/>
       <button class="modal-btn modal-btn-pk" onclick="submitApply()">신청하기</button>
     </div>
     <div class="modal-success" id="modal-apply-success">
@@ -1995,7 +2003,7 @@ setTimeout(()=>{
 function toggleTag(el){ el.classList.toggle('on'); }
 async function submitCareer(){
   const tags = Array.from(document.querySelectorAll('.stag.on')).map(t=>t.textContent.trim());
-  await supaInsert('careers', {
+  const ok = await supaInsert('careers', {
     school: document.getElementById('c-school').value.trim(),
     univ: document.getElementById('c-univ').value.trim(),
     major: document.getElementById('c-major').value.trim(),
@@ -2005,6 +2013,7 @@ async function submitCareer(){
     grade:  userSession?.grade||null,
     class_: userSession?.class_||null
   });
+  if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-career-form','modal-career-success');
 }
 
@@ -2208,42 +2217,43 @@ async function submitApply(){
   }
   const _ap = document.getElementById('a-parent').value.trim();
   const _ac = document.getElementById('a-child').value.trim();
-  await supaInsert('applies', {
+  const ok = await supaInsert('applies', {
     grade: document.getElementById('a-grade').value,
     class_: document.getElementById('a-class').value,
     child: _ac,
     parent: _ap,
     phone: document.getElementById('a-phone').value.trim(),
-    session_parent: userSession?.parent||null,
-    session_child: userSession?.child||null
+    session_parent: userSession?.parent||null
   });
+  if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-apply-form','modal-apply-success');
 }
 async function submitQuestion(){
   if(!document.getElementById('q-content').value.trim()){
     alert('질문 내용을 입력해 주세요.');return;
   }
-  await supaInsert('questions', {
+  const ok = await supaInsert('questions', {
     content: document.getElementById('q-content').value.trim(),
     parent: userSession?.parent||null,
     child:  userSession?.child||null,
     grade:  userSession?.grade||null,
     class_: userSession?.class_||null
   });
+  if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-question-form','modal-question-success');
 }
 async function submitVisit(){
   if(!document.getElementById('v-child').value.trim()||!document.getElementById('v-parent').value.trim()){
     alert('자녀 이름과 학부모 성명은 필수 입력 항목입니다.');return;
   }
-  await supaInsert('visits', {
+  const ok = await supaInsert('visits', {
     grade: document.getElementById('v-grade').value,
     class_: document.getElementById('v-class').value,
     child: document.getElementById('v-child').value.trim(),
     parent: document.getElementById('v-parent').value.trim(),
-    session_parent: userSession?.parent||null,
-    session_child: userSession?.child||null
+    session_parent: userSession?.parent||null
   });
+  if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-visit-form','modal-visit-success');
 }
 // ── 만족도 설문 ──
@@ -2263,7 +2273,7 @@ function setSurveyScore(n) {
 }
 async function submitSurvey() {
   if(!surveyScore){ alert('만족도 점수를 선택해 주세요.'); return; }
-  await supaInsert('surveys', {
+  const ok = await supaInsert('surveys', {
     score: surveyScore,
     content: document.getElementById('sv-content').value.trim(),
     topic: document.getElementById('sv-topic').value.trim(),
@@ -2273,6 +2283,7 @@ async function submitSurvey() {
     grade:  userSession?.grade||null,
     class_: userSession?.class_||null
   });
+  if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-survey-form','modal-survey-success');
 }
 
@@ -2415,6 +2426,7 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
     <button class="modal-btn modal-btn-pk" onclick="doUserLogin()">로그인</button>
   </div>
 </div>
+
 
 </body>
 </html>
