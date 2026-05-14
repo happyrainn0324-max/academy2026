@@ -167,8 +167,6 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .pb-badge-2{background:rgba(168,200,240,.25);color:#2A5898;border-color:rgba(168,200,240,.5);}
 .pb-badge-3{background:rgba(240,200,224,.25);color:#984878;border-color:rgba(240,200,224,.5);}
 .pb-badge-g{background:rgba(248,184,136,.2);color:var(--o1);border-color:rgba(248,184,136,.4);}
-.pb-admin{font-family:var(--fb);font-size:11px;font-weight:400;letter-spacing:.5px;padding:5px 13px;background:none;border:1px solid var(--nv5);border-radius:8px;color:var(--nv3);cursor:pointer;transition:all .2s;margin-top:9px;display:block;}
-.pb-admin:hover{border-color:var(--accent);color:var(--accent);}
 .psd-card{background:rgba(255,255,255,.84);border:1px solid var(--nv5);border-radius:15px;padding:22px;backdrop-filter:blur(4px);}
 .psd-news{display:flex;gap:11px;padding:13px 0;border-bottom:1px solid var(--nv6);}
 .psd-news:last-child{border-bottom:none;}
@@ -181,10 +179,6 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .psearch:focus{border-color:var(--accent);}
 .psearch::placeholder{color:var(--nv4);}
 .psearch-ic{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;}
-.padmin-pw{padding:10px 12px;border:1.5px solid var(--nv5);border-radius:9px;background:rgba(255,255,255,.9);font-size:15px;font-family:var(--fb);color:var(--nv1);outline:none;width:130px;font-weight:300;}
-.padmin-pw:focus{border-color:var(--accent);}
-.padmin-btn{padding:10px 18px;background:linear-gradient(135deg,var(--nv2),var(--accent));color:#fff;border:none;border-radius:9px;font-size:14px;font-family:var(--fb);cursor:pointer;transition:all .2s;box-shadow:0 3px 12px rgba(91,74,138,.25);}
-.padmin-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(91,74,138,.32);}
 
 /* FOOTER */
 .pfooter{background:linear-gradient(135deg,var(--nv1) 0%,var(--nv2) 50%,#3A1848 100%);padding:36px 20px;text-align:center;}
@@ -239,12 +233,10 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   .psd-card{padding:16px 14px;}
 
   /* ADMIN */
-  .padmin-pw{width:100%;font-size:16px;}
-  .padmin-btn{font-size:15px;padding:12px 18px;}
-  .admin-nav-btn{display:none!important;}
   #user-login-btn{font-size:12px!important;padding:5px 7px!important;}
   #user-session-badge{padding:4px 10px!important;}
   #user-session-name{font-size:11px!important;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .admin-nav-btn{display:none!important;}
 
   /* FOOTER */
   .pfooter{padding:26px 16px;}
@@ -437,12 +429,6 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .topic-tip-txt{font-family:var(--fb);font-size:13.5px;color:var(--nv2);font-weight:400;line-height:1.8;}
 @media(max-width:640px){.topic-modal-header{padding:20px 18px 16px;}.topic-modal-body{padding:20px 18px 24px;}.topic-modal-title{font-size:18px;}}
 
-.atab{font-family:var(--fb);font-size:13px;font-weight:400;padding:7px 16px;border-radius:16px;border:1.5px solid var(--nv5);background:none;color:var(--nv3);cursor:pointer;transition:all .2s;}
-.atab-on{background:linear-gradient(135deg,var(--nv2),var(--accent));color:#fff;border-color:transparent;font-weight:500;}
-.admin-row{background:rgba(255,255,255,.6);border:1px solid var(--nv5);border-radius:12px;padding:14px 18px;margin-bottom:10px;}
-.admin-row-label{font-family:var(--fb);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--nv4);display:block;margin-bottom:6px;}
-.admin-row-val{font-family:var(--fb);font-size:14px;color:var(--nv1);font-weight:400;line-height:1.75;}
-.admin-empty{font-family:var(--fb);font-size:14px;color:var(--nv4);font-weight:300;padding:20px 0;text-align:center;}
 </style>
 </head>
 <body>
@@ -465,7 +451,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         <button onclick="logoutUser()" style="font-family:var(--fb);font-size:11px;color:var(--nv4);background:none;border:none;cursor:pointer;padding:0 2px;margin-left:2px;">✕</button>
       </div>
       <button id="user-login-btn" onclick="openUserLogin()" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);">🌸 로그인</button>
-      <button onclick="openAdminLogin()" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);" class="admin-nav-btn">🔐 관리자</button>
+      <button onclick="window.open('admin.html','_blank')" class="admin-nav-btn" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);">🔐 관리자</button>
     </div>
   </div>
 </nav>
@@ -987,7 +973,6 @@ const topics=[
   {title:"최근 대입 뉴스 브리핑",desc:"최근 진학 이슈를 선별해 가정에서\n확인해야 할 핵심 질문으로 바꿉니다.",num:"06"},
 ];
 let questions=[];
-let adminMode=false;
 let boardPage=1;
 const BOARD_PER_PAGE=5;
 const QB_PER_PAGE=5;
@@ -1380,6 +1365,7 @@ async function submitForm(e){
   const name=document.getElementById('f-name').value.trim();
   const q=document.getElementById('f-q').value.trim();
   if(!name||!q)return;
+  const displayGrade = userSession ? userSession.grade : document.getElementById('f-grade').value;
   const displayName = userSession ? userSession.parent[0]+'○○ ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○ 학부모';
 
   // 즉시 화면에 추가
@@ -1410,6 +1396,7 @@ async function submitFormTop(e){
   const name=document.getElementById('ft-name').value.trim();
   const q=document.getElementById('ft-q').value.trim();
   if(!name||!q)return;
+  const displayGrade = userSession ? userSession.grade : document.getElementById('ft-grade').value;
   const displayName = userSession ? userSession.parent[0]+'○○ ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○ 학부모';
 
   // 즉시 화면에 추가
@@ -1425,7 +1412,9 @@ async function submitFormTop(e){
   const s=document.getElementById('form-top-success');
   s.style.display='block';
   setTimeout(() => {
-    document.getElementById('board-list')?.scrollIntoView({behavior:'smooth', block:'start'});
+    const target = document.getElementById('board-list');
+    if(target) target.closest('div[style*="margin-top"]')?.scrollIntoView({behavior:'smooth', block:'start'});
+    else document.getElementById('board-list')?.scrollIntoView({behavior:'smooth', block:'start'});
   }, 200);
   setTimeout(()=>s.style.display='none',3500);
 
@@ -1440,7 +1429,6 @@ async function submitFormTop(e){
 
 function unlockAdmin(){
   if(document.getElementById('pw-inp').value==='0324'){
-    adminMode=true;
     document.getElementById('admin-login').style.display='none';
     document.getElementById('pw-err').style.display='none';
     document.getElementById('admin-on').style.display='flex';
@@ -1451,7 +1439,6 @@ function unlockAdmin(){
   }
 }
 function logoutAdmin(){
-  adminMode=false;
   document.getElementById('admin-login').style.display='flex';
   document.getElementById('admin-on').style.display='none';
   document.getElementById('pw-inp').value='';
@@ -2046,10 +2033,10 @@ async function loadGalleryFromStorage(){
     const remote = await supaGetSetting('galleryImages');
     if(remote){
       const imgs = JSON.parse(remote);
-      if(imgs.length) imgs.forEach(src => addGalleryImageFromSrc(src, adminMode));
+      if(imgs.length) imgs.forEach(src => addGalleryImageFromSrc(src, false));
     }
     // preset 이미지에 관리자 삭제버튼 달기
-    if(adminMode){
+    if(false){
       const preset = document.getElementById('poster-preset-0');
       if(preset && !preset.querySelector('button')){
         const del = document.createElement('button');
@@ -2087,174 +2074,6 @@ async function loadLecturerFromStorage(){
   } catch(e){}
 }
 
-
-function openAdminLogin(){
-  document.getElementById('modal-admin-login').classList.add('show');
-  document.body.style.overflow='hidden';
-}
-function closeAdminLogin(){
-  document.getElementById('modal-admin-login').classList.remove('show');
-  document.getElementById('admin-pw-inp').value='';
-  document.getElementById('admin-pw-err').style.display='none';
-  document.body.style.overflow='';
-}
-function checkAdminPw(){
-  if(document.getElementById('admin-pw-inp').value==='0324'){
-    adminMode=true;
-    toggleImageUploadUI(true);
-    renderBoard();
-    closeAdminLogin();
-    renderAdminDash();
-    document.getElementById('modal-admin-dash').classList.add('show');
-    document.body.style.overflow='hidden';
-  } else {
-    document.getElementById('admin-pw-err').style.display='block';
-  }
-}
-function showAdminTab(id){
-  ['tab-apply','tab-question','tab-visit','tab-career','tab-survey'].forEach(t=>{
-    document.getElementById(t).style.display = t===id?'block':'none';
-  });
-  document.querySelectorAll('.atab').forEach(b=>{
-    b.classList.toggle('atab-on', b.getAttribute('onclick')?.includes("'"+id+"'"));
-  });
-}
-function adminCard(fields){
-  return '<div class="admin-row">' + fields.map(([l,v])=>
-    `<span class="admin-row-label">${l}</span><div class="admin-row-val">${v||'—'}</div>`
-  ).join('') + '</div>';
-}
-
-function adminSection(emoji, title, color, content){
-  return `<div style="margin-bottom:14px;">
-    <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(200,188,238,.25);">
-      <span style="font-size:14px;">${emoji}</span>
-      <span style="font-family:var(--fb);font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:${color};">${title}</span>
-    </div>
-    ${content}
-  </div>`;
-}
-
-function adminField(label, value){
-  if(!value) return '';
-  return `<div style="display:flex;gap:8px;margin-bottom:6px;align-items:flex-start;">
-    <span style="font-family:var(--fb);font-size:10px;font-weight:600;letter-spacing:1px;color:#A898D8;min-width:70px;padding-top:2px;flex-shrink:0;">${label}</span>
-    <span style="font-family:var(--fb);font-size:13px;color:#EDE8FA;font-weight:300;line-height:1.7;">${value}</span>
-  </div>`;
-}
-
-async function renderAdminDash(){
-  const allIds = ['admin-main-list','admin-question-list','admin-visit-list','admin-career-list','admin-survey-list'];
-  allIds.forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML='<p class="admin-empty">불러오는 중...</p>'; });
-
-  const [applies, questions_list, visits, careers, surveys, board_qs, qb_qs] = await Promise.all([
-    supaSelect('applies'), supaSelect('questions'), supaSelect('visits'), supaSelect('careers'), supaSelect('surveys'),
-    supaSelect('board_questions'), supaSelect('qb_questions')
-  ]);
-
-  const setC = (id,n) => { const el=document.getElementById(id); if(el) el.textContent=n; };
-  setC('cnt-apply', applies.length);
-  setC('cnt-question', questions_list.length + board_qs.length);
-  setC('cnt-visit', visits.length);
-  setC('cnt-career', careers.length);
-  setC('cnt-survey', surveys.length);
-
-  // ── 통합 뷰: 특강신청자 기준 ──
-  const ml = document.getElementById('admin-main-list');
-  if(ml){
-    if(!applies.length){
-      ml.innerHTML = '<p class="admin-empty">특강 신청 내역이 없습니다.</p>';
-    } else {
-      ml.innerHTML = applies.map((d,i) => {
-        const no = applies.length - i;
-        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
-        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(200,188,238,.2);border-radius:16px;padding:20px;margin-bottom:14px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
-            <div style="display:flex;align-items:center;gap:10px;">
-              <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--nv2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;font-weight:600;color:#fff;">${no}</div>
-              <div>
-                <div style="font-family:var(--fk);font-size:16px;font-weight:700;color:#fff;">${d.parent||'—'} <span style="font-size:13px;font-weight:400;color:#C8BCEE;">(자녀: ${d.child||'—'})</span></div>
-                <div style="font-family:var(--fb);font-size:11px;color:#8878B8;margin-top:2px;">${d.grade||''} ${d.class_||''} · ${time}</div>
-              </div>
-            </div>
-            ${d.phone ? `<span style="font-family:var(--fb);font-size:12px;color:#C8BCEE;background:rgba(200,188,238,.15);padding:4px 12px;border-radius:20px;border:1px solid rgba(200,188,238,.3);">📞 ${d.phone}</span>` : ''}
-          </div>
-        </div>`;
-      }).join('');
-    }
-  }
-
-  // ── 사전질문 ──
-  // 사전질문: 모달 질문(questions) + 게시판 질문(board_questions) 합산
-  const all_questions = [
-    ...questions_list.map(d=>({...d, _src:'modal'})),
-    ...board_qs.map(d=>({...d, content: d.question, _src:'board'}))
-  ].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
-
-  const ql = document.getElementById('admin-question-list');
-  if(ql) ql.innerHTML = all_questions.length
-    ? all_questions.map((d,i) => {
-        const no = all_questions.length - i;
-        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
-        const qName = d.parent ? `${d.parent} (${d.grade||''} ${d.class_||''} · 자녀: ${d.child||''})` 
-                    : d.session_parent ? d.session_parent
-                    : d.name || '익명';
-        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(249,184,192,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
-          <div style="font-family:var(--fb);font-size:10px;color:#E888A8;letter-spacing:1px;margin-bottom:8px;">${no}번 · ${time} · ${d._src==='board'?'게시판':'모달'}</div>
-          <div style="font-family:var(--fb);font-size:12px;color:#C8BCEE;margin-bottom:8px;">👤 ${qName}</div>
-          <p style="font-family:var(--fk);font-size:14px;color:#EDE8FA;line-height:1.8;margin:0;">${d.content||d.question||'—'}</p>
-        </div>`;
-      }).join('')
-    : '<p class="admin-empty">사전 질문 내역이 없습니다.</p>';
-
-  // ── 방문등록 ──
-  const vl = document.getElementById('admin-visit-list');
-  if(vl) vl.innerHTML = visits.length
-    ? visits.map((d,i) => {
-        const no = visits.length - i;
-        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
-        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(168,216,192,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
-          <div style="font-family:var(--fb);font-size:10px;color:#6AC8A8;letter-spacing:1px;margin-bottom:8px;">${no}번 · ${time}</div>
-          <div style="font-family:var(--fk);font-size:14px;color:#EDE8FA;font-weight:600;">${d.parent||'—'} <span style="font-size:12px;font-weight:400;color:#C8BCEE;">· 자녀: ${d.child||'—'} · ${d.grade||''} ${d.class_||''}</span></div>
-        </div>`;
-      }).join('')
-    : '<p class="admin-empty">방문등록 내역이 없습니다.</p>';
-
-  // ── 희망진로 ──
-  const cl = document.getElementById('admin-career-list');
-  if(cl) cl.innerHTML = careers.length
-    ? careers.map((d,i) => {
-        const no = careers.length - i;
-        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
-        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(248,200,160,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
-          <div style="font-family:var(--fb);font-size:10px;color:#F8C080;letter-spacing:1px;margin-bottom:6px;">${no}번 · ${time}</div>
-          ${d.parent ? `<div style="font-family:var(--fb);font-size:12px;color:#C8BCEE;margin-bottom:10px;">👤 ${d.parent} (${d.grade||''} ${d.class_||''} · 자녀: ${d.child||''})</div>` : ''}
-          ${adminField('희망고교', d.school)}
-          ${adminField('희망대학', d.univ)}
-          ${adminField('희망학과', d.major)}
-          ${adminField('희망직업·꿈', d.dream)}
-        </div>`;
-      }).join('')
-    : '<p class="admin-empty">희망진로 입력 내역이 없습니다.</p>';
-
-  // ── 만족도 설문 ──
-  const sl = document.getElementById('admin-survey-list');
-  if(sl) sl.innerHTML = surveys.length
-    ? surveys.map((d,i) => {
-        const no = surveys.length - i;
-        const time = d.created_at?.slice(0,19).replace('T',' ') || '';
-        const stars = d.score ? '⭐'.repeat(Number(d.score)) + ` (${d.score}점)` : '—';
-        return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(168,200,240,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
-          <div style="font-family:var(--fb);font-size:10px;color:#88B8E8;letter-spacing:1px;margin-bottom:6px;">${no}번 · ${time}</div>
-          ${d.parent ? `<div style="font-family:var(--fb);font-size:12px;color:#C8BCEE;margin-bottom:10px;">👤 ${d.parent} (${d.grade||''} ${d.class_||''} · 자녀: ${d.child||''})</div>` : ''}
-          ${adminField('만족도', stars)}
-          ${adminField('강의 의견', d.content)}
-          ${adminField('다음 주제', d.topic)}
-          ${adminField('진로상담부 제안', d.suggest)}
-        </div>`;
-      }).join('')
-    : '<p class="admin-empty">만족도 설문 내역이 없습니다.</p>';
-}
 
 // ── 모달 함수 ──
 function openModal(id){
@@ -2552,87 +2371,5 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
   </div>
 </div>
 
-<!-- ── 관리자 로그인 모달 ── -->
-<div class="modal-overlay" id="modal-admin-login">
-  <div class="modal-box" style="max-width:360px;">
-    <button class="modal-close" onclick="closeAdminLogin()">✕</button>
-    <div class="modal-title">🔐 관리자 로그인</div>
-    <p class="modal-sub">비밀번호를 입력하세요.</p>
-    <input type="password" class="modal-inp" id="admin-pw-inp" placeholder="비밀번호" onkeydown="if(event.key==='Enter')checkAdminPw()"/>
-    <p id="admin-pw-err" style="font-size:12px;color:#c44;margin-bottom:10px;display:none;">비밀번호가 올바르지 않습니다.</p>
-    <button class="modal-btn modal-btn-p" onclick="checkAdminPw()">로그인</button>
-  </div>
-</div>
-
-<!-- ── 관리자 대시보드 모달 ── -->
-<div class="modal-overlay" id="modal-admin-dash">
-  <div class="modal-box" style="max-width:820px;max-height:90vh;overflow-y:auto;">
-    <button class="modal-close" onclick="document.getElementById('modal-admin-dash').classList.remove('show');document.body.style.overflow=''">✕</button>
-    <div class="modal-title">📊 관리자 대시보드</div>
-    <p class="modal-sub">접수된 모든 내역을 확인합니다.</p>
-
-    <!-- 요약 카운트 -->
-    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:20px;">
-      <div style="background:rgba(237,232,250,.5);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
-        <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:var(--accent);" id="cnt-apply">—</div>
-        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">특강신청</div>
-      </div>
-      <div style="background:rgba(249,184,192,.15);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
-        <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:#C05878;" id="cnt-question">—</div>
-        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">사전질문</div>
-      </div>
-      <div style="background:rgba(168,216,192,.15);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
-        <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:#3A8868;" id="cnt-visit">—</div>
-        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">방문등록</div>
-      </div>
-      <div style="background:rgba(248,200,160,.15);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
-        <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:#C07030;" id="cnt-career">—</div>
-        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">희망진로</div>
-      </div>
-      <div style="background:rgba(168,200,240,.15);border:1px solid var(--nv5);border-radius:12px;padding:10px;text-align:center;">
-        <div style="font-family:var(--fd);font-size:22px;font-weight:600;color:#3870B8;" id="cnt-survey">—</div>
-        <div style="font-family:var(--fb);font-size:11px;color:var(--nv4);margin-top:2px;">만족도설문</div>
-      </div>
-    </div>
-
-    <!-- 탭 + 새로고침 -->
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-      <div id="admin-tabs" style="display:flex;gap:6px;flex-wrap:wrap;">
-        <button onclick="showAdminTab('tab-apply')" class="atab atab-on">📋 특강신청</button>
-        <button onclick="showAdminTab('tab-question')" class="atab">🌸 사전질문</button>
-        <button onclick="showAdminTab('tab-visit')" class="atab">🌿 방문등록</button>
-        <button onclick="showAdminTab('tab-career')" class="atab">🎯 희망진로</button>
-        <button onclick="showAdminTab('tab-survey')" class="atab">⭐ 만족도설문</button>
-      </div>
-      <button onclick="renderAdminDash()" style="font-family:var(--fb);font-size:12px;padding:6px 14px;border-radius:10px;border:1px solid var(--nv5);background:#fff;color:var(--nv2);cursor:pointer;">🔄 새로고침</button>
-    </div>
-
-    <!-- 특강신청 -->
-    <div id="tab-apply">
-      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">신청자 이름·자녀 이름·연락처·학년·반 순으로 표시됩니다.</p>
-      <div id="admin-main-list"></div>
-    </div>
-    <!-- 사전질문 -->
-    <div id="tab-question" style="display:none;">
-      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">접수된 사전 질문 전체 목록입니다.</p>
-      <div id="admin-question-list"></div>
-    </div>
-    <!-- 방문등록 -->
-    <div id="tab-visit" style="display:none;">
-      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">방문 등록 신청 목록입니다.</p>
-      <div id="admin-visit-list"></div>
-    </div>
-    <!-- 희망진로 -->
-    <div id="tab-career" style="display:none;">
-      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">자녀의 희망 진로 입력 내역입니다.</p>
-      <div id="admin-career-list"></div>
-    </div>
-    <!-- 만족도설문 -->
-    <div id="tab-survey" style="display:none;">
-      <p style="font-family:var(--fb);font-size:12px;color:#A898D8;margin-bottom:12px;font-weight:300;">만족도 설문 응답 내역입니다.</p>
-      <div id="admin-survey-list"></div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
