@@ -1263,8 +1263,10 @@ function renderSelected(){
   const html=sel.length
     ?sel.map((q,i)=>`<div class="pf-selq"><span class="pf-selq-l">🌸 좋은 질문 ${i+1}</span><p style="font-family:var(--fb);font-size:13.5px;color:rgba(248,232,220,.95);line-height:1.88;font-weight:300">${q.question}</p></div>`).join('')
     :'<p style="font-family:var(--fb);font-size:13.5px;color:rgba(180,145,130,.65);font-weight:300">아직 선정된 질문이 없습니다.</p>';
-  document.getElementById('selected-list').innerHTML=html;
-  document.getElementById('selected-list-top').innerHTML=html;
+  const el1=document.getElementById('selected-list');
+  const el2=document.getElementById('selected-list-top');
+  if(el1) el1.innerHTML=html;
+  if(el2) el2.innerHTML=html;
 }
 
 async function loadBoard(){
@@ -1843,8 +1845,10 @@ renderPrograms();renderFlows();loadBoard();
   }
   el.innerHTML = output;
 })();
-loadGalleryFromStorage();
-loadLecturerFromStorage();
+setTimeout(()=>{
+  if(typeof loadGalleryFromStorage==='function') loadGalleryFromStorage();
+  if(typeof loadLecturerFromStorage==='function') loadLecturerFromStorage();
+}, 0);
 </script>
 
 <!-- ── 특강신청 모달 ── -->
