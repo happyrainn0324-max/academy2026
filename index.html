@@ -1345,17 +1345,26 @@ async function submitForm(e){
   if(!name||!q)return;
   const displayName = userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모';
   const displayGrade = userSession ? userSession.grade : document.getElementById('f-grade').value;
-  await supaInsert('board_questions',{
-    name: displayName, grade: displayGrade, question: q,
-    selected: false, session_parent: userSession?.parent||null
-  });
+
+  // 즉시 화면에 추가 (낙관적 업데이트)
+  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, selected: false };
+  questions = [newQ, ...questions];
+  boardPage = 1;
+  renderBoard();
+  renderSelected();
+  updateCounts();
+
   document.getElementById('f-name').value='';
   document.getElementById('f-q').value='';
   const s=document.getElementById('form-success');
   s.style.display='block';
   setTimeout(()=>s.style.display='none',3500);
-  boardPage=1;
-  await loadBoard();
+
+  // 백그라운드에서 DB 저장 후 실제 데이터로 갱신
+  supaInsert('board_questions',{
+    name: displayName, grade: displayGrade, question: q,
+    selected: false, session_parent: userSession?.parent||null
+  }).then(() => loadBoard());
 }
 
 async function submitFormTop(e){
@@ -1365,17 +1374,30 @@ async function submitFormTop(e){
   if(!name||!q)return;
   const displayName = userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모';
   const displayGrade = userSession ? userSession.grade : document.getElementById('ft-grade').value;
-  await supaInsert('board_questions',{
-    name: displayName, grade: displayGrade, question: q,
-    selected: false, session_parent: userSession?.parent||null
-  });
+
+  // 즉시 화면에 추가 (낙관적 업데이트)
+  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, selected: false };
+  questions = [newQ, ...questions];
+  boardPage = 1;
+  renderBoard();
+  renderSelected();
+  updateCounts();
+
   document.getElementById('ft-name').value='';
   document.getElementById('ft-q').value='';
   const s=document.getElementById('form-top-success');
   s.style.display='block';
+  // 모아보기로 스크롤
+  setTimeout(() => {
+    document.getElementById('board-list')?.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 200);
   setTimeout(()=>s.style.display='none',3500);
-  boardPage=1;
-  await loadBoard();
+
+  // 백그라운드에서 DB 저장 후 실제 데이터로 갱신
+  supaInsert('board_questions',{
+    name: displayName, grade: displayGrade, question: q,
+    selected: false, session_parent: userSession?.parent||null
+  }).then(() => loadBoard());
 }
 
 function unlockAdmin(){
@@ -1609,7 +1631,46 @@ async function submitQBuilder() {
     ? (userSession.parent + ' (' + userSession.grade + ' ' + userSession.class_ + ')')
     : '익명';
   const kws = [...qbSelectedKws];
-  await supaInsert('qb_questions', {
+
+  // 즉시 화면에 추가 (낙관적 업데이트)
+  const newCard = {
+    id: null,
+    created_at: new Date().toISOString(),
+    topic: t.label.replace('\n',' '),
+    question: q,
+    keywords: JSON.stringify(kws),
+    name: name,
+    border_color: t.itemBorder,
+    topic_bg: t.itemTopicBg,
+    topic_color: t.itemTopicColor,
+    topic_border_c: t.itemTopicBorder,
+    kw_bg: t.itemKwBg,
+    kw_color: t.itemKwColor,
+    kw_border_c: t.itemKwBorder
+  };
+  // 샘플 카드 앞에, DB 카드들 앞에 새 카드 삽입
+  const sampleCount = getSampleCards().length;
+  const dbRows = qbAllRows.slice(0, qbAllRows.length - sampleCount);
+  const sampleRows = qbAllRows.slice(qbAllRows.length - sampleCount);
+  qbAllRows = [newCard, ...dbRows, ...sampleRows];
+  qbPage = 1;
+  renderQBPage();
+
+  ta.value = '';
+  ta.placeholder = '선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요...';
+  qbSelectedKws = [];
+  renderQBKeywords();
+
+  const s = document.getElementById('qb-success');
+  s.style.display = 'block';
+  // 좋은 질문 모음으로 스크롤
+  setTimeout(() => {
+    document.getElementById('qb-wall')?.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 150);
+  setTimeout(() => s.style.display = 'none', 3000);
+
+  // 백그라운드에서 DB 저장 후 실제 데이터로 갱신
+  supaInsert('qb_questions', {
     topic_idx: qbSelectedTopic,
     topic: t.label.replace('\n',' '),
     question: q,
@@ -1622,16 +1683,7 @@ async function submitQBuilder() {
     kw_bg: t.itemKwBg,
     kw_color: t.itemKwColor,
     kw_border_c: t.itemKwBorder
-  });
-  ta.value = '';
-  ta.placeholder = '선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요...';
-  qbSelectedKws = [];
-  renderQBKeywords();
-  qbPage = 1;
-  await loadQBWall();
-  const s = document.getElementById('qb-success');
-  s.style.display = 'block';
-  setTimeout(() => s.style.display = 'none', 3000);
+  }).then(() => loadQBWall());
 }
 
 function renderQBCards(rows) {
@@ -1671,10 +1723,13 @@ function getSampleCards() {
 }
 
 let qbAllRows = [];
+const QB_SAMPLE_CARDS = null; // 초기화 후 getSampleCards()로 채워짐
 
 async function loadQBWall() {
   const rows = await supaSelect('qb_questions');
-  qbAllRows = (Array.isArray(rows) && rows.length) ? rows : getSampleCards();
+  const dbRows = Array.isArray(rows) ? rows : [];
+  // 항상 샘플 카드를 맨 뒤에 붙여서 빈 화면이 되지 않도록
+  qbAllRows = dbRows.length ? [...dbRows, ...getSampleCards()] : getSampleCards();
   qbPage = 1;
   renderQBPage();
 }
@@ -1726,6 +1781,9 @@ function renderQBWall() { loadQBWall(); }
 // 초기 렌더
 renderQBTopicTabs();
 renderQBKeywords();
+// 샘플 카드 즉시 표시 후 DB 로드
+qbAllRows = getSampleCards();
+renderQBPage();
 loadQBWall();
 
 renderPrograms();renderFlows();loadBoard();
