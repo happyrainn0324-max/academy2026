@@ -32,27 +32,26 @@ html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:1
   .sched-gift{flex-direction:row!important;gap:6px!important;padding:6px 10px!important;align-items:center!important;}
   .sched-left{align-items:center!important;text-align:center!important;}
   .sched-br{display:none;}
-  .sched-br{display:inline!important;}
   /* 세션 셀 모바일 최적화 */
-  .sched-row{grid-template-columns:100px 1fr!important;}
-  .sched-left{padding:12px 8px!important;}
-  .sched-time{font-size:13px!important;}
+  .sched-row{grid-template-columns:90px 1fr!important;min-height:auto!important;}
+  .sched-left{padding:10px 6px!important;}
+  .sched-time{font-size:12px!important;}
   .sched-content{padding:12px 14px!important;font-size:14px!important;word-break:keep-all!important;}
+  /* 모바일에서 30분/90분 배지 숨기기 */
+  .sched-duration-badge{display:none!important;}
+  /* 세션 좌측 텍스트 크기 조정 */
+  .sched-session-label{font-size:8px!important;letter-spacing:1px!important;}
+  .sched-time-label{font-size:14px!important;}
 
-  
   /* 강사 카드 모바일 */
-  @media(max-width:640px){
-    .lecturer-card{flex-direction:column!important;align-items:center!important;}
-    .lecturer-info{width:100%!important;text-align:center;}
-    .lecturer-info > div:first-child{justify-content:center!important;}
-    .lecturer-bio{text-align:left!important;margin-top:14px!important;font-size:19px!important;}
-  }
-  
+  .lecturer-card{flex-direction:column!important;align-items:center!important;}
+  .lecturer-info{width:100%!important;text-align:center;}
+  .lecturer-info > div:first-child{justify-content:center!important;}
+  .lecturer-bio{text-align:left!important;margin-top:14px!important;font-size:19px!important;}
+
   .qb-sub-mob{display:none;}
-  @media(max-width:640px){
-    .qb-sub-pc{display:none!important;}
-    .qb-sub-mob{display:inline!important;}
-  }
+  .qb-sub-pc{display:none!important;}
+  .qb-sub-mob{display:inline!important;}
   .mob-hide-txt{display:none!important;}
   .mob-show-txt{display:inline!important;}
 }
@@ -549,14 +548,14 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         <div class="sched-row" style="display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid #F0D0C0;min-height:100px;">
           <div class="sched-left" style="background:#FDF0E8;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;border-right:1px solid #E8C8B8;">
             <div style="display:flex;align-items:center;gap:7px;">
-              <span style="font-family:var(--fb);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B87860;">Session 1</span>
-              <span style="font-family:var(--fb);font-size:9px;font-weight:500;padding:2px 8px;border-radius:7px;background:rgba(123,94,167,.15);color:var(--accent);border:1px solid rgba(123,94,167,.3);">30분</span>
+              <span class="sched-session-label" style="font-family:var(--fb);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B87860;">Session 1</span>
+              <span class="sched-duration-badge" style="font-family:var(--fb);font-size:9px;font-weight:500;padding:2px 8px;border-radius:7px;background:rgba(123,94,167,.15);color:var(--accent);border:1px solid rgba(123,94,167,.3);">30분</span>
             </div>
-            <span style="font-family:var(--fd);font-size:17px;font-weight:600;background:linear-gradient(135deg,var(--nv2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">16:30 – 17:00</span>
+            <span class="sched-time-label" style="font-family:var(--fd);font-size:17px;font-weight:600;background:linear-gradient(135deg,var(--nv2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">16:30 – 17:00</span>
           </div>
           <div style="padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
             <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-              <span style="font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--nv1);word-break:keep-all;line-height:1.5;">인천공항고등학교<br class="sched-br"/>알아보기</span>
+              <span style="font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--nv1);word-break:keep-all;line-height:1.5;">인천공항고등학교 알아보기</span>
             </div>
             <div class="sched-gift" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(135deg,rgba(248,184,136,.12),rgba(245,192,208,.12));border:1px solid rgba(232,112,58,.25);border-radius:9px;padding:8px 14px;text-align:center;flex-shrink:0;">
               <span style="font-size:16px;">🎁</span>
@@ -568,10 +567,10 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         <div class="sched-row" style="display:grid;grid-template-columns:150px 1fr;min-height:100px;">
           <div class="sched-left" style="background:#FDF0E8;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;border-right:1px solid #E8C8B8;">
             <div style="display:flex;align-items:center;gap:7px;">
-              <span style="font-family:var(--fb);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B87860;">Session 2</span>
-              <span style="font-family:var(--fb);font-size:9px;font-weight:500;padding:2px 8px;border-radius:7px;background:rgba(216,88,128,.12);color:#D85880;border:1px solid rgba(216,88,128,.3);">90분</span>
+              <span class="sched-session-label" style="font-family:var(--fb);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B87860;">Session 2</span>
+              <span class="sched-duration-badge" style="font-family:var(--fb);font-size:9px;font-weight:500;padding:2px 8px;border-radius:7px;background:rgba(216,88,128,.12);color:#D85880;border:1px solid rgba(216,88,128,.3);">90분</span>
             </div>
-            <span style="font-family:var(--fd);font-size:17px;font-weight:600;background:linear-gradient(135deg,var(--nv2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">17:00 – 18:30</span>
+            <span class="sched-time-label" style="font-family:var(--fd);font-size:17px;font-weight:600;background:linear-gradient(135deg,var(--nv2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">17:00 – 18:30</span>
           </div>
           <div style="padding:18px 20px;display:flex;align-items:center;gap:10px;">
             <span style="font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--nv1);">
@@ -1297,6 +1296,7 @@ function renderBoard(){
   const pageItems=questions.slice(start,start+BOARD_PER_PAGE);
 
   const badge=document.getElementById('board-total-badge');
+  if(badge) badge.style.display = total>0 ? '' : 'none';
   if(badge) badge.textContent=`총 ${total}개 질문`;
 
   const listEl=document.getElementById('board-list');
@@ -1313,7 +1313,7 @@ function renderBoard(){
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">${q.question}</p>
       </div>`).join('')
-    :'<p style="font-family:var(--fb);font-size:14px;color:var(--nv4);padding:32px 0;font-weight:300;text-align:center;">아직 접수된 질문이 없습니다.<br/>첫 번째 질문을 남겨보세요 🌸</p>';
+    :'';
 
   const pgEl=document.getElementById('board-pagination');
   if(!pgEl) return;
