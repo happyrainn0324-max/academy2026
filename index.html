@@ -1029,7 +1029,7 @@ let mySelections = new Set(
 // Supabase에서 전체 고민 집계 불러오기
 async function loadConcernCounts(){
   try {
-    const res = await fetch(`${SUPA_URL}/rest/v1/concerns?select=concern_id,count`, {
+    const res = await fetch(`${SUPA_URL}/rest/v1/concerns?select=concern_id`, {
       headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
     });
     const rows = await res.json();
@@ -1346,7 +1346,9 @@ function goBoardPage(p){
 }
 
 function renderFlows(){
-  document.getElementById('flow-list').innerHTML=flows.map((s,i)=>`
+  const el = document.getElementById('flow-list');
+  if(!el) return;
+  el.innerHTML=flows.map((s,i)=>`
     <div class="psd-flow">
       <div class="psd-num">${i+1}</div>
       <span style="font-family:var(--fb);font-size:13px;color:var(--nv3);font-weight:300;line-height:1.75;padding-top:3px">${s}</span>
