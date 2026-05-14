@@ -1380,8 +1380,7 @@ async function submitForm(e){
   const name=document.getElementById('f-name').value.trim();
   const q=document.getElementById('f-q').value.trim();
   if(!name||!q)return;
-  const displayName = userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모';
-  const displayGrade = userSession ? userSession.grade : document.getElementById('f-grade').value;
+  const displayName = userSession ? userSession.parent[0]+'○○ ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○ 학부모';
 
   // 즉시 화면에 추가
   const newQ = { id: null, name: displayName, grade: displayGrade, question: q, selected: false };
@@ -1411,8 +1410,7 @@ async function submitFormTop(e){
   const name=document.getElementById('ft-name').value.trim();
   const q=document.getElementById('ft-q').value.trim();
   if(!name||!q)return;
-  const displayName = userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모';
-  const displayGrade = userSession ? userSession.grade : document.getElementById('ft-grade').value;
+  const displayName = userSession ? userSession.parent[0]+'○○ ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○ 학부모';
 
   // 즉시 화면에 추가
   const newQ = { id: null, name: displayName, grade: displayGrade, question: q, selected: false };
@@ -1668,7 +1666,7 @@ async function submitQBuilder() {
   if (qbSelectedTopic === null) { alert('주제를 먼저 선택해 주세요.'); return; }
   const t = qbTopics[qbSelectedTopic];
   const name = userSession
-    ? (userSession.parent + ' (' + userSession.grade + ' ' + userSession.class_ + ')')
+    ? (userSession.parent[0] + '○○ (' + userSession.grade + ' ' + userSession.class_ + ')')
     : '익명';
   const kws = [...qbSelectedKws];
 
@@ -1729,9 +1727,9 @@ function renderQBCards(rows) {
   return rows.map((r) => {
     const kws = (() => { try { return JSON.parse(r.keywords||'[]'); } catch(e){ return []; } })();
     const time = r.created_at ? r.created_at.slice(0,10) : '';
-    const delBtn = r.id
-      ? `<button onclick="deleteQBQuestionDB(${r.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>`
-      : '';
+    const delBtn = (r.id || r._optimistic)
+      ? `<button onclick="${r.id ? `deleteQBQuestionDB(${r.id})` : `removeOptimisticQB(this)`}" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>`
+      : `<button onclick="removeOptimisticQB(this)" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>`;
     return `<div class="qb-item" style="border-top-color:${r.border_color||'#C8BCEE'};position:relative;">
       ${delBtn}
       <span class="qb-item-topic" style="background:${r.topic_bg||'rgba(200,188,238,.15)'};color:${r.topic_color||'var(--accent)'};border-color:${r.topic_border_c||'rgba(200,188,238,.4)'};">${r.topic||''}</span>
@@ -1806,13 +1804,24 @@ function goQBPage(p) {
 
 async function deleteQBQuestionDB(id) {
   if (!confirm('이 질문을 삭제하시겠습니까?')) return;
+  qbAllRows = qbAllRows.filter(r => r.id !== id);
+  renderQBPage();
   try {
     await fetch(`${SUPA_URL}/rest/v1/qb_questions?id=eq.${id}`, {
       method: 'DELETE',
       headers: {'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY}
     });
   } catch(e) {}
-  await loadQBWall();
+}
+
+function removeOptimisticQB(btn) {
+  const card = btn.closest('.qb-item');
+  if (!card) return;
+  // qbAllRows에서 question 텍스트로 매칭해서 제거
+  const qText = card.querySelector('.qb-item-q')?.textContent?.trim();
+  if (qText) qbAllRows = qbAllRows.filter(r => (r.question||'').trim() !== qText);
+  else card.remove();
+  renderQBPage();
 }
 
 function renderQBWall() { loadQBWall(); }
