@@ -1084,7 +1084,8 @@ function getSessionId(){
 }
 
 function renderConcernGrid(){
-  document.getElementById('concern-grid').innerHTML = concerns.map(c=>`
+  const cg=document.getElementById('concern-grid');
+  if(cg) cg.innerHTML = concerns.map(c=>`
     <div class="concern-chip${mySelections.has(c.id)?' on':''}" data-id="${c.id}"
       style="${mySelections.has(c.id)?'background:'+c.bg+';border-color:transparent;':''}"
       onclick="toggleConcern('${c.id}')">
@@ -1097,9 +1098,11 @@ function renderConcernGrid(){
 function renderConcernChart(){
   const total = Object.values(concernCounts).reduce((a,b)=>a+b,0);
   const maxVal = Math.max(...concerns.map(c=>concernCounts[c.id]||0), 1);
-  document.getElementById('concern-total-label').textContent = `총 ${total}건 응답`;
+  const ctl=document.getElementById('concern-total-label');
+  if(ctl) ctl.textContent = `총 ${total}건 응답`;
   const sorted = [...concerns].sort((a,b)=>(concernCounts[b.id]||0)-(concernCounts[a.id]||0));
-  document.getElementById('concern-chart').innerHTML = sorted.map(c=>{
+  const cc=document.getElementById('concern-chart');
+  if(cc) cc.innerHTML = sorted.map(c=>{
     const val = concernCounts[c.id]||0;
     const pct = maxVal>0?Math.round(val/maxVal*100):0;
     return `<div style="display:flex;align-items:center;gap:12px;">
@@ -1118,7 +1121,9 @@ function renderConcernChart(){
 loadConcernCounts();
 
 function renderPrograms(){
-  document.getElementById('prog-grid').innerHTML=topics.map((t,i)=>`
+  const pg=document.getElementById('prog-grid');
+  if(!pg) return;
+  pg.innerHTML=topics.map((t,i)=>`
     <div class="pt-card" onclick="openTopicModal(${i})" style="cursor:pointer;">
       <span class="pt-num">${t.num}</span>
       <div class="pt-title">${t.title}</div>
@@ -1359,8 +1364,10 @@ function renderFlows(){
 
 function updateCounts(){
   const sel=questions.filter(q=>q.selected).length;
-  document.getElementById('total-count').textContent=questions.length+'개';
-  document.getElementById('sel-count').textContent=sel+'개';
+  const tc=document.getElementById('total-count');
+  const sc=document.getElementById('sel-count');
+  if(tc) tc.textContent=questions.length+'개';
+  if(sc) sc.textContent=sel+'개';
 }
 
 function toggle(id){
