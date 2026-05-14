@@ -327,7 +327,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .qb-topic-card:not(.on){opacity:.75;filter:saturate(.7) brightness(.97);}
 .qb-topic-card:not(.on):hover{opacity:.95;filter:saturate(.9) brightness(1);}
 .qb-tc-emoji{font-size:28px;display:block;margin-bottom:10px;line-height:1;}
-.qb-tc-label{font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;line-height:1.5;word-break:keep-all;color:#1A1040;text-shadow:none;letter-spacing:-0.2px;}
+.qb-tc-label{font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;line-height:1.5;word-break:keep-all;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.18);letter-spacing:-0.2px;}
 .qb-tc-num{display:none;}
 
 /* 주제별 색상 — 솜사탕 파스텔 */
@@ -646,6 +646,16 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
             </select>
             <input class="pf-input" id="ft-name" placeholder="학부모 성명 *" required/>
           </div>
+          <select class="pf-select" id="ft-category">
+            <option value="">주제 선택 (선택사항)</option>
+            <option>슬기로운 중학생활</option>
+            <option>메타인지 학습전략</option>
+            <option>고입 준비와 변화 이해</option>
+            <option>고교학점제 대입전략</option>
+            <option>변화하는 대입제도 이해</option>
+            <option>최근 대입 뉴스 브리핑</option>
+            <option>기타</option>
+          </select>
           <textarea class="pf-ta" id="ft-q" placeholder="자녀의 진로설계와 진학 준비를 위해 궁금한 질문을 적어주세요. *" required></textarea>
           <button type="submit" class="pf-submit">질문 제출하기</button>
         </form>
@@ -1273,6 +1283,20 @@ async function loadBoard(){
   updateCounts();
 }
 
+// 질문 게시판 이름 정규화: 항상 "성○ 학부모" 형태로
+function formatBoardName(name) {
+  if (!name) return '학부모';
+  // 이미 올바른 형태면 그대로
+  if (/학부모$/.test(name)) return name;
+  // 구 형태: "조○○ (1학년 1반)" → "조○ 학부모"
+  const oldMatch = name.match(/^(.)\○\○\s*\(\d학년[^)]*\)/);
+  if (oldMatch) return oldMatch[1] + '○ 학부모';
+  // "성○○ 학부모" → "성○ 학부모"
+  const doubleMatch = name.match(/^(.)\○\○\s*학부모/);
+  if (doubleMatch) return doubleMatch[1] + '○ 학부모';
+  return name;
+}
+
 function renderBoard(){
   const total=questions.length;
   const totalPages=Math.max(1,Math.ceil(total/BOARD_PER_PAGE));
@@ -1294,7 +1318,7 @@ function renderBoard(){
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge ${q.grade==='1학년'?'pb-badge-1':q.grade==='2학년'?'pb-badge-2':q.grade==='3학년'?'pb-badge-3':''}">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
-          <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${q.name}</span>
+          <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${formatBoardName(q.name)}</span>
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">${q.question}</p>
       </div>`).join('')
@@ -1366,10 +1390,11 @@ async function submitForm(e){
   const q=document.getElementById('f-q').value.trim();
   if(!name||!q)return;
   const displayGrade = userSession ? userSession.grade : document.getElementById('f-grade').value;
-  const displayName = userSession ? userSession.parent[0]+'○○ ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○ 학부모';
+  const displayName = userSession ? userSession.parent[0]+'○ 학부모' : name[0]+'○ 학부모';
+  const category = document.getElementById('f-category')?.value || '';
 
   // 즉시 화면에 추가
-  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, selected: false };
+  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, category: category, selected: false };
   questions = [newQ, ...questions];
   boardPage = 1;
   renderBoard();
@@ -1385,7 +1410,7 @@ async function submitForm(e){
   // DB 저장 (실패해도 화면은 이미 반영됨)
   try {
     await supaInsert('board_questions',{
-      name: displayName, grade: displayGrade, question: q,
+      name: displayName, grade: displayGrade, question: q, category: category,
       selected: false, session_parent: userSession?.parent||null
     });
   } catch(e) {}
@@ -1397,10 +1422,11 @@ async function submitFormTop(e){
   const q=document.getElementById('ft-q').value.trim();
   if(!name||!q)return;
   const displayGrade = userSession ? userSession.grade : document.getElementById('ft-grade').value;
-  const displayName = userSession ? userSession.parent[0]+'○○ ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○ 학부모';
+  const displayName = userSession ? userSession.parent[0]+'○ 학부모' : name[0]+'○ 학부모';
+  const category = document.getElementById('ft-category')?.value || '';
 
   // 즉시 화면에 추가
-  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, selected: false };
+  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, category: category, selected: false };
   questions = [newQ, ...questions];
   boardPage = 1;
   renderBoard();
@@ -1421,7 +1447,7 @@ async function submitFormTop(e){
   // DB 저장 (실패해도 화면은 이미 반영됨)
   try {
     await supaInsert('board_questions',{
-      name: displayName, grade: displayGrade, question: q,
+      name: displayName, grade: displayGrade, question: q, category: category,
       selected: false, session_parent: userSession?.parent||null
     });
   } catch(e) {}
@@ -1549,7 +1575,7 @@ let qbQuestions = [
     topic: "진로탐색",
     question: "아이가 좋아하는 것과 잘하는 것이 다를 때, 부모는 어떤 질문으로 아이 스스로 방향을 찾도록 도울 수 있을까요?",
     keywords: ["적성", "흥미", "자기이해"],
-    name: "1학년 이○",
+    name: "1학년 이○ 학부모",
     time: "10:30",
     colors: {
       border: "#F9B8C0",
@@ -1565,7 +1591,7 @@ let qbQuestions = [
     topic: "학습전략",
     question: "수행평가 비중이 커진 요즘, 아이가 내신과 수행평가를 균형 있게 준비하려면 어떤 루틴을 만들어주면 좋을까요?",
     keywords: ["내신관리", "수행평가", "학습계획"],
-    name: "2학년 박○",
+    name: "2학년 박○ 학부모",
     time: "10:45",
     colors: {
       border: "#F8C8A0",
@@ -1581,7 +1607,7 @@ let qbQuestions = [
     topic: "고입·대입 제도",
     question: "고교학점제가 도입되면 과목 선택이 대입에 어떤 영향을 주는지, 중학교 때부터 어떻게 준비해야 할까요?",
     keywords: ["고교학점제", "과목선택", "대입전략"],
-    name: "3학년 최○",
+    name: "3학년 최○ 학부모",
     time: "11:00",
     colors: {
       border: "#A8C8F0",
@@ -1653,8 +1679,8 @@ async function submitQBuilder() {
   if (qbSelectedTopic === null) { alert('주제를 먼저 선택해 주세요.'); return; }
   const t = qbTopics[qbSelectedTopic];
   const name = userSession
-    ? (userSession.parent[0] + '○○ (' + userSession.grade + ' ' + userSession.class_ + ')')
-    : '익명';
+    ? (userSession.grade + ' ' + userSession.parent[0] + '○ 학부모')
+    : '익명 학부모';
   const kws = [...qbSelectedKws];
 
   // 새 카드를 맨 앞에 즉시 추가
@@ -1710,6 +1736,18 @@ async function submitQBuilder() {
   } catch(e) {}
 }
 
+// 이름 표시 정규화: 항상 "학년 성○ 학부모" 형태로
+function formatQBName(name) {
+  if (!name || name === '익명') return '익명 학부모';
+  // 이미 올바른 형태면 그대로
+  if (/학부모$/.test(name)) return name;
+  // 구 형태: "성○○ (1학년 1반)" → "1학년 성○ 학부모"
+  const oldMatch = name.match(/^(.)\○\○\s*\((\d학년)[^)]*\)/);
+  if (oldMatch) return oldMatch[2] + ' ' + oldMatch[1] + '○ 학부모';
+  // "1학년 이○" 등 학부모 없이 저장된 경우
+  return name + ' 학부모';
+}
+
 function renderQBCards(rows) {
   return rows.map((r) => {
     const kws = (() => { try { return JSON.parse(r.keywords||'[]'); } catch(e){ return []; } })();
@@ -1722,7 +1760,7 @@ function renderQBCards(rows) {
       <span class="qb-item-topic" style="background:${r.topic_bg||'rgba(200,188,238,.15)'};color:${r.topic_color||'var(--accent)'};border-color:${r.topic_border_c||'rgba(200,188,238,.4)'};">${r.topic||''}</span>
       <p class="qb-item-q" style="padding-right:24px;">${r.question||''}</p>
       ${kws.length ? `<div class="qb-item-kws">${kws.map(k=>`<span class="qb-item-kw" style="background:${r.kw_bg||''};color:${r.kw_color||''};border-color:${r.kw_border_c||''};">#${k}</span>`).join('')}</div>` : ''}
-      <div class="qb-item-foot">${r.name||'익명'} · ${time}</div>
+      <div class="qb-item-foot">${formatQBName(r.name)} · ${time}</div>
     </div>`;
   }).join('');
 }
@@ -2089,12 +2127,19 @@ function closeModal(id){
   document.getElementById(id).classList.remove('show');
   document.body.style.overflow='';
   // 폼 초기화
-  const forms = {'modal-apply':['modal-apply-form','modal-apply-success'],'modal-career':['modal-career-form','modal-career-success'],
-                  'modal-question':['modal-question-form','modal-question-success'],
-                  'modal-visit':['modal-visit-form','modal-visit-success']};
-  const [f,s] = forms[id];
-  document.getElementById(f).style.display='block'; document.querySelectorAll('.stag.on').forEach(t=>t.classList.remove('on'));
-  document.getElementById(s).style.display='none';
+  const forms = {
+    'modal-apply':['modal-apply-form','modal-apply-success'],
+    'modal-career':['modal-career-form','modal-career-success'],
+    'modal-question':['modal-question-form','modal-question-success'],
+    'modal-visit':['modal-visit-form','modal-visit-success'],
+    'modal-survey':['modal-survey-form','modal-survey-success']
+  };
+  if(forms[id]){
+    const [f,s] = forms[id];
+    document.getElementById(f).style.display='block';
+    document.querySelectorAll('.stag.on').forEach(t=>t.classList.remove('on'));
+    document.getElementById(s).style.display='none';
+  }
 }
 function showSuccess(formId, successId){
   document.getElementById(formId).style.display='none';
