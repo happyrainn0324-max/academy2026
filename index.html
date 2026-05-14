@@ -451,7 +451,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         <button onclick="logoutUser()" style="font-family:var(--fb);font-size:11px;color:var(--nv4);background:none;border:none;cursor:pointer;padding:0 2px;margin-left:2px;">✕</button>
       </div>
       <button id="user-login-btn" onclick="openUserLogin()" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);">🌸 로그인</button>
-      <button onclick="window.open('admin.html','_blank')" class="admin-nav-btn" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);">🔐 관리자</button>
+      <button onclick="document.getElementById('admin-dashboard').scrollIntoView({behavior:'smooth'});setTimeout(()=>document.getElementById('adm-pw')?.focus(),400);" class="admin-nav-btn" style="font-family:var(--fb);font-size:13px;font-weight:500;padding:6px 14px;border-radius:16px;border:1.5px solid var(--nv5);background:rgba(255,255,255,.7);color:var(--nv2);cursor:pointer;transition:all .2s;backdrop-filter:blur(4px);">🔐 관리자</button>
     </div>
   </div>
 </nav>
