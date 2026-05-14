@@ -1072,7 +1072,7 @@ async function toggleConcern(id){
     chip.querySelector('.concern-chip-label').style.color='#fff';
     chip.querySelector('.concern-chip-sub').style.color='rgba(255,255,255,.8)';
     try {
-      await supaInsert('concerns', { concern_id: id, session_id: getSessionId(), session_parent: userSession?.parent||null });
+      await supaInsert('concerns', { concern_id: id, session_id: getSessionId() });
     } catch(e){}
   }
   localStorage.setItem('mySelections', JSON.stringify([...mySelections]));
@@ -1419,7 +1419,7 @@ async function submitForm(e){
   try {
     await supaInsert('board_questions',{
       name: displayName, grade: displayGrade, question: q, category: category,
-      selected: false, session_parent: userSession?.parent||null
+      selected: false
     });
   } catch(e) {}
 }
@@ -1456,7 +1456,7 @@ async function submitFormTop(e){
   try {
     await supaInsert('board_questions',{
       name: displayName, grade: displayGrade, question: q, category: category,
-      selected: false, session_parent: userSession?.parent||null
+      selected: false
     });
   } catch(e) {}
 }
@@ -2222,8 +2222,7 @@ async function submitApply(){
     class_: document.getElementById('a-class').value,
     child: _ac,
     parent: _ap,
-    phone: document.getElementById('a-phone').value.trim(),
-    session_parent: userSession?.parent||null
+    phone: document.getElementById('a-phone').value.trim()
   });
   if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-apply-form','modal-apply-success');
@@ -2250,8 +2249,7 @@ async function submitVisit(){
     grade: document.getElementById('v-grade').value,
     class_: document.getElementById('v-class').value,
     child: document.getElementById('v-child').value.trim(),
-    parent: document.getElementById('v-parent').value.trim(),
-    session_parent: userSession?.parent||null
+    parent: document.getElementById('v-parent').value.trim()
   });
   if(ok === null){ alert('저장 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.'); return; }
   showSuccess('modal-visit-form','modal-visit-success');
