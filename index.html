@@ -813,8 +813,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <span class="ps-label ps-label-p" style="display:block;text-align:center;">Check Questions</span>
       <h2 class="ps-title" style="text-align:center;">함께 여는 진로 질문</h2>
       <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;text-align:center;margin-top:6px;line-height:1.9;word-break:keep-all;">
-        <span class="cq-sub-pc">학부모와 자녀가 함께하는 진로설계를 위한 질문을 주제별로 모았습니다.</span>
-        <span class="cq-sub-mob" style="display:none;">학부모와 자녀가 함께하는<br/>진로설계를 위한 질문을<br/>주제별로 모았습니다.</span>
+        <span class="cq-sub-pc"></span>
+        <span class="cq-sub-mob" style="display:none;"></span>
         <br/>
         <span style="font-size:15px;color:var(--nv4);font-weight:300;">
           <span class="cq-sub2-pc">가족이 함께하는 진로설계를 위해서는 좋은 관계 형성이 먼저 이루어져야 합니다.</span>
@@ -855,6 +855,349 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 </div>
 
 <!-- FOOTER -->
+
+
+<!-- ══════════════════════════════════════════
+     관리자 대시보드 섹션 (인라인)
+══════════════════════════════════════════ -->
+<section id="admin-dashboard" style="background:#f5f5f5;border-top:3px solid #2A1F5C;">
+
+  <!-- 잠금 화면 -->
+  <div id="adm-lock" style="padding:56px 20px;text-align:center;">
+    <div style="display:inline-block;background:#fff;border:1px solid #e0e0e0;border-radius:6px;padding:40px 48px;max-width:380px;width:100%;">
+      <div style="font-size:30px;margin-bottom:12px;">🔐</div>
+      <div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:#2A1F5C;margin-bottom:6px;">관리자 대시보드</div>
+      <div style="font-size:13px;color:#888;margin-bottom:24px;">비밀번호를 입력하세요</div>
+      <input type="password" id="adm-pw" placeholder="비밀번호"
+        style="width:100%;padding:12px 14px;border:1px solid #e0e0e0;border-radius:4px;font-size:15px;font-family:'Noto Sans KR',sans-serif;outline:none;margin-bottom:10px;"
+        onkeydown="if(event.key==='Enter')admLogin()"/>
+      <p id="adm-err" style="font-size:12px;color:#c04040;margin-bottom:10px;display:none;">비밀번호가 올바르지 않습니다.</p>
+      <button onclick="admLogin()"
+        style="width:100%;padding:12px;background:#2A1F5C;color:#fff;border:none;border-radius:4px;font-size:15px;font-family:'Noto Sans KR',sans-serif;font-weight:500;cursor:pointer;">
+        로그인
+      </button>
+    </div>
+  </div>
+
+  <!-- 대시보드 본문 -->
+  <div id="adm-body" style="display:none;">
+
+    <!-- 상단 바 -->
+    <div style="background:#2A1F5C;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <span style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:700;color:#fff;">📊 관리자 대시보드</span>
+        <span id="adm-updated" style="font-size:12px;color:rgba(255,255,255,.5);">로딩 중...</span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="admLoadAll()" style="padding:7px 16px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:3px;color:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">↻ 새로고침</button>
+        <button onclick="admLogout()" style="padding:7px 16px;background:transparent;border:1px solid rgba(255,255,255,.2);border-radius:3px;color:rgba(255,255,255,.6);font-size:13px;font-family:'Noto Sans KR',sans-serif;cursor:pointer;">로그아웃</button>
+      </div>
+    </div>
+
+    <!-- 탭 네비 -->
+    <div style="background:#fff;border-bottom:2px solid #e0e0e0;padding:0 28px;display:flex;gap:0;overflow-x:auto;">
+      <button class="adm-tab active" onclick="admTab('apply',this)">📋 특강신청 <span class="adm-nb" id="atb-apply">0</span></button>
+      <button class="adm-tab" onclick="admTab('visit',this)">🌿 방문등록 <span class="adm-nb" id="atb-visit">0</span></button>
+      <button class="adm-tab" onclick="admTab('career',this)">🎯 희망진로 <span class="adm-nb" id="atb-career">0</span></button>
+      <button class="adm-tab" onclick="admTab('question',this)">🌸 사전질문 <span class="adm-nb" id="atb-question">0</span></button>
+      <button class="adm-tab" onclick="admTab('goodq',this)">✨ 좋은질문 <span class="adm-nb" id="atb-goodq">0</span></button>
+      <button class="adm-tab" onclick="admTab('concern',this)">💭 고민분석 <span class="adm-nb" id="atb-concern">0</span></button>
+      <button class="adm-tab" onclick="admTab('survey',this)">⭐ 만족도 <span class="adm-nb" id="atb-survey">0</span></button>
+    </div>
+
+    <!-- 콘텐츠 패널 -->
+    <div style="padding:28px;max-width:1200px;margin:0 auto;">
+
+      <div id="adm-apply" class="adm-panel">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">특강 신청 목록</h3>
+          <button class="adm-dl-btn" onclick="admDL('apply')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-apply-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+      <div id="adm-visit" class="adm-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">방문 등록 목록</h3>
+          <button class="adm-dl-btn" onclick="admDL('visit')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-visit-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+      <div id="adm-career" class="adm-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">희망 진로 입력 내역</h3>
+          <button class="adm-dl-btn" onclick="admDL('career')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-career-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+      <div id="adm-question" class="adm-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">사전 질문 전체 목록</h3>
+          <button class="adm-dl-btn" onclick="admDL('question')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-question-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+      <div id="adm-goodq" class="adm-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">좋은 질문 모음</h3>
+          <button class="adm-dl-btn" onclick="admDL('goodq')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-goodq-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+      <div id="adm-concern" class="adm-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">고민 유형 분석</h3>
+          <button class="adm-dl-btn" onclick="admDL('concern')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-concern-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+      <div id="adm-survey" class="adm-panel" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;">
+          <h3 class="adm-title">만족도 설문 결과</h3>
+          <button class="adm-dl-btn" onclick="admDL('survey')">📥 엑셀 다운로드</button>
+        </div>
+        <div id="adm-survey-body"><div class="adm-loading">로딩 중...</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.adm-tab{padding:13px 18px;border:none;background:none;font-size:14px;font-family:'Noto Sans KR',sans-serif;color:#888;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .15s;}
+.adm-tab:hover{color:#2A1F5C;}
+.adm-tab.active{color:#2A1F5C;font-weight:700;border-bottom-color:#2A1F5C;}
+.adm-nb{display:inline-block;background:#EDE8FA;color:#2A1F5C;font-size:11px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px;}
+.adm-tab.active .adm-nb{background:#2A1F5C;color:#fff;}
+.adm-title{font-size:18px;font-weight:700;color:#111;}
+.adm-dl-btn{padding:8px 18px;border:1px solid #2E7D52;border-radius:3px;background:#fff;font-size:13px;font-family:'Noto Sans KR',sans-serif;color:#2E7D52;cursor:pointer;font-weight:500;transition:all .15s;}
+.adm-dl-btn:hover{background:#2E7D52;color:#fff;}
+.adm-panel{display:block;}
+.adm-tbl{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1px solid #e0e0e0;border-radius:4px;overflow:hidden;}
+.adm-tbl th{text-align:left;padding:11px 14px;font-size:11px;font-weight:700;letter-spacing:1px;color:#888;border-bottom:2px solid #e0e0e0;background:#f7f7f7;white-space:nowrap;}
+.adm-tbl td{padding:13px 14px;border-bottom:1px solid #f0f0f0;color:#111;vertical-align:top;line-height:1.6;}
+.adm-tbl tr:last-child td{border-bottom:none;}
+.adm-tbl tr:hover td{background:#fafafa;}
+.adm-loading{text-align:center;padding:48px;color:#aaa;font-size:15px;}
+.adm-empty{text-align:center;padding:48px;color:#aaa;font-size:14px;border:1px dashed #e0e0e0;border-radius:4px;background:#fff;}
+</style>
+
+<script>
+(function(){
+const ADM_PW = '0324';
+const ADM_CONCERNS = [
+  {id:'c0',emoji:'📚',label:'학습 습관',sub:'자기주도학습 부족'},
+  {id:'c1',emoji:'🏫',label:'고교 선택',sub:'고등학교 유형 고민'},
+  {id:'c2',emoji:'👫',label:'교우 관계',sub:'친구 관계·갈등'},
+  {id:'c3',emoji:'📋',label:'대입 변화',sub:'입시 제도 이해'},
+  {id:'c4',emoji:'🎯',label:'진로 탐색',sub:'꿈·적성 발견'},
+  {id:'c5',emoji:'💬',label:'대화 단절',sub:'부모-자녀 소통'},
+  {id:'c6',emoji:'💰',label:'사교육비',sub:'학원·과외 부담'},
+  {id:'c7',emoji:'📱',label:'스마트폰',sub:'미디어·게임 과몰입'},
+  {id:'c8',emoji:'😟',label:'학교 부적응',sub:'등교 거부·무기력'},
+  {id:'c9',emoji:'🌱',label:'성적 불안',sub:'내신·시험 스트레스'},
+];
+let _aData = {};
+let _aTimer = null;
+
+window.admLogin = function(){
+  if(document.getElementById('adm-pw').value === ADM_PW){
+    document.getElementById('adm-lock').style.display = 'none';
+    document.getElementById('adm-body').style.display = 'block';
+    document.getElementById('adm-err').style.display = 'none';
+    admLoadAll();
+    if(_aTimer) clearInterval(_aTimer);
+    _aTimer = setInterval(admLoadAll, 30000);
+  } else {
+    document.getElementById('adm-err').style.display = 'block';
+  }
+};
+window.admLogout = function(){
+  document.getElementById('adm-lock').style.display = 'block';
+  document.getElementById('adm-body').style.display = 'none';
+  document.getElementById('adm-pw').value = '';
+  if(_aTimer){ clearInterval(_aTimer); _aTimer = null; }
+};
+
+async function aFetch(table){
+  try{
+    const res = await fetch(SUPA_URL+'/rest/v1/'+table+'?order=created_at.desc',{
+      headers:{apikey:SUPA_KEY,Authorization:'Bearer '+SUPA_KEY,Accept:'application/json'}
+    });
+    if(!res.ok){ console.error('aFetch',table,res.status); return []; }
+    const d = await res.json();
+    return Array.isArray(d)?d:[];
+  }catch(e){ console.error('aFetch',table,e); return []; }
+}
+
+window.admLoadAll = async function(){
+  const upd = document.getElementById('adm-updated');
+  if(upd) upd.textContent = '불러오는 중...';
+  const [applies,visits,careers,questions,boardQs,qbQs,concerns,surveys] = await Promise.all([
+    aFetch('applies'),aFetch('visits'),aFetch('careers'),
+    aFetch('questions'),aFetch('board_questions'),aFetch('qb_questions'),
+    aFetch('concerns'),aFetch('surveys')
+  ]);
+  const allQ = [...questions,...boardQs];
+  _aData = {applies,visits,careers,allQ,qbQs,concerns,surveys};
+
+  const nb = (id,n)=>{ const el=document.getElementById(id); if(el) el.textContent=n; };
+  nb('atb-apply',applies.length); nb('atb-visit',visits.length);
+  nb('atb-career',careers.length); nb('atb-question',allQ.length);
+  nb('atb-goodq',qbQs.length); nb('atb-concern',concerns.length); nb('atb-survey',surveys.length);
+
+  const now = new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+  if(upd) upd.textContent = '업데이트: '+now+' · 총 '+(applies.length+visits.length+careers.length+allQ.length+surveys.length)+'건';
+
+  rApply(applies); rVisit(visits); rCareer(careers);
+  rQuestion(allQ); rGoodQ(qbQs); rConcern(concerns); rSurvey(surveys);
+};
+
+window.admTab = function(name,btn){
+  document.querySelectorAll('.adm-panel').forEach(p=>p.style.display='none');
+  document.querySelectorAll('.adm-tab').forEach(b=>b.classList.remove('active'));
+  const panel = document.getElementById('adm-'+name);
+  if(panel) panel.style.display='block';
+  btn.classList.add('active');
+};
+
+function tbl(headers, rows){
+  if(!rows.length) return '<div class="adm-empty">내역이 없습니다.</div>';
+  return '<div style="overflow-x:auto"><table class="adm-tbl"><thead><tr>'+
+    headers.map(h=>'<th>'+h+'</th>').join('')+'</tr></thead><tbody>'+
+    rows.map(r=>'<tr>'+r.map(v=>'<td>'+(v||'—')+'</td>').join('')+'</tr>').join('')+
+    '</tbody></table></div>';
+}
+function ts(v){ return (v||'').slice(0,19).replace('T',' '); }
+
+function rApply(data){
+  const el=document.getElementById('adm-apply-body'); if(!el) return;
+  el.innerHTML=tbl(['#','학부모','자녀','학년','반','연락처','접수일시'],
+    data.map((d,i)=>[data.length-i,d.parent,d.child,d.grade,d.class_,d.phone,ts(d.created_at)]));
+}
+function rVisit(data){
+  const el=document.getElementById('adm-visit-body'); if(!el) return;
+  el.innerHTML=tbl(['#','학부모','자녀','학년','반','접수일시'],
+    data.map((d,i)=>[data.length-i,d.parent,d.child,d.grade,d.class_,ts(d.created_at)]));
+}
+function rCareer(data){
+  const el=document.getElementById('adm-career-body'); if(!el) return;
+  el.innerHTML=tbl(['#','학부모','자녀','학년','반','희망고교','희망대학','희망학과','희망직업','접수일시'],
+    data.map((d,i)=>[data.length-i,d.parent,d.child,d.grade,d.class_,d.school,d.univ,d.major,d.dream,ts(d.created_at)]));
+}
+function rQuestion(data){
+  const el=document.getElementById('adm-question-body'); if(!el) return;
+  if(!data.length){ el.innerHTML='<div class="adm-empty">사전 질문 내역이 없습니다.</div>'; return; }
+  el.innerHTML=data.map((d,i)=>{
+    const q=d.question||d.content||'—';
+    const who=d.parent||d.name||'익명';
+    const info=(d.grade?d.grade+' '+(d.class_||''):'')+(d.child?' · 자녀: '+d.child:'');
+    const type=d.question?'게시판':'모달';
+    return '<div style="background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:16px;margin-bottom:10px;">'+
+      '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;font-size:13px;">'+
+        '<span style="color:#aaa">'+(data.length-i)+'번</span>'+
+        '<strong>'+who+'</strong>'+
+        (info?'<span style="background:#f0f0f0;padding:2px 8px;border-radius:3px;">'+info+'</span>':'')+
+        '<span style="background:#EDE8FA;color:#2A1F5C;padding:2px 8px;border-radius:3px;">'+type+'</span>'+
+        '<span style="color:#aaa">'+ts(d.created_at)+'</span>'+
+      '</div>'+
+      '<div style="font-size:15px;line-height:1.8;padding:12px;background:#f7f7f7;border-left:3px solid #7B5EA7;border-radius:3px;">'+q+'</div>'+
+    '</div>';
+  }).join('');
+}
+function rGoodQ(data){
+  const el=document.getElementById('adm-goodq-body'); if(!el) return;
+  if(!data.length){ el.innerHTML='<div class="adm-empty">공유된 좋은 질문이 없습니다.</div>'; return; }
+  el.innerHTML=data.map(d=>{
+    let kws=[]; try{kws=JSON.parse(d.keywords||'[]');}catch(e){}
+    return '<div style="background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:16px;margin-bottom:10px;">'+
+      '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;font-size:13px;">'+
+        '<span style="background:'+(d.topic_bg||'#f0f0f0')+';color:'+(d.topic_color||'#333')+';padding:3px 10px;border-radius:3px;font-weight:700;">'+(d.topic||'—')+'</span>'+
+        '<strong>'+(d.name||'익명')+'</strong>'+
+        '<span style="color:#aaa">'+(d.created_at||'').slice(0,10)+'</span>'+
+      '</div>'+
+      '<div style="font-size:15px;line-height:1.8;margin-bottom:8px;">'+(d.question||'')+'</div>'+
+      (kws.length?'<div>'+kws.map(k=>'<span style="font-size:12px;background:#f0f0f0;padding:2px 8px;border-radius:3px;margin-right:4px;">#'+k+'</span>').join('')+'</div>':'')+
+    '</div>';
+  }).join('');
+}
+function rConcern(rows){
+  const el=document.getElementById('adm-concern-body'); if(!el) return;
+  const counts={}; ADM_CONCERNS.forEach(c=>counts[c.id]=0);
+  rows.forEach(r=>{ if(counts[r.concern_id]!==undefined) counts[r.concern_id]++; });
+  const total=rows.length;
+  const maxV=Math.max(...Object.values(counts),1);
+  const sorted=[...ADM_CONCERNS].sort((a,b)=>counts[b.id]-counts[a.id]);
+  el.innerHTML='<div style="margin-bottom:14px;font-size:13px;color:#888;">총 <strong style="color:#111">'+total+'명</strong> 응답</div>'+
+    sorted.map(c=>{
+      const v=counts[c.id]; const pct=Math.round(v/maxV*100);
+      return '<div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">'+
+        '<span style="font-size:20px;width:28px;text-align:center;">'+c.emoji+'</span>'+
+        '<span style="width:90px;font-size:13px;font-weight:500;color:#333;flex-shrink:0;">'+c.label+'</span>'+
+        '<div style="flex:1;background:#e8e8e8;border-radius:3px;height:22px;overflow:hidden;">'+
+          '<div style="height:100%;width:'+pct+'%;background:#7B5EA7;border-radius:3px;display:flex;align-items:center;padding-left:8px;">'+
+            (v>0?'<span style="font-size:11px;font-weight:700;color:#fff;">'+v+'명</span>':'')+
+          '</div></div>'+
+        '<span style="width:32px;font-size:13px;color:#aaa;text-align:right;flex-shrink:0;">'+v+'</span>'+
+      '</div>';
+    }).join('');
+}
+function rSurvey(data){
+  const el=document.getElementById('adm-survey-body'); if(!el) return;
+  if(!data.length){ el.innerHTML='<div class="adm-empty">만족도 설문 응답이 없습니다.</div>'; return; }
+  const avg=(data.reduce((a,d)=>a+(Number(d.score)||0),0)/data.length).toFixed(1);
+  el.innerHTML='<div style="background:#fff;border:1px solid #e0e0e0;border-radius:4px;padding:20px;margin-bottom:20px;">'+
+    '<span style="font-size:32px;font-weight:700;color:#111;">'+avg+'점</span> '+
+    '<span style="font-size:14px;color:#888;">평균 ('+data.length+'명)</span></div>'+
+    data.map(d=>{
+      const who=d.parent||'익명';
+      const info=(d.grade?d.grade+' '+(d.class_||''):'')+(d.child?' · 자녀: '+d.child:'');
+      return '<div style="background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:16px;margin-bottom:10px;">'+
+        '<div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;font-size:13px;">'+
+          '<strong>'+who+'</strong>'+
+          (info?'<span style="background:#f0f0f0;padding:2px 8px;border-radius:3px;">'+info+'</span>':'')+
+          '<span style="font-size:16px;">'+'⭐'.repeat(Number(d.score)||0)+'</span>'+
+          '<span style="color:#aaa">'+ts(d.created_at)+'</span>'+
+        '</div>'+
+        (d.content?'<div style="margin-bottom:8px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">강의 의견</div><div style="font-size:14px;line-height:1.7;padding:10px;background:#f7f7f7;border-radius:3px;">'+d.content+'</div></div>':'')+
+        (d.topic?'<div style="margin-bottom:8px;"><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">다음 주제</div><div style="font-size:14px;line-height:1.7;padding:10px;background:#f7f7f7;border-radius:3px;">'+d.topic+'</div></div>':'')+
+        (d.suggest?'<div><div style="font-size:11px;font-weight:700;color:#888;margin-bottom:4px;">제안사항</div><div style="font-size:14px;line-height:1.7;padding:10px;background:#f7f7f7;border-radius:3px;">'+d.suggest+'</div></div>':'')+
+      '</div>';
+    }).join('');
+}
+
+// ── 엑셀 다운로드 ──
+function aCSV(headers,rows){
+  const BOM='\uFEFF';
+  const esc=v=>{ if(v==null)return''; const s=String(v).replace(/"/g,'""'); return /[,\n\r"]/.test(s)?'"'+s+'"':s; };
+  return BOM+[headers.map(esc).join(','),...rows.map(r=>r.map(esc).join(','))].join('\r\n');
+}
+function aDL(filename,csv){
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=filename; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function aToday(){ return new Date().toISOString().slice(0,10).replace(/-/g,''); }
+
+window.admDL = function(type){
+  const t=aToday();
+  if(type==='apply') aDL('특강신청_'+t+'.csv',aCSV(['#','학부모','자녀','학년','반','연락처','접수일시'],(_aData.applies||[]).map((r,i)=>[i+1,r.parent,r.child,r.grade,r.class_,r.phone,ts(r.created_at)])));
+  else if(type==='visit') aDL('방문등록_'+t+'.csv',aCSV(['#','학부모','자녀','학년','반','접수일시'],(_aData.visits||[]).map((r,i)=>[i+1,r.parent,r.child,r.grade,r.class_,ts(r.created_at)])));
+  else if(type==='career') aDL('희망진로_'+t+'.csv',aCSV(['#','학부모','자녀','학년','반','희망고교','희망대학','희망학과','희망직업','접수일시'],(_aData.careers||[]).map((r,i)=>[i+1,r.parent,r.child,r.grade,r.class_,r.school,r.univ,r.major,r.dream,ts(r.created_at)])));
+  else if(type==='question') aDL('사전질문_'+t+'.csv',aCSV(['#','학부모','자녀','학년','반','질문내용','구분','접수일시'],(_aData.allQ||[]).map((r,i)=>[i+1,r.parent||r.name||'익명',r.child||'',r.grade||'',r.class_||'',r.question||r.content||'',r.question?'게시판':'모달',ts(r.created_at)])));
+  else if(type==='goodq') aDL('좋은질문_'+t+'.csv',aCSV(['#','이름','주제','질문','키워드','접수일시'],(_aData.qbQs||[]).map((r,i)=>{ let k=[]; try{k=JSON.parse(r.keywords||'[]');}catch(e){} return [i+1,r.name||'익명',r.topic||'',r.question||'',k.join(', '),ts(r.created_at)]; })));
+  else if(type==='concern'){ const c={}; ADM_CONCERNS.forEach(x=>c[x.id]=0); (_aData.concerns||[]).forEach(r=>{if(c[r.concern_id]!==undefined)c[r.concern_id]++;}); aDL('고민분석_'+t+'.csv',aCSV(['고민유형','설명','응답수'],ADM_CONCERNS.map(x=>[x.label,x.sub,c[x.id]]))); }
+  else if(type==='survey') aDL('만족도설문_'+t+'.csv',aCSV(['#','학부모','자녀','학년','반','점수','강의의견','다음주제','제안사항','접수일시'],(_aData.surveys||[]).map((r,i)=>[i+1,r.parent||'익명',r.child||'',r.grade||'',r.class_||'',r.score||'',r.content||'',r.topic||'',r.suggest||'',ts(r.created_at)])));
+};
+})();
+</script>
+
 <footer class="pfooter">
   <div class="orn"><div class="orn-line orn-line-l"></div><span style="font-size:14px;color:rgba(255,255,255,.7);line-height:1">✿</span><span style="font-size:10px;color:rgba(255,255,255,.4);line-height:1">✾</span><span style="font-size:14px;color:rgba(255,255,255,.7);line-height:1">✿</span><div class="orn-line orn-line-r"></div></div>
   <div style="margin-top:16px">
@@ -2301,17 +2644,17 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 
       <!-- 희망 고교 -->
       <label class="modal-label">🏫 희망 고교</label>
-      <input class="modal-inp" id="c-school" placeholder="예) 일반고, 과학고, 외고, 아직 모르겠어요..."/>
+      <input class="modal-inp" id="c-school" placeholder="예) 일반고, 과학고, 외고"/>
 
       <!-- 희망 대학 + 학과 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:4px;">
         <div>
           <label class="modal-label">🏛️ 희망 대학</label>
-          <textarea class="modal-ta" id="c-univ" placeholder="예) 서울대, 연세대, 카이스트, 세종대, 전문대, 아직 모르겠어요..." style="min-height:90px;"></textarea>
+          <textarea class="modal-ta" id="c-univ" placeholder="예) 서울대, 연세대, 카이스트, 세종대, 전문대" style="min-height:90px;"></textarea>
         </div>
         <div>
           <label class="modal-label">🎓 희망 학과 (복수 입력 가능)</label>
-          <textarea class="modal-ta" id="c-major" placeholder="예) 심리학과, 사회복지학과, 디자인학과, 아직 모르겠어요..." style="min-height:90px;"></textarea>
+          <textarea class="modal-ta" id="c-major" placeholder="예) 심리학과, 사회복지학과, 디자인학과" style="min-height:90px;"></textarea>
         </div>
       </div>
 
