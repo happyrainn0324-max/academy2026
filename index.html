@@ -1345,20 +1345,16 @@ async function submitForm(e){
   if(!name||!q)return;
   const displayName = userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모';
   const displayGrade = userSession ? userSession.grade : document.getElementById('f-grade').value;
-  // 즉시 로컬에 추가
-  questions = [{id: Date.now(), name: displayName, grade: displayGrade, category:'', question: q, selected:false}, ...questions];
-  document.getElementById('f-name').value='';
-  document.getElementById('f-q').value='';
-  boardPage=1;
-  renderBoard(); renderSelected(); updateCounts();
-  const s=document.getElementById('form-success');
-  s.style.display='block';
-  setTimeout(()=>s.style.display='none',3500);
-  // DB에 저장 후 실제 ID로 갱신
   await supaInsert('board_questions',{
     name: displayName, grade: displayGrade, question: q,
     selected: false, session_parent: userSession?.parent||null
   });
+  document.getElementById('f-name').value='';
+  document.getElementById('f-q').value='';
+  const s=document.getElementById('form-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',3500);
+  boardPage=1;
   await loadBoard();
 }
 
@@ -1369,20 +1365,16 @@ async function submitFormTop(e){
   if(!name||!q)return;
   const displayName = userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모';
   const displayGrade = userSession ? userSession.grade : document.getElementById('ft-grade').value;
-  // 즉시 로컬에 추가
-  questions = [{id: Date.now(), name: displayName, grade: displayGrade, category:'', question: q, selected:false}, ...questions];
-  document.getElementById('ft-name').value='';
-  document.getElementById('ft-q').value='';
-  boardPage=1;
-  renderBoard(); renderSelected(); updateCounts();
-  const s=document.getElementById('form-top-success');
-  s.style.display='block';
-  setTimeout(()=>s.style.display='none',3500);
-  // DB에 저장 후 실제 ID로 갱신
   await supaInsert('board_questions',{
     name: displayName, grade: displayGrade, question: q,
     selected: false, session_parent: userSession?.parent||null
   });
+  document.getElementById('ft-name').value='';
+  document.getElementById('ft-q').value='';
+  const s=document.getElementById('form-top-success');
+  s.style.display='block';
+  setTimeout(()=>s.style.display='none',3500);
+  boardPage=1;
   await loadBoard();
 }
 
@@ -1616,42 +1608,12 @@ async function submitQBuilder() {
   const name = userSession
     ? (userSession.parent + ' (' + userSession.grade + ' ' + userSession.class_ + ')')
     : '익명';
-
-  // 즉시 로컬에 추가해서 바로 표시
-  const newCard = {
-    id: null,
-    created_at: new Date().toISOString(),
-    topic: t.label.replace('\n',' '),
-    question: q,
-    keywords: JSON.stringify([...qbSelectedKws]),
-    name: name,
-    border_color: t.itemBorder,
-    topic_bg: t.itemTopicBg,
-    topic_color: t.itemTopicColor,
-    topic_border_c: t.itemTopicBorder,
-    kw_bg: t.itemKwBg,
-    kw_color: t.itemKwColor,
-    kw_border_c: t.itemKwBorder
-  };
-  qbAllRows = [newCard, ...qbAllRows];
-  qbPage = 1;
-  renderQBPage();
-
-  ta.value = '';
-  ta.placeholder = '선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요...';
-  qbSelectedKws = [];
-  renderQBKeywords();
-
-  const s = document.getElementById('qb-success');
-  s.style.display = 'block';
-  setTimeout(() => s.style.display = 'none', 3000);
-
-  // 백그라운드로 DB 저장 후 실제 데이터로 갱신
+  const kws = [...qbSelectedKws];
   await supaInsert('qb_questions', {
     topic_idx: qbSelectedTopic,
     topic: t.label.replace('\n',' '),
     question: q,
-    keywords: JSON.stringify([...qbSelectedKws.length ? qbSelectedKws : JSON.parse(newCard.keywords)]),
+    keywords: JSON.stringify(kws),
     name: name,
     border_color: t.itemBorder,
     topic_bg: t.itemTopicBg,
@@ -1661,10 +1623,14 @@ async function submitQBuilder() {
     kw_color: t.itemKwColor,
     kw_border_c: t.itemKwBorder
   });
+  ta.value = '';
+  ta.placeholder = '선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요...';
+  qbSelectedKws = [];
+  renderQBKeywords();
+  qbPage = 1;
   await loadQBWall();
-  // success 메시지는 이미 표시 중이므로 중복 방지
-  const s2 = document.getElementById('qb-success');
-  s2.style.display = 'block';
+  const s = document.getElementById('qb-success');
+  s.style.display = 'block';
   setTimeout(() => s.style.display = 'none', 3000);
 }
 
@@ -1707,22 +1673,12 @@ function getSampleCards() {
 let qbAllRows = [];
 
 async function loadQBWall() {
-  const wall = document.getElementById('qb-wall');
-
-  // 1. 즉시 샘플 카드 먼저 표시
-  qbAllRows = getSampleCards();
+  const rows = await supaSelect('qb_questions');
+  qbAllRows = (Array.isArray(rows) && rows.length) ? rows : getSampleCards();
+  qbPage = 1;
   renderQBPage();
-
-  // 2. 백그라운드로 DB 조회 후 실제 데이터로 교체
-  try {
-    const rows = await supaSelect('qb_questions');
-    if (Array.isArray(rows) && rows.length) {
-      qbAllRows = rows;
-      qbPage = 1;
-      renderQBPage();
-    }
-  } catch(e) {}
 }
+
 
 function renderQBPage() {
   const wall = document.getElementById('qb-wall');
@@ -2280,7 +2236,7 @@ async function supaInsert(table, data){
   try{
     const res = await fetch(`${SUPA_URL}/rest/v1/${table}`, {
       method:'POST',
-      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=representation'},
+      headers:{'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Prefer':'return=minimal'},
       body:JSON.stringify(data)
     });
     if(!res.ok){
@@ -2288,8 +2244,7 @@ async function supaInsert(table, data){
       console.error('supaInsert ['+table+'] error:', err);
       return null;
     }
-    const result = await res.json();
-    return Array.isArray(result) ? result[0] : result;
+    return true;
   }catch(e){console.error('supaInsert exception:',e);return null;}
 }
 
