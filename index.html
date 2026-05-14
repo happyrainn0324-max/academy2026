@@ -95,6 +95,8 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .ph-btn-pink:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(216,88,128,.4);}
 .ph-btn-lavender{font-family:var(--fb);font-size:15px;font-weight:500;color:#fff;background:linear-gradient(135deg,#9878C8 0%,#B8A0E0 100%);padding:20px 20px;border:none;border-radius:30px;cursor:pointer;letter-spacing:0.3px;transition:all .25s;box-shadow:0 6px 22px rgba(152,120,200,.28);white-space:nowrap;}
 .ph-btn-lavender:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(152,120,200,.38);}
+.ph-btn-lpink{font-family:var(--fb);font-size:15px;font-weight:500;color:#fff;background:linear-gradient(135deg,#E8956A 0%,#F0A878 100%);padding:20px 20px;border:none;border-radius:30px;cursor:pointer;letter-spacing:0.3px;transition:all .25s;box-shadow:0 6px 22px rgba(232,149,106,.3);white-space:nowrap;}
+.ph-btn-lpink:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(232,149,106,.4);}
 
 /* ORN DIVIDER */
 .orn{display:flex;align-items:center;gap:10px;padding:4px 0;}
@@ -183,7 +185,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 /* MOBILE */
 @media(max-width:640px){
   /* NAV */
-  .pn-in{padding:0 16px;height:54px;}
+  .pn-in{padding:0 16px;height:54px;justify-content:space-between;}
   .pn-sub,.pn-rule{display:none;}
   .pn-main{font-size:13px;}
   .pn-btn{font-size:11px;padding:5px 7px;}
@@ -196,7 +198,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   .ph-title{font-size:clamp(26px,7vw,36px);line-height:1.45;letter-spacing:0.2px;margin-bottom:14px;word-break:keep-all;overflow-wrap:break-word;}
   .ph-desc{font-size:14px;line-height:1.9;margin-bottom:24px;word-break:keep-all;overflow-wrap:break-word;}
   .ph-cta{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .ph-btn-p,.ph-btn-o,.ph-btn-pink,.ph-btn-lavender{text-align:center;padding:13px 10px;font-size:14px;border-radius:14px;}
+  .ph-btn-p,.ph-btn-o,.ph-btn-pink,.ph-btn-lavender,.ph-btn-lpink{text-align:center;padding:0 10px;font-size:14px;border-radius:14px;height:54px;display:flex;align-items:center;justify-content:center;box-sizing:border-box;}
 
   /* SECTIONS */
   .ps{padding:32px 16px;}
@@ -325,7 +327,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .qb-topic-card:not(.on){opacity:.75;filter:saturate(.7) brightness(.97);}
 .qb-topic-card:not(.on):hover{opacity:.95;filter:saturate(.9) brightness(1);}
 .qb-tc-emoji{font-size:28px;display:block;margin-bottom:10px;line-height:1;}
-.qb-tc-label{font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;line-height:1.5;word-break:keep-all;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.2);letter-spacing:-0.2px;}
+.qb-tc-label{font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;line-height:1.5;word-break:keep-all;color:#1A1040;text-shadow:none;letter-spacing:-0.2px;}
 .qb-tc-num{display:none;}
 
 /* 주제별 색상 — 솜사탕 파스텔 */
@@ -475,7 +477,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
         학부모님의 사전 질문을 받아<br/>좋은 질문 10개를 선정하고 도서를 선물합니다.<br/>선정된 질문은 아카데미 강의와 상담 주제로 연결됩니다.
       </p>
       <div class="ph-cta">
-        <button class="ph-btn-o" onclick="openModal('modal-apply')">📋 특강신청</button>
+        <button class="ph-btn-lpink" onclick="openModal('modal-apply')">📋 특강신청</button>
         <button class="ph-btn-pink" onclick="openModal('modal-career')">🎯 희망진로</button>
         <button class="ph-btn-lavender" onclick="openModal('modal-visit')">🌿 방문등록</button>
         <button class="ph-btn-p" onclick="openModal('modal-survey')">📝 만족도 설문</button>
@@ -1286,11 +1288,7 @@ function deleteQuestion(id){
   questions = questions.filter(q => q.id !== id);
   renderBoard(); renderSelected(); updateCounts();
 }
-function deleteQBQuestion(idx){
-  if(!confirm('이 질문을 삭제하시겠습니까?')) return;
-  qbQuestions = qbQuestions.filter((_,i) => i !== idx);
-  renderQBWall();
-}
+// deleteQBQuestion → deleteQBQuestionDB 로 대체됨
 function goBoardPage(p){
   boardPage=p;
   renderBoard();
@@ -1567,57 +1565,77 @@ function toggleQBKw(k) {
   }
 }
 
-function submitQBuilder() {
+async function submitQBuilder() {
   const ta = document.getElementById('qb-ta');
   const q = ta.value.trim();
   if (!q) { ta.focus(); return; }
   if (qbSelectedTopic === null) { alert('주제를 먼저 선택해 주세요.'); return; }
   const t = qbTopics[qbSelectedTopic];
-  qbQuestions = [...qbQuestions, {
-    id: Date.now(),
-    topicIdx: qbSelectedTopic,
+  const name = userSession
+    ? (userSession.parent + ' (' + userSession.grade + ' ' + userSession.class_ + ')')
+    : '익명';
+  await supaInsert('qb_questions', {
+    topic_idx: qbSelectedTopic,
     topic: t.label.replace('\n',' '),
     question: q,
-    keywords: [...qbSelectedKws],
-    name: '익명',
-    time: new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'}),
-    colors: { border: t.itemBorder, topicBg: t.itemTopicBg, topicColor: t.itemTopicColor, topicBorderC: t.itemTopicBorder, kwBg: t.itemKwBg, kwColor: t.itemKwColor, kwBorderC: t.itemKwBorder }
-  }];
+    keywords: JSON.stringify([...qbSelectedKws]),
+    name: name,
+    border_color: t.itemBorder,
+    topic_bg: t.itemTopicBg,
+    topic_color: t.itemTopicColor,
+    topic_border_c: t.itemTopicBorder,
+    kw_bg: t.itemKwBg,
+    kw_color: t.itemKwColor,
+    kw_border_c: t.itemKwBorder
+  });
   ta.value = '';
   ta.placeholder = '선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요...';
   qbSelectedKws = [];
   renderQBKeywords();
-  renderQBWall();
+  await loadQBWall();
   const s = document.getElementById('qb-success');
   s.style.display = 'block';
   setTimeout(() => s.style.display = 'none', 3000);
 }
 
-function renderQBWall() {
+async function loadQBWall() {
   const wall = document.getElementById('qb-wall');
-  const k = (document.getElementById('qb-search-inp') ? document.getElementById('qb-search-inp').value || '' : '').trim().toLowerCase();
-  const filtered = k ? qbQuestions.filter(q => q.question.toLowerCase().includes(k) || q.topic.toLowerCase().includes(k)) : qbQuestions;
-  if (!filtered.length) {
+  wall.innerHTML = '<div class="qb-empty">불러오는 중... 🌸</div>';
+  const rows = await supaSelect('qb_questions');
+  if (!Array.isArray(rows) || !rows.length) {
     wall.innerHTML = '<div class="qb-empty" id="qb-empty">아직 공유된 질문이 없습니다.<br/>첫 번째 질문을 남겨보세요 🌸</div>';
     return;
   }
-  wall.innerHTML = filtered.map((q,idx) => {
-    const c = q.colors;
-    const origIdx = qbQuestions.indexOf(q);
-    return `<div class="qb-item" style="border-top-color:${c.border};position:relative;">
-      <button onclick="deleteQBQuestion(${origIdx})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
-      <span class="qb-item-topic" style="background:${c.topicBg};color:${c.topicColor};border-color:${c.topicBorderC};">${q.topic}</span>
-      <p class="qb-item-q" style="padding-right:24px;">${q.question}</p>
-      ${q.keywords.length ? `<div class="qb-item-kws">${q.keywords.map(k=>`<span class="qb-item-kw" style="background:${c.kwBg};color:${c.kwColor};border-color:${c.kwBorderC};">#${k}</span>`).join('')}</div>` : ''}
-      <div class="qb-item-foot">${(q.name || '익명').replace('○○', '○○○')} · ${q.time}</div>
+  wall.innerHTML = rows.map((r) => {
+    const kws = (() => { try { return JSON.parse(r.keywords||'[]'); } catch(e){ return []; } })();
+    const time = r.created_at ? r.created_at.slice(11,16) : '';
+    return `<div class="qb-item" style="border-top-color:${r.border_color||'#C8BCEE'};position:relative;">
+      <button onclick="deleteQBQuestionDB(${r.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+      <span class="qb-item-topic" style="background:${r.topic_bg||'rgba(200,188,238,.15)'};color:${r.topic_color||'var(--accent)'};border-color:${r.topic_border_c||'rgba(200,188,238,.4)'};">${r.topic||''}</span>
+      <p class="qb-item-q" style="padding-right:24px;">${r.question||''}</p>
+      ${kws.length ? `<div class="qb-item-kws">${kws.map(k=>`<span class="qb-item-kw" style="background:${r.kw_bg||''};color:${r.kw_color||''};border-color:${r.kw_border_c||''};">#${k}</span>`).join('')}</div>` : ''}
+      <div class="qb-item-foot">${r.name||'익명'} · ${time}</div>
     </div>`;
   }).join('');
 }
 
+async function deleteQBQuestionDB(id) {
+  if (!confirm('이 질문을 삭제하시겠습니까?')) return;
+  try {
+    await fetch(`${SUPA_URL}/rest/v1/qb_questions?id=eq.${id}`, {
+      method: 'DELETE',
+      headers: {'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY}
+    });
+  } catch(e) {}
+  await loadQBWall();
+}
+
+function renderQBWall() { loadQBWall(); }
+
 // 초기 렌더
 renderQBTopicTabs();
 renderQBKeywords();
-renderQBWall();
+loadQBWall();
 
 renderPrograms();renderSelected();renderBoard();renderFlows();updateCounts();
 
