@@ -1095,13 +1095,16 @@ function rQuestion(data){
   if(!data.length){ el.innerHTML='<div class="adm-empty">사전 질문 내역이 없습니다.</div>'; return; }
   el.innerHTML=data.map((d,i)=>{
     const q=d.question||d.content||'—';
-    const who=d.parent||d.name||'익명';
-    const info=(d.grade?d.grade+' '+(d.class_||''):'')+(d.child?' · 자녀: '+d.child:'');
+    const who=d.parent||d.session_parent||d.name||'익명';
+    const grade=d.grade||'';
+    const cls=d.class_||'';
+    const child=d.child||'';
+    const info=(grade?grade+(cls?' '+cls:''):'')+(child?' · 자녀: '+child:'');
     const type=d.question?'게시판':'모달';
     return '<div style="background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:16px;margin-bottom:10px;">'+
       '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;font-size:13px;">'+
         '<span style="color:#aaa">'+(data.length-i)+'번</span>'+
-        '<strong>'+who+'</strong>'+
+        '<strong style="font-size:14px;">'+who+'</strong>'+
         (info?'<span style="background:#f0f0f0;padding:2px 8px;border-radius:3px;">'+info+'</span>':'')+
         '<span style="background:#EDE8FA;color:#2A1F5C;padding:2px 8px;border-radius:3px;">'+type+'</span>'+
         '<span style="color:#aaa">'+ts(d.created_at)+'</span>'+
