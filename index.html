@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>2026학년도 학부모 진로진학 아카데미 — 인천공항중학교</title>
 <meta property="og:title" content="2026학년도 학부모 진로진학 아카데미 — 인천공항중학교"/>
 <meta property="og:description" content="질문으로 발견하는 자녀의 꿈과 진로 · 인천공항중학교 학부모 진로진학 아카데미"/>
@@ -14,6 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&family=Gowun+Batang:wght@400;700&family=Hahmlet:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:100%;}
 :root{
   --o1:#E8703A;--o2:#F09060;--o3:#F8B888;
   --p1:#D85880;--p2:#E888A8;--p3:#F5C0D0;
@@ -779,6 +780,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
       <div class="qb-wall-grid" id="qb-wall">
         <div class="qb-empty" id="qb-empty">아직 공유된 질문이 없습니다.<br/>첫 번째 질문을 남겨보세요 🌸</div>
       </div>
+      <div id="qb-pagination" style="display:flex;justify-content:center;align-items:center;gap:6px;margin-top:28px;flex-wrap:wrap;"></div>
     </div>
 
   </div>
@@ -795,18 +797,47 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   </div>
 </section>
 
-<!-- 질문으로 자녀의 꿈과 진로 찾기 섹션 -->
+<!-- 함께 여는 진로 질문 섹션 -->
 <style>
+/* PC: 3열 펼침 */
 #cq-grid-static { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; align-items:stretch; }
 #cq-grid-static > div { height:100%; box-sizing:border-box; }
 @media(max-width:900px){#cq-grid-static{grid-template-columns:repeat(2,1fr)!important;}}
-@media(max-width:640px){#cq-grid-static{grid-template-columns:1fr!important;}}
+
+/* 모바일: 플립 아코디언 */
+@media(max-width:640px){
+  #cq-grid-static{ grid-template-columns:1fr!important; gap:10px!important; }
+  .cq-flip-card { background:#fff; border-radius:16px; border:1px solid #C8BCEE; overflow:hidden; }
+  .cq-flip-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 18px; cursor:pointer; user-select:none;
+    background:#fff; transition:background .18s;
+  }
+  .cq-flip-header:active{ background:#EDE8FA; }
+  .cq-flip-header-left{ display:flex; align-items:center; gap:12px; }
+  .cq-flip-num{ font-family:'Playfair Display',serif; font-style:italic; font-size:20px; font-weight:600; opacity:.7; }
+  .cq-flip-title{ font-family:'Noto Serif KR',serif; font-size:15px; font-weight:700; color:#2A1F5C; }
+  .cq-flip-btn{
+    font-family:'Noto Sans KR',sans-serif; font-size:12px; font-weight:500;
+    padding:5px 12px; border-radius:20px; border:none; cursor:pointer;
+    white-space:nowrap; transition:all .2s;
+    background:linear-gradient(135deg,var(--nv5),#EDE8FA); color:var(--nv2);
+  }
+  .cq-flip-header.open .cq-flip-btn{
+    background:linear-gradient(135deg,var(--nv2),var(--accent)); color:#fff;
+  }
+  .cq-flip-body{ display:none; padding:0 18px 16px; border-top:1px solid #EDE8FA; }
+  .cq-flip-body.open{ display:block; }
+  /* PC 전용 요소 모바일에서 숨김 */
+  #cq-grid-static > div > div:first-child,
+  #cq-grid-static > div > div:nth-child(2){ display:none; }
+}
 </style>
 <section style="background:linear-gradient(155deg,#EDE8FA 0%,#F0EBF8 40%,#FBE8F0 75%,#FDF4EE 100%);padding:64px 0;">
   <div class="ps" style="padding-top:0;padding-bottom:0;">
     <div style="text-align:center;margin-bottom:40px;">
       <span class="ps-label ps-label-p" style="display:block;text-align:center;">Check Questions</span>
-      <h2 class="ps-title" style="text-align:center;">질문으로 자녀의 꿈과 진로 찾기</h2>
+      <h2 class="ps-title" style="text-align:center;">함께 여는 진로 질문</h2>
       <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;text-align:center;margin-top:6px;line-height:1.9;word-break:keep-all;">
         <span class="cq-sub-pc">학부모와 자녀가 함께하는 진로설계를 위한 질문을 주제별로 모았습니다.</span>
         <span class="cq-sub-mob" style="display:none;">학부모와 자녀가 함께하는<br/>진로설계를 위한 질문을<br/>주제별로 모았습니다.</span>
@@ -830,6 +861,71 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  if(window.innerWidth > 640) return; // 모바일에서만 실행
+
+  const cards = document.querySelectorAll('#cq-grid-static > div');
+  cards.forEach(function(card){
+    // 헤더 영역 (번호+제목 div) 추출
+    const topBar = card.querySelector('div:nth-child(1)'); // 색 바
+    const headerDiv = card.querySelector('div:nth-child(2)'); // 번호+제목
+    const bodyDiv = card.querySelector('div:nth-child(3)');   // 질문 목록
+
+    if(!headerDiv || !bodyDiv) return;
+
+    const numEl = headerDiv.querySelector('div:first-child');
+    const titleEl = headerDiv.querySelector('div:last-child');
+    const num = numEl ? numEl.textContent : '';
+    const title = titleEl ? titleEl.textContent : '';
+
+    // 카드 색상 (top bar 그라디언트 추출)
+    const barStyle = topBar ? topBar.style.background : '';
+    const colorMatch = barStyle.match(/#[0-9A-Fa-f]{6}/);
+    const accentColor = colorMatch ? colorMatch[0] : '#8878C8';
+
+    // 플립 구조로 재조립
+    card.innerHTML = '';
+    card.classList.add('cq-flip-card');
+    card.style.border = '1px solid ' + accentColor + '44';
+
+    const header = document.createElement('div');
+    header.className = 'cq-flip-header';
+    header.innerHTML = '<div class="cq-flip-header-left">'
+      + '<span class="cq-flip-num" style="color:'+accentColor+';">'+num+'</span>'
+      + '<span class="cq-flip-title">'+title+'</span>'
+      + '</div>'
+      + '<button class="cq-flip-btn">질문 열어보기</button>';
+
+    const body = document.createElement('div');
+    body.className = 'cq-flip-body';
+    body.appendChild(bodyDiv);
+
+    header.addEventListener('click', function(){
+      const isOpen = body.classList.toggle('open');
+      header.classList.toggle('open', isOpen);
+      header.querySelector('.cq-flip-btn').textContent = isOpen ? '질문 닫기' : '질문 열어보기';
+      // top bar 색상 표시
+      if(!card.querySelector('.cq-top-bar')){
+        const bar = document.createElement('div');
+        bar.className = 'cq-top-bar';
+        bar.style.cssText = 'height:3px;background:'+barStyle+';position:absolute;top:0;left:0;right:0;';
+        card.style.position = 'relative';
+        card.insertBefore(bar, card.firstChild);
+      }
+    });
+
+    card.appendChild(header);
+    card.appendChild(body);
+  });
+
+  // 리사이즈 시 PC로 전환되면 페이지 리로드
+  window.addEventListener('resize', function(){
+    if(window.innerWidth > 640) location.reload();
+  });
+})();
+</script>
 
 <!-- ── 운영 주제 상세 모달 ── -->
 <div class="topic-modal-overlay" id="modal-topic" onclick="if(event.target===this)closeTopicModal()">
@@ -950,14 +1046,12 @@ const topics=[
   {title:"변화하는 대입제도 이해",desc:"대입 전형 변화와 학생부·수능·면접 준비의\n큰 흐름을 학부모 눈높이로 정리합니다.",num:"05"},
   {title:"최근 대입 뉴스 브리핑",desc:"최근 진학 이슈를 선별해 가정에서\n확인해야 할 핵심 질문으로 바꿉니다.",num:"06"},
 ];
-let questions=[
-  {id:1,name:"김○○ 학부모",grade:"1학년",category:"중학생활",question:"아이가 중학교에 올라와 스스로 공부하는 습관을 만들려면 부모는 어떤 질문을 해주는 것이 좋을까요?",selected:false},
-  {id:2,name:"박○○ 학부모",grade:"2학년",category:"고입준비",question:"고등학교 선택을 앞두고 성적보다 먼저 확인해야 할 진로 관련 기준은 무엇인가요?",selected:false},
-  {id:3,name:"이○○○ 학부모",grade:"3학년",category:"대입제도",question:"고교학점제에서 과목 선택이 대입에 어떤 영향을 주는지 중학생 부모가 미리 알아야 할 점은 무엇인가요?",selected:false},
-];
+let questions=[];
 let adminMode=false;
 let boardPage=1;
-const BOARD_PER_PAGE=15;
+const BOARD_PER_PAGE=5;
+const QB_PER_PAGE=5;
+let qbPage=1;
 const flows=["학부모 사전 질문 접수","질문 분석 및 강의 주제 반영","좋은 질문 10개 선정","도서 선물 및 아카데미 운영","질의응답 자료 공유"];
 
 function go(id,btn){
@@ -1035,7 +1129,7 @@ async function toggleConcern(id){
     chip.querySelector('.concern-chip-label').style.color='#fff';
     chip.querySelector('.concern-chip-sub').style.color='rgba(255,255,255,.8)';
     try {
-      await supaInsert('concerns', { concern_id: id, session_id: getSessionId() });
+      await supaInsert('concerns', { concern_id: id, session_id: getSessionId(), session_parent: userSession?.parent||null });
     } catch(e){}
   }
   localStorage.setItem('mySelections', JSON.stringify([...mySelections]));
@@ -1232,17 +1326,27 @@ function renderSelected(){
   document.getElementById('selected-list-top').innerHTML=html;
 }
 
-function renderBoard(){
-  const k=(document.getElementById('search-inp')?document.getElementById('search-inp').value||'':'').trim().toLowerCase();
-  const filtered=k
-    ?questions.filter(q=>q.question.toLowerCase().includes(k)||q.grade.toLowerCase().includes(k)||q.name.toLowerCase().includes(k))
-    :questions;
+async function loadBoard(){
+  const rows = await supaSelect('board_questions');
+  questions = Array.isArray(rows) ? rows.map(r=>({
+    id: r.id,
+    name: r.name||'익명',
+    grade: r.grade||'',
+    category: r.category||'',
+    question: r.question||'',
+    selected: r.selected||false
+  })) : [];
+  renderBoard();
+  renderSelected();
+  updateCounts();
+}
 
-  const total=filtered.length;
+function renderBoard(){
+  const total=questions.length;
   const totalPages=Math.max(1,Math.ceil(total/BOARD_PER_PAGE));
   if(boardPage>totalPages) boardPage=totalPages;
   const start=(boardPage-1)*BOARD_PER_PAGE;
-  const pageItems=filtered.slice(start,start+BOARD_PER_PAGE);
+  const pageItems=questions.slice(start,start+BOARD_PER_PAGE);
 
   const badge=document.getElementById('board-total-badge');
   if(badge) badge.textContent=`총 ${total}개 질문`;
@@ -1253,7 +1357,7 @@ function renderBoard(){
   listEl.innerHTML=pageItems.length
     ?pageItems.map(q=>`
       <div class="pb-card" style="margin-bottom:12px;position:relative;">
-        <button onclick="deleteQuestion(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+        <button onclick="deleteQuestionDB(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge ${q.grade==='1학년'?'pb-badge-1':q.grade==='2학년'?'pb-badge-2':q.grade==='3학년'?'pb-badge-3':''}">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
@@ -1283,10 +1387,15 @@ function renderBoard(){
   pgEl.innerHTML=pgHtml;
 }
 
-function deleteQuestion(id){
+async function deleteQuestionDB(id){
   if(!confirm('이 질문을 삭제하시겠습니까?')) return;
-  questions = questions.filter(q => q.id !== id);
-  renderBoard(); renderSelected(); updateCounts();
+  try{
+    await fetch(`${SUPA_URL}/rest/v1/board_questions?id=eq.${id}`,{
+      method:'DELETE',
+      headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+    });
+  }catch(e){}
+  await loadBoard();
 }
 // deleteQBQuestion → deleteQBQuestionDB 로 대체됨
 function goBoardPage(p){
@@ -1314,34 +1423,46 @@ function toggle(id){
   renderBoard();renderSelected();updateCounts();
 }
 
-function submitForm(e){
+async function submitForm(e){
   e.preventDefault();
   const name=document.getElementById('f-name').value.trim();
   const q=document.getElementById('f-q').value.trim();
   if(!name||!q)return;
-  questions=[{id:Date.now(),name:name[0]+'○○ 학부모',grade:document.getElementById('f-grade').value,category:'',question:q,selected:false},...questions];
+  await supaInsert('board_questions',{
+    name: userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모',
+    grade: userSession ? userSession.grade : document.getElementById('f-grade').value,
+    question: q,
+    selected: false,
+    session_parent: userSession?.parent||null
+  });
   document.getElementById('f-name').value='';
   document.getElementById('f-q').value='';
   const s=document.getElementById('form-success');
   s.style.display='block';
   setTimeout(()=>s.style.display='none',3500);
   boardPage=1;
-  renderBoard();renderSelected();updateCounts();
+  await loadBoard();
 }
 
-function submitFormTop(e){
+async function submitFormTop(e){
   e.preventDefault();
   const name=document.getElementById('ft-name').value.trim();
   const q=document.getElementById('ft-q').value.trim();
   if(!name||!q)return;
-  questions=[{id:Date.now(),name:name[0]+'○○ 학부모',grade:document.getElementById('ft-grade').value,category:'',question:q,selected:false},...questions];
+  await supaInsert('board_questions',{
+    name: userSession ? userSession.parent+' ('+userSession.grade+' '+userSession.class_+')' : name[0]+'○○○ 학부모',
+    grade: userSession ? userSession.grade : document.getElementById('ft-grade').value,
+    question: q,
+    selected: false,
+    session_parent: userSession?.parent||null
+  });
   document.getElementById('ft-name').value='';
   document.getElementById('ft-q').value='';
   const s=document.getElementById('form-top-success');
   s.style.display='block';
   setTimeout(()=>s.style.display='none',3500);
   boardPage=1;
-  renderBoard();renderSelected();updateCounts();
+  await loadBoard();
 }
 
 function unlockAdmin(){
@@ -1592,25 +1713,22 @@ async function submitQBuilder() {
   ta.placeholder = '선택한 키워드를 활용해 자녀의 진로와 진학에 관한 질문을 써보세요...';
   qbSelectedKws = [];
   renderQBKeywords();
+  qbPage = 1;
   await loadQBWall();
   const s = document.getElementById('qb-success');
   s.style.display = 'block';
   setTimeout(() => s.style.display = 'none', 3000);
 }
 
-async function loadQBWall() {
-  const wall = document.getElementById('qb-wall');
-  wall.innerHTML = '<div class="qb-empty">불러오는 중... 🌸</div>';
-  const rows = await supaSelect('qb_questions');
-  if (!Array.isArray(rows) || !rows.length) {
-    wall.innerHTML = '<div class="qb-empty" id="qb-empty">아직 공유된 질문이 없습니다.<br/>첫 번째 질문을 남겨보세요 🌸</div>';
-    return;
-  }
-  wall.innerHTML = rows.map((r) => {
+function renderQBCards(rows) {
+  return rows.map((r) => {
     const kws = (() => { try { return JSON.parse(r.keywords||'[]'); } catch(e){ return []; } })();
-    const time = r.created_at ? r.created_at.slice(11,16) : '';
+    const time = r.created_at ? r.created_at.slice(0,10) : '';
+    const delBtn = r.id
+      ? `<button onclick="deleteQBQuestionDB(${r.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>`
+      : '';
     return `<div class="qb-item" style="border-top-color:${r.border_color||'#C8BCEE'};position:relative;">
-      <button onclick="deleteQBQuestionDB(${r.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>
+      ${delBtn}
       <span class="qb-item-topic" style="background:${r.topic_bg||'rgba(200,188,238,.15)'};color:${r.topic_color||'var(--accent)'};border-color:${r.topic_border_c||'rgba(200,188,238,.4)'};">${r.topic||''}</span>
       <p class="qb-item-q" style="padding-right:24px;">${r.question||''}</p>
       ${kws.length ? `<div class="qb-item-kws">${kws.map(k=>`<span class="qb-item-kw" style="background:${r.kw_bg||''};color:${r.kw_color||''};border-color:${r.kw_border_c||''};">#${k}</span>`).join('')}</div>` : ''}
@@ -1618,6 +1736,75 @@ async function loadQBWall() {
     </div>`;
   }).join('');
 }
+
+// 샘플 데이터를 렌더용 객체로 변환
+function getSampleCards() {
+  return qbQuestions.map(q => ({
+    id: null,
+    created_at: new Date().toISOString(),
+    topic: q.topic,
+    question: q.question,
+    keywords: JSON.stringify(q.keywords),
+    name: q.name,
+    border_color: q.colors.border,
+    topic_bg: q.colors.topicBg,
+    topic_color: q.colors.topicColor,
+    topic_border_c: q.colors.topicBorderC,
+    kw_bg: q.colors.kwBg,
+    kw_color: q.colors.kwColor,
+    kw_border_c: q.colors.kwBorderC
+  }));
+}
+
+let qbAllRows = [];
+
+async function loadQBWall() {
+  const wall = document.getElementById('qb-wall');
+
+  // 1. 즉시 샘플 카드 먼저 표시
+  qbAllRows = getSampleCards();
+  renderQBPage();
+
+  // 2. 백그라운드로 DB 조회 후 실제 데이터로 교체
+  try {
+    const rows = await supaSelect('qb_questions');
+    if (Array.isArray(rows) && rows.length) {
+      qbAllRows = rows;
+      qbPage = 1;
+      renderQBPage();
+    }
+  } catch(e) {}
+}
+
+function renderQBPage() {
+  const wall = document.getElementById('qb-wall');
+  const pgEl = document.getElementById('qb-pagination');
+  const total = qbAllRows.length;
+  const totalPages = Math.max(1, Math.ceil(total / QB_PER_PAGE));
+  if (qbPage > totalPages) qbPage = totalPages;
+  const start = (qbPage - 1) * QB_PER_PAGE;
+  const pageItems = qbAllRows.slice(start, start + QB_PER_PAGE);
+
+  wall.innerHTML = pageItems.length ? renderQBCards(pageItems)
+    : '<div class="qb-empty" id="qb-empty">아직 공유된 질문이 없습니다.<br/>첫 번째 질문을 남겨보세요 🌸</div>';
+
+  if (!pgEl) return;
+  if (totalPages <= 1) { pgEl.innerHTML = ''; return; }
+  let pgHtml = `<button class="pg-btn" onclick="goQBPage(${qbPage-1})" ${qbPage===1?'disabled':''}>‹</button>`;
+  for (let i=1; i<=totalPages; i++) {
+    pgHtml += `<button class="pg-btn${i===qbPage?' on':''}" onclick="goQBPage(${i})">${i}</button>`;
+  }
+  pgHtml += `<button class="pg-btn" onclick="goQBPage(${qbPage+1})" ${qbPage===totalPages?'disabled':''}>›</button>`;
+  pgEl.innerHTML = pgHtml;
+}
+
+function goQBPage(p) {
+  qbPage = p;
+  renderQBPage();
+  document.getElementById('qb-wall')?.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+
 
 async function deleteQBQuestionDB(id) {
   if (!confirm('이 질문을 삭제하시겠습니까?')) return;
@@ -1637,9 +1824,9 @@ renderQBTopicTabs();
 renderQBKeywords();
 loadQBWall();
 
-renderPrograms();renderSelected();renderBoard();renderFlows();updateCounts();
+renderPrograms();renderFlows();loadBoard();
 
-// 질문으로 자녀의 꿈과 진로 찾기 섹션 렌더
+// 함께 여는 진로 질문 섹션 렌더
 (function(){
   var el = document.getElementById('cq-all');
   if(!el) return;
@@ -1948,13 +2135,14 @@ async function renderAdminDash(){
   const allIds = ['admin-main-list','admin-question-list','admin-visit-list','admin-career-list','admin-survey-list'];
   allIds.forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML='<p class="admin-empty">불러오는 중...</p>'; });
 
-  const [applies, questions_list, visits, careers, surveys] = await Promise.all([
-    supaSelect('applies'), supaSelect('questions'), supaSelect('visits'), supaSelect('careers'), supaSelect('surveys')
+  const [applies, questions_list, visits, careers, surveys, board_qs, qb_qs] = await Promise.all([
+    supaSelect('applies'), supaSelect('questions'), supaSelect('visits'), supaSelect('careers'), supaSelect('surveys'),
+    supaSelect('board_questions'), supaSelect('qb_questions')
   ]);
 
   const setC = (id,n) => { const el=document.getElementById(id); if(el) el.textContent=n; };
   setC('cnt-apply', applies.length);
-  setC('cnt-question', questions_list.length);
+  setC('cnt-question', questions_list.length + board_qs.length);
   setC('cnt-visit', visits.length);
   setC('cnt-career', careers.length);
   setC('cnt-survey', surveys.length);
@@ -1985,16 +2173,24 @@ async function renderAdminDash(){
   }
 
   // ── 사전질문 ──
+  // 사전질문: 모달 질문(questions) + 게시판 질문(board_questions) 합산
+  const all_questions = [
+    ...questions_list.map(d=>({...d, _src:'modal'})),
+    ...board_qs.map(d=>({...d, content: d.question, _src:'board'}))
+  ].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+
   const ql = document.getElementById('admin-question-list');
-  if(ql) ql.innerHTML = questions_list.length
-    ? questions_list.map((d,i) => {
-        const no = questions_list.length - i;
+  if(ql) ql.innerHTML = all_questions.length
+    ? all_questions.map((d,i) => {
+        const no = all_questions.length - i;
         const time = d.created_at?.slice(0,19).replace('T',' ') || '';
-        const qName = d.parent ? `${d.parent} (${d.grade||''} ${d.class_||''} · 자녀: ${d.child||''})` : '익명';
+        const qName = d.parent ? `${d.parent} (${d.grade||''} ${d.class_||''} · 자녀: ${d.child||''})` 
+                    : d.session_parent ? d.session_parent
+                    : d.name || '익명';
         return `<div style="background:rgba(255,255,255,.07);border:1px solid rgba(249,184,192,.25);border-radius:14px;padding:16px;margin-bottom:10px;">
-          <div style="font-family:var(--fb);font-size:10px;color:#E888A8;letter-spacing:1px;margin-bottom:8px;">${no}번 · ${time}</div>
+          <div style="font-family:var(--fb);font-size:10px;color:#E888A8;letter-spacing:1px;margin-bottom:8px;">${no}번 · ${time} · ${d._src==='board'?'게시판':'모달'}</div>
           <div style="font-family:var(--fb);font-size:12px;color:#C8BCEE;margin-bottom:8px;">👤 ${qName}</div>
-          <p style="font-family:var(--fk);font-size:14px;color:#EDE8FA;line-height:1.8;margin:0;">${d.content||'—'}</p>
+          <p style="font-family:var(--fk);font-size:14px;color:#EDE8FA;line-height:1.8;margin:0;">${d.content||d.question||'—'}</p>
         </div>`;
       }).join('')
     : '<p class="admin-empty">사전 질문 내역이 없습니다.</p>';
@@ -2158,12 +2354,16 @@ async function submitApply(){
   if(!document.getElementById('a-child').value.trim()||!document.getElementById('a-parent').value.trim()){
     alert('자녀 이름과 학부모 성명은 필수 입력 항목입니다.');return;
   }
+  const _ap = document.getElementById('a-parent').value.trim();
+  const _ac = document.getElementById('a-child').value.trim();
   await supaInsert('applies', {
     grade: document.getElementById('a-grade').value,
     class_: document.getElementById('a-class').value,
-    child: document.getElementById('a-child').value.trim(),
-    parent: document.getElementById('a-parent').value.trim(),
-    phone: document.getElementById('a-phone').value.trim()
+    child: _ac,
+    parent: _ap,
+    phone: document.getElementById('a-phone').value.trim(),
+    session_parent: userSession?.parent||null,
+    session_child: userSession?.child||null
   });
   showSuccess('modal-apply-form','modal-apply-success');
 }
@@ -2188,7 +2388,9 @@ async function submitVisit(){
     grade: document.getElementById('v-grade').value,
     class_: document.getElementById('v-class').value,
     child: document.getElementById('v-child').value.trim(),
-    parent: document.getElementById('v-parent').value.trim()
+    parent: document.getElementById('v-parent').value.trim(),
+    session_parent: userSession?.parent||null,
+    session_child: userSession?.child||null
   });
   showSuccess('modal-visit-form','modal-visit-success');
 }
