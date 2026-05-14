@@ -47,7 +47,7 @@ html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:1
   .lecturer-card{flex-direction:column!important;align-items:center!important;}
   .lecturer-info{width:100%!important;text-align:center;}
   .lecturer-info > div:first-child{justify-content:center!important;}
-  .lecturer-bio{text-align:left!important;margin-top:14px!important;font-size:19px!important;}
+  .lecturer-bio{text-align:center!important;margin-top:14px!important;font-size:19px!important;}
 
   .qb-sub-mob{display:none;}
   .qb-sub-pc{display:none!important;}
@@ -378,7 +378,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
   .sec-qbuilder{padding:36px 0;}
   .qb-block{margin-bottom:26px;}
   .qb-topic-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
-  .qb-tc-label{font-size:13px;}
+  .qb-tc-label{font-size:16px;}
   .qb-tc-emoji{font-size:22px;}
   .qb-kw{font-size:13px;padding:8px 15px;}
   .qb-ta{font-size:16px;}
@@ -586,7 +586,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
                 <span style="font-family:var(--fk);font-size:20px;font-weight:700;color:#2A1F5C;">정동완</span>
                 <span style="font-family:var(--fb);font-size:12px;font-weight:500;padding:3px 12px;border-radius:8px;background:rgba(248,184,136,.3);color:#A04010;border:1px solid rgba(248,184,136,.5);">진로진학 전문가</span>
               </div>
-              <p class="lecturer-bio" style="font-family:'Nanum Pen Script',cursive;font-size:23px;color:#3D3070;line-height:1.65;font-weight:400;letter-spacing:0.5px;word-break:keep-all;">학부모 진로진학 상담 전문가로<br/>다년간의 강의 경험을 바탕으로<br/>자녀의 꿈과 진로를 함께 설계합니다.</p>
+              <p class="lecturer-bio" style="font-family:'Nanum Pen Script',cursive;font-size:23px;color:#3D3070;line-height:1.65;font-weight:400;letter-spacing:0.5px;word-break:keep-all;text-align:center;">학부모 진로진학 상담 전문가로<br/>다년간의 강의 경험을 바탕으로<br/>자녀의 꿈과 진로를 함께 설계합니다.</p>
             </div>
           </div>
           <!-- 주요 이력 -->
@@ -1472,11 +1472,16 @@ function renderPrograms(){
   const pg=document.getElementById('prog-grid');
   if(!pg) return;
   pg.innerHTML=topics.map((t,i)=>`
-    <div class="pt-card" onclick="openTopicModal(${i})" style="cursor:pointer;">
-      <span class="pt-num">${t.num}</span>
-      <div class="pt-title">${t.title}</div>
-      <div class="pt-desc" style="word-break:keep-all;overflow-wrap:break-word;">${t.desc.replace(/\n/g,'<br>')}</div>
-      <div style="margin-top:16px;display:inline-block;font-family:var(--fb);font-size:12px;color:var(--accent);font-weight:500;letter-spacing:.3px;padding:5px 14px;border:1.5px solid var(--accent);border-radius:20px;transition:all .2s;">자세히 보기 →</div>
+    <div class="pt-card" style="cursor:default;">
+      <div onclick="openTopicModal(${i})" style="cursor:pointer;">
+        <span class="pt-num">${t.num}</span>
+        <div class="pt-title">${t.title}</div>
+        <div class="pt-desc" style="word-break:keep-all;overflow-wrap:break-word;">${t.desc.replace(/\n/g,'<br>')}</div>
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+        <div onclick="openTopicModal(${i})" style="display:inline-block;font-family:var(--fb);font-size:12px;color:var(--accent);font-weight:500;letter-spacing:.3px;padding:5px 14px;border:1.5px solid var(--accent);border-radius:20px;transition:all .2s;cursor:pointer;">자세히 보기 →</div>
+        <div onclick="openBookModal(${i})" style="display:inline-block;font-family:var(--fb);font-size:12px;color:#D85880;font-weight:500;letter-spacing:.3px;padding:5px 14px;border:1.5px solid #E888A8;border-radius:20px;transition:all .2s;cursor:pointer;background:rgba(248,184,200,.1);">📚 추천 도서 →</div>
+      </div>
     </div>`).join('');
 }
 
@@ -1610,6 +1615,97 @@ function closeTopicModal() {
   document.getElementById('modal-topic').classList.remove('show');
   document.body.style.overflow = '';
 }
+
+const bookData = [
+  {
+    topicTitle:"슬기로운 중학생활",
+    books:[
+      {title:"공부머리 독서법",author:"최승필",desc:"독서를 통해 공부 능력의 근본을 키우는 법을 알려주는 책. 중학생 자녀의 읽기 습관 형성을 위한 구체적인 방법을 제시합니다.",tag:"독서·학습"},
+      {title:"아이의 사생활",author:"EBS 아이의 사생활 제작팀",desc:"EBS 다큐멘터리 원작. 자기조절, 도덕성, 다중지능 등 청소년 발달 심리를 과학적으로 분석해 부모와 교사에게 실질적인 통찰을 줍니다.",tag:"청소년 심리"},
+      {title:"10대와 통하는 부모",author:"박재원",desc:"중학생 자녀와의 대화법과 관계 회복 방법을 담은 실용서. 사춘기 자녀를 둔 학부모에게 특히 추천합니다.",tag:"부모-자녀 관계"},
+      {title:"중학생활 끝판왕",author:"정동완",desc:"중학교 3년을 알차게 보내기 위한 생활·학습·진로 전략을 총망라한 실용서. 중학생 자녀를 둔 학부모가 자녀와 함께 읽으며 실천 계획을 세우기에 좋습니다.",tag:"중학 생활 전략"},
+      {title:"청소년 마음 수업",author:"김창오",desc:"중학생 시기의 정서 발달과 자존감 형성을 다룬 책. 자녀의 마음을 이해하려는 부모에게 따뜻한 가이드를 제공합니다.",tag:"정서·자존감"}
+    ]
+  },
+  {
+    topicTitle:"메타인지 학습전략",
+    books:[
+      {title:"최상위 0.1%의 공부법",author:"EBS 다큐프라임 제작팀",desc:"EBS가 검증한 상위권 학생들의 공통된 학습 전략. 메타인지와 인출 학습의 중요성을 과학적 근거로 설명합니다.",tag:"학습법"},
+      {title:"어떻게 공부할 것인가",author:"헨리 뢰디거·마크 맥대니얼·피터 브라운",desc:"인지심리학 연구를 바탕으로 효율적 학습의 원리를 밝힌 책. 시험 공부, 오답 노트, 분산 학습 등 검증된 방법을 소개합니다.",tag:"인지심리·학습과학"},
+      {title:"1만 시간의 재발견",author:"안데르스 에릭슨·로버트 풀",desc:"의식적 연습(Deliberate Practice)의 과학. 단순 반복이 아닌 피드백 기반 연습이 실력을 키운다는 것을 보여줍니다.",tag:"의식적 연습"},
+      {title:"공부 잘하는 아이들의 비밀",author:"류재준",desc:"국내 상위권 학생들의 학습 습관을 분석해 실천 가능한 공부법으로 정리한 책. 중학생에게 맞는 구체적인 루틴을 제안합니다.",tag:"습관·루틴"},
+      {title:"생각에 관한 생각",author:"대니얼 카너먼",desc:"노벨경제학상 수상자가 쓴 인간 사고 방식의 고전. 메타인지의 개념을 깊이 이해하고 싶은 학부모에게 추천합니다.",tag:"인지과학"}
+    ]
+  },
+  {
+    topicTitle:"고입 준비와 변화 이해",
+    books:[
+      {title:"고등학교 입시의 모든 것",author:"이만기",desc:"고입 전형 유형별 특징과 준비 전략을 총망라한 입시 가이드. 특목고·자사고·일반고 선택 기준을 명확하게 제시합니다.",tag:"고입 전략"},
+      {title:"입시 컨설턴트 엄마의 중학생 공부법",author:"박미경",desc:"입시 전문가이자 엄마의 시각에서 중학교 시기에 해야 할 것들을 구체적으로 안내합니다. 내신 관리와 비교과 활동을 균형 있게 다룹니다.",tag:"중학 로드맵"},
+      {title:"자사고 특목고 입시 전략",author:"이범",desc:"교육 평론가 이범이 자사고·특목고 입시의 실상과 전략을 분석한 책. 현실적인 시각으로 고교 선택의 득실을 짚어줍니다.",tag:"고교 선택"},
+      {title:"우리 아이 진로 로드맵",author:"한국진로교육학회",desc:"중학교부터 대학까지의 진로 설계를 단계별로 안내하는 실용서. 자녀와 함께 읽으며 진로 방향을 정하는 데 활용할 수 있습니다.",tag:"진로 설계"},
+      {title:"공부 못하는 아이는 없다",author:"김성효",desc:"아이의 적성과 강점을 발견하는 법을 담은 책. 성적보다 아이의 가능성을 먼저 보는 관점을 갖고 싶은 학부모에게 추천합니다.",tag:"적성·강점 발견"}
+    ]
+  },
+  {
+    topicTitle:"고교학점제 대입전략",
+    books:[
+      {title:"고교학점제 완전정복",author:"이만기·박권우",desc:"2025년 전면 시행 고교학점제의 핵심 내용을 학부모 눈높이에서 설명합니다. 과목 선택 전략과 대입 연계 방법을 구체적으로 안내합니다.",tag:"고교학점제"},
+      {title:"수시 완전정복",author:"김영일",desc:"학생부종합·교과·논술 전형의 특징과 준비 전략을 상세히 다룬 수시 바이블. 세특 관리와 자기소개서 작성법도 포함합니다.",tag:"수시 전략"},
+      {title:"학생부 세특의 모든 것",author:"교육과정평가원 연구진",desc:"학교생활기록부 세부능력 및 특기사항(세특)이 대입에서 어떻게 평가되는지 알 수 있는 책. 고교학점제 시대에 필수 도서입니다.",tag:"학생부 관리"},
+      {title:"진로 독서의 힘",author:"이은경",desc:"자녀의 진로와 연계한 독서 전략을 담은 책. 고교학점제 시대에 독서가 학생부와 면접에 어떻게 활용되는지 보여줍니다.",tag:"진로 독서"},
+      {title:"우리 아이 대학, 어떻게 보낼까",author:"신동원",desc:"대입 전반을 초보 학부모도 이해할 수 있게 정리한 입문서. 고교학점제부터 수시·정시까지 한 권으로 파악할 수 있습니다.",tag:"대입 입문"}
+    ]
+  },
+  {
+    topicTitle:"변화하는 대입제도 이해",
+    books:[
+      {title:"2028 대입 완전정복",author:"이치우",desc:"2028 수능 개편과 대입 구조 변화를 가장 체계적으로 정리한 책. 현재 중학생 학부모가 반드시 읽어야 할 입시 안내서입니다.",tag:"2028 대입"},
+      {title:"입시 바이블",author:"이범",desc:"수능·내신·학생부의 관계를 교육 철학적 관점까지 넓혀 분석합니다. 단순한 전략서를 넘어 입시 전반을 이해하는 데 도움을 줍니다.",tag:"입시 이해"},
+      {title:"수능 1등급의 비밀",author:"손정은",desc:"수능에서 최상위 등급을 받은 학생들의 공통점과 학습법을 분석합니다. 수능을 전략적으로 준비하는 방법을 구체적으로 제시합니다.",tag:"수능 전략"},
+      {title:"부모의 입시력",author:"박재원",desc:"입시를 대하는 부모의 태도와 전략적 사고를 다룬 책. 자녀의 입시를 지원하는 올바른 방법을 제시하며 과한 개입의 부작용도 경고합니다.",tag:"부모의 역할"},
+      {title:"대한민국 입시 지도",author:"이만기",desc:"한국 입시 제도의 전체 구조를 한눈에 볼 수 있는 종합 가이드. 제도 변화의 흐름을 이해하고 장기 전략을 세우는 데 유용합니다.",tag:"입시 제도"}
+    ]
+  },
+  {
+    topicTitle:"최근 대입 뉴스 브리핑",
+    books:[
+      {title:"의대 입시 완전정복",author:"안혜숙",desc:"의대 증원 이후 바뀐 의대 입시 전략을 총정리한 책. 의대 지망 자녀를 둔 학부모에게 가장 최신의 전략 정보를 제공합니다.",tag:"의대 입시"},
+      {title:"AI 시대 미래 직업 가이드",author:"박영숙·제롬 글렌",desc:"AI·반도체·데이터사이언스 등 미래 유망 분야와 직업을 탐색하는 책. 자녀의 진로 방향을 함께 고민하는 데 좋은 참고 자료입니다.",tag:"미래 직업"},
+      {title:"지방대 전성시대",author:"이광호",desc:"지역인재 전형과 지방 명문대의 실제를 소개하는 책. 지역 거주 학부모에게 현실적인 대학 선택의 시각을 넓혀줍니다.",tag:"지역인재·지방대"},
+      {title:"대입 트렌드",author:"진학사 입시전략연구소",desc:"매년 업데이트되는 입시 동향 분석서. 최신 경쟁률, 합격선, 전형 변화를 데이터 기반으로 분석해 실전 전략 수립에 도움을 줍니다.",tag:"입시 트렌드"},
+      {title:"공정한 입시는 없다",author:"김경범",desc:"입시 제도의 공정성 논란과 구조적 문제를 날카롭게 분석합니다. 입시를 다양한 시각으로 이해하고 싶은 학부모에게 추천합니다.",tag:"입시 사회학"}
+    ]
+  }
+];
+
+function openBookModal(idx) {
+  const d = bookData[idx];
+  const td = topicData[idx];
+  document.getElementById('book-modal-num').textContent = td.num;
+  document.getElementById('book-modal-title').textContent = '📚 ' + d.topicTitle + ' 추천 도서';
+  const html = d.books.map((b,i) => `
+    <div style="display:flex;gap:14px;align-items:flex-start;padding:16px;background:${i%2===0?'rgba(253,232,236,.35)':'rgba(255,255,255,.7)'};border-radius:14px;margin-bottom:10px;border:1px solid rgba(232,136,168,.2);">
+      <div style="flex-shrink:0;width:40px;height:54px;display:flex;align-items:center;justify-content:center;font-size:32px;line-height:1;">📚</div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px;">
+          <span style="font-family:var(--fk);font-size:17px;font-weight:700;color:var(--nv1);">${b.title}</span>
+          <span style="font-family:var(--fb);font-size:11px;padding:2px 9px;border-radius:10px;background:rgba(216,88,128,.12);color:#D85880;border:1px solid rgba(216,88,128,.25);white-space:nowrap;">${b.tag}</span>
+        </div>
+        <div style="font-family:var(--fb);font-size:14px;color:var(--nv4);font-weight:400;margin-bottom:6px;">저자: ${b.author}</div>
+        <div style="font-family:var(--fb);font-size:15px;color:#1a1a2e;line-height:1.8;font-weight:400;">${b.desc}</div>
+      </div>
+    </div>`).join('');
+  document.getElementById('book-modal-body').innerHTML = html;
+  document.getElementById('modal-book').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBookModal() {
+  document.getElementById('modal-book').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
 
 function renderSelected(){
   const sel=questions.filter(q=>q.selected).slice(0,10);
@@ -2772,5 +2868,18 @@ document.querySelectorAll('.modal-overlay').forEach(el=>{
 </div>
 
 
+
+<!-- ── 추천 도서 모달 ── -->
+<div class="topic-modal-overlay" id="modal-book" onclick="if(event.target===this)closeBookModal()" style="z-index:1001;">
+  <div class="topic-modal-box" style="max-width:600px;">
+    <div class="topic-modal-header" style="background:linear-gradient(135deg,#FDE8EC,#FBD8E0);">
+      <button class="topic-modal-close" onclick="closeBookModal()">✕</button>
+      <span class="topic-modal-num" id="book-modal-num"></span>
+      <h2 class="topic-modal-title" id="book-modal-title" style="color:var(--nv1);"></h2>
+      <p style="font-family:var(--fb);font-size:12px;color:var(--nv4);margin-top:4px;font-weight:300;">학부모가 읽으면 좋을 추천 도서 5권</p>
+    </div>
+    <div class="topic-modal-body" id="book-modal-body"></div>
+  </div>
+</div>
 </body>
 </html>
