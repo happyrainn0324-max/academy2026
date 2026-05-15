@@ -863,7 +863,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
 .faq-item.open .faq-q-arr{transform:rotate(180deg);}
 /* 2열 양렬 배치 */
 .faq-panel.on{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start;}
-.faq-a-body{display:none;padding:14px 20px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;color:#2A1F5C;line-height:1.95;font-weight:400;word-break:keep-all;border-top:1px solid #EDE8FA;column-count:1;}
+.faq-a-body{display:none;padding:14px 20px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;color:#2A1F5C;line-height:1.95;font-weight:400;word-break:keep-all;border-top:1px solid #EDE8FA;column-count:1;text-align:justify;}
 .faq-item.open .faq-a-body{display:block;}
 .faq-a-body strong{font-weight:700;color:#6040B0;}
 .faq-a-body em{font-style:normal;color:#7B5EA7;font-weight:600;background:rgba(184,168,232,.18);padding:1px 4px;border-radius:4px;}
@@ -1063,6 +1063,8 @@ function switchFaqTab(idx){
     p.classList.toggle('on', i===idx);
   });
 }
+// 페이지 로드 시 첫 번째 탭 색상 초기화
+document.addEventListener('DOMContentLoaded', function(){ switchFaqTab(0); });
 function toggleFaqItem(btn){
   const item=btn.closest('.faq-item');
   const isOpen=item.classList.contains('open');
