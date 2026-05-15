@@ -1468,6 +1468,30 @@ function renderConcernChart(){
 
 loadConcernCounts();
 
+// ── 실시간 동기화 (5초 폴링) ──────────────────────────────
+// 모든 브라우저·모바일에서 동일한 DB를 5초마다 조회해
+// 누구든 클릭하면 전체 화면에 자동 반영됩니다
+(function startConcernPolling(){
+  async function poll(){
+    try {
+      const res = await fetch(`${SUPA_URL}/rest/v1/concerns?select=concern_id`, {
+        headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY}
+      });
+      const rows = await res.json();
+      if(!Array.isArray(rows)) return;
+      const fresh = {};
+      rows.forEach(r => { fresh[r.concern_id] = (fresh[r.concern_id]||0) + 1; });
+      // 변화가 있을 때만 렌더링
+      const changed = concerns.some(c => (fresh[c.id]||0) !== (concernCounts[c.id]||0));
+      if(changed){
+        concernCounts = fresh;
+        renderConcernChart();
+      }
+    } catch(e){}
+  }
+  setInterval(poll, 5000);
+})();
+
 function renderPrograms(){
   const pg=document.getElementById('prog-grid');
   if(!pg) return;
