@@ -889,7 +889,17 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
     <div class="faq-head">
       <span class="ps-label ps-label-o" style="display:block;text-align:center;margin-bottom:6px;">FAQ</span>
       <h2 class="ps-title" style="text-align:center;font-size:clamp(20px,2.4vw,28px);">자주 묻는 질문 &amp; 진학 가이드</h2>
-      <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;margin-top:8px;text-align:center;line-height:1.9;word-break:keep-all;">6개 주제별로 학부모님이 가장 많이 궁금해하시는 질문과 답변을 모았습니다.</p>
+      <p style="font-family:var(--fb);font-size:15px;color:var(--nv4);font-weight:300;margin-top:8px;text-align:center;line-height:1.9;word-break:keep-all;">
+        <span class="faq-desc-pc">6개 주제별로 학부모님이 가장 많이 궁금해하시는 질문과 답변을 모았습니다.</span>
+        <span class="faq-desc-mob">6개 주제별로 학부모님이 가장 많이 궁금해하시는<br/>질문과 답변을 모았습니다.</span>
+      </p>
+      <style>
+        .faq-desc-mob{display:none;}
+        @media(max-width:640px){
+          .faq-desc-pc{display:none;}
+          .faq-desc-mob{display:inline;}
+        }
+      </style>
     </div>
 
     <!-- 주제 탭 버튼 -->
