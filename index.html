@@ -29,7 +29,7 @@ html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:1
 
 @media(max-width:640px){
   .sched-header{justify-content:center!important;text-align:center;flex-wrap:wrap!important;}
-  .sched-gift{flex-direction:row!important;gap:6px!important;padding:6px 10px!important;align-items:center!important;}
+  .sched-gift{flex-direction:row!important;gap:6px!important;padding:6px 10px!important;align-items:center!important;flex-shrink:0!important;align-self:flex-start!important;}
   .sched-left{align-items:center!important;text-align:center!important;}
   .sched-br{display:none;}
   /* 세션 셀 모바일 최적화 */
@@ -37,6 +37,9 @@ html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:1
   .sched-left{padding:10px 6px!important;}
   .sched-time{font-size:12px!important;}
   .sched-content{padding:12px 14px!important;font-size:14px!important;word-break:keep-all!important;}
+  /* 모바일 세션 내용 영역 */
+  .sched-row > div:last-child > div:first-child{padding:12px 14px 8px!important;}
+  .sched-row > div:last-child > div:last-child{margin:0 8px 8px!important;}
   /* 모바일에서 30분/90분 배지 숨기기 */
   .sched-duration-badge{display:none!important;}
   /* 세션 좌측 텍스트 크기 조정 */
@@ -531,7 +534,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
           </div>
         </div>
         <!-- 세션 행 1 -->
-        <div class="sched-row" style="display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid #F0D0C0;min-height:100px;">
+        <div class="sched-row" style="display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid #F0D0C0;">
           <div class="sched-left" style="background:#FDF0E8;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:6px;border-right:1px solid #E8C8B8;">
             <div style="display:flex;align-items:center;gap:7px;">
               <span class="sched-session-label" style="font-family:var(--fb);font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#B87860;">Session 1</span>
@@ -539,13 +542,16 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
             </div>
             <span class="sched-time-label" style="font-family:var(--fd);font-size:17px;font-weight:600;background:linear-gradient(135deg,var(--nv2),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">16:30 – 17:00</span>
           </div>
-          <div style="padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
-            <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-              <span style="font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--nv1);word-break:keep-all;line-height:1.5;">인천공항고등학교 알아보기</span>
+          <div style="display:flex;flex-direction:column;">
+            <!-- 상단: 제목 + 강사 -->
+            <div style="padding:16px 20px 12px;display:flex;flex-direction:column;gap:4px;flex:1;">
+              <span style="font-family:'Gowun Batang',serif;font-size:17px;font-weight:700;color:var(--nv1);word-break:keep-all;overflow-wrap:break-word;line-height:1.55;">고등학교 선택을 위한 진로진학설명회</span>
+              <span style="font-family:var(--fb);font-size:13px;font-weight:500;color:var(--nv3);word-break:keep-all;">인천공항고 정해영 교장선생님</span>
             </div>
-            <div class="sched-gift" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:linear-gradient(135deg,rgba(248,184,136,.12),rgba(245,192,208,.12));border:1px solid rgba(232,112,58,.25);border-radius:9px;padding:8px 14px;text-align:center;flex-shrink:0;">
-              <span style="font-size:16px;">🎁</span>
-              <span style="font-family:var(--fb);font-size:11px;color:var(--o1);font-weight:500;white-space:nowrap;">선착순 10분께 도서 증정</span>
+            <!-- 하단: 도서 증정 박스 (표 너비 전체) -->
+            <div style="margin:0 12px 12px;background:linear-gradient(135deg,rgba(248,184,136,.15),rgba(245,192,208,.15));border:1px solid rgba(232,112,58,.3);border-radius:8px;padding:8px 16px;display:flex;align-items:center;gap:8px;">
+              <span style="font-size:15px;flex-shrink:0;">🎁</span>
+              <span style="font-family:var(--fb);font-size:12px;color:var(--o1);font-weight:600;word-break:keep-all;">선착순 10분께 도서 증정</span>
             </div>
           </div>
         </div>
@@ -1078,7 +1084,7 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
           <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#F0858A,#D86878);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;">🎯</div>
           <div style="text-align:center;flex:1;">
             <div style="font-family:'Noto Serif KR',serif;font-size:15px;font-weight:700;color:#2A1F5C;margin-bottom:4px;">하이파이브</div>
-            <div style="font-family:'Noto Sans KR',sans-serif;font-size:12px;color:#8878B8;line-height:1.6;">진로·진학 정보<br>종합 포털</div>
+            <div style="font-family:'Noto Sans KR',sans-serif;font-size:12px;color:#8878B8;line-height:1.6;">특성화고<br>종합 포털</div>
           </div>
           <span style="font-family:'Noto Sans KR',sans-serif;font-size:11px;font-weight:600;color:#fff;background:linear-gradient(135deg,#F0858A,#D86878);padding:5px 14px;border-radius:20px;letter-spacing:.3px;margin-top:auto;">바로가기</span>
         </a>
