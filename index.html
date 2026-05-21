@@ -57,6 +57,12 @@ html{-webkit-text-size-adjust:100%;-moz-text-size-adjust:100%;text-size-adjust:1
   .qb-sub-mob{display:inline!important;}
   .mob-hide-txt{display:none!important;}
   .mob-show-txt{display:inline!important;}
+
+  /* 패들렛 버튼 모바일 */
+  .padlet-title-pc{display:none!important;}
+  .padlet-title-mob{display:block!important;}
+  .padlet-desc-pc{display:none!important;}
+  .padlet-desc-mob{display:block!important;}
 }
 html{scroll-behavior:smooth;}
 body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:hidden;}
@@ -1082,10 +1088,18 @@ body{font-family:var(--fb);background:var(--cream);color:var(--nv1);overflow-x:h
           onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 10px 30px rgba(123,94,167,.22)';this.style.borderColor='#9B8ED4';"
           onmouseout="this.style.transform='';this.style.boxShadow='0 2px 12px rgba(123,94,167,.10)';this.style.borderColor='#C8BCEE';">
           <div style="width:100%;">
-            <div style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:#2A1F5C;margin-bottom:8px;word-break:keep-all;text-align:center;">2026 인천시교육청 진로진학직업 관련 자료</div>
-            <div style="font-family:'Noto Sans KR',sans-serif;font-size:14px;color:#8878B8;line-height:1.8;text-align:center;">
-              <span style="display:block;word-break:keep-all;word-wrap:break-word;max-width:480px;margin:0 auto;">인천시교육청이 제공하는 진로·진학·직업 관련 자료 모음</span>
-              <span style="display:block;word-break:keep-all;word-wrap:break-word;max-width:420px;margin:0 auto;">(지역의사선발전형 안내, 2026 진로진학지도 길라잡이 등)</span>
+            <!-- PC 제목 -->
+            <div class="padlet-title-pc" style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:#2A1F5C;margin-bottom:8px;text-align:center;">2026 인천시교육청 진로진학직업 관련 자료</div>
+            <!-- 모바일 제목 -->
+            <div class="padlet-title-mob" style="display:none;font-family:'Noto Serif KR',serif;font-size:20px;font-weight:700;color:#2A1F5C;margin-bottom:8px;text-align:center;line-height:1.5;">2026 인천시교육청<br>진로진학직업 관련 자료</div>
+            <!-- PC 설명 -->
+            <div class="padlet-desc-pc" style="font-family:'Noto Sans KR',sans-serif;font-size:14px;color:#8878B8;line-height:1.8;text-align:center;">
+              <span style="display:block;">인천시교육청이 제공하는 진로·진학·직업 관련 자료 모음</span>
+              <span style="display:block;">(지역의사선발전형 안내, 2026 진로진학지도 길라잡이 등)</span>
+            </div>
+            <!-- 모바일 설명 -->
+            <div class="padlet-desc-mob" style="display:none;font-family:'Noto Sans KR',sans-serif;font-size:14px;color:#8878B8;line-height:2;text-align:center;">
+              인천시교육청이 제공하는<br>진로 진학 관련 자료 모음<br>지역의사선발전형 안내<br>2026 진로진학지도 길라잡이 등
             </div>
           </div>
           <span style="font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:600;color:#fff;background:linear-gradient(135deg,#7B5EA7,#D85880);padding:10px 26px;border-radius:20px;letter-spacing:.3px;">바로가기 →</span>
