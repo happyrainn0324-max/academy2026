@@ -1445,7 +1445,11 @@ function rQuestion(data){
   if(!data.length){ el.innerHTML='<div class="adm-empty">사전 질문 내역이 없습니다.</div>'; return; }
   el.innerHTML=data.map((d,i)=>{
     const q=d.question||d.content||'—';
-    const who=d.parent||d.session_parent||d.name||'익명';
+    const maskedName=d.parent||d.session_parent||d.name||'익명';
+    const realName=d.real_name||'';
+    const whoHtml=realName
+      ? `<strong style="font-size:14px;">${realName}</strong><span style="background:#EDE8FA;color:#7B5EA7;padding:2px 8px;border-radius:3px;font-size:12px;">${maskedName}</span>`
+      : `<strong style="font-size:14px;">${maskedName}</strong>`;
     const grade=d.grade||'';
     const cls=d.class_||'';
     const child=d.child||'';
@@ -1454,7 +1458,7 @@ function rQuestion(data){
     return '<div style="background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:16px;margin-bottom:10px;">'+
       '<div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;font-size:13px;">'+
         '<span style="color:#aaa">'+(data.length-i)+'번</span>'+
-        '<strong style="font-size:14px;">'+who+'</strong>'+
+        whoHtml+
         (info?'<span style="background:#f0f0f0;padding:2px 8px;border-radius:3px;">'+info+'</span>':'')+
         '<span style="background:#EDE8FA;color:#2A1F5C;padding:2px 8px;border-radius:3px;">'+type+'</span>'+
         '<span style="color:#aaa">'+ts(d.created_at)+'</span>'+
@@ -2102,6 +2106,7 @@ async function loadBoard(){
   questions = Array.isArray(rows) ? rows.map(r=>({
     id: r.id,
     name: r.name||'익명',
+    real_name: r.real_name||'',
     grade: r.grade||'',
     category: r.category||'',
     question: r.question||'',
@@ -2146,16 +2151,21 @@ function renderBoard(){
   listEl.innerHTML=pageItems.length
     ?pageItems.map(q=>{
       const isSample = q._sample;
-      const deleteBtn = isSample
-        ? `<button onclick="removeSampleCard(this)" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';" data-question="${q.question.replace(/"/g,'&quot;')}">✕</button>`
-        : `<button onclick="deleteQuestionDB(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>`;
+      const deleteBtnHtml = isSample
+        ? (_admLoggedIn ? `<button onclick="removeSampleCard(this)" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';" data-question="${q.question.replace(/"/g,'&quot;')}">✕</button>` : '')
+        : (_admLoggedIn ? `<button onclick="deleteQuestionDB(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>` : '');
+      const displayName = isSample
+        ? q.name
+        : _admLoggedIn
+          ? `<span style="background:rgba(123,94,167,.12);color:#7B5EA7;border-radius:4px;padding:1px 6px;font-weight:500;">${q.real_name||q.name}</span>`
+          : formatBoardName(q.name);
       return `
       <div class="pb-card" style="margin-bottom:12px;position:relative;">
-        ${deleteBtn}
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
+        ${deleteBtnHtml}
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;${_admLoggedIn?'padding-right:28px;':''}">
           <span class="pb-badge ${q.grade==='1학년'?'pb-badge-1':q.grade==='2학년'?'pb-badge-2':q.grade==='3학년'?'pb-badge-3':''}">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
-          <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${isSample?q.name:(_admLoggedIn?`<span style="background:rgba(123,94,167,.12);color:#7B5EA7;border-radius:4px;padding:1px 6px;font-weight:500;">${q.name}</span>`:formatBoardName(q.name))}</span>
+          <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${displayName}</span>
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">${q.question}</p>
       </div>`;
@@ -2272,10 +2282,11 @@ async function submitFormTop(e){
   try { sessionStorage.setItem('preQuestionParentName', name); } catch(e) {}
   const displayGrade = userSession ? userSession.grade : document.getElementById('ft-grade').value;
   const displayName = userSession ? userSession.parent[0]+'○ 학부모' : name[0]+'○ 학부모';
+  const realName = userSession ? userSession.parent : name;
   const category = document.getElementById('ft-category')?.value || '';
 
   // 즉시 화면에 추가
-  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, category: category, selected: false };
+  const newQ = { id: null, name: displayName, real_name: realName, grade: displayGrade, question: q, category: category, selected: false };
   questions = [newQ, ...questions];
   boardPage = 1;
   renderBoard();
@@ -2296,7 +2307,7 @@ async function submitFormTop(e){
   // DB 저장 (실패해도 화면은 이미 반영됨)
   try {
     await supaInsert('board_questions',{
-      name: displayName, grade: displayGrade, question: q, category: category,
+      name: displayName, real_name: realName, grade: displayGrade, question: q, category: category,
       selected: false
     });
   } catch(e) {}
