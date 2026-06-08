@@ -1350,23 +1350,28 @@ const ADM_CONCERNS = [
 let _aData = {};
 let _aTimer = null;
 
+let _admLoggedIn = false;
 window.admLogin = function(){
   if(document.getElementById('adm-pw').value === ADM_PW){
+    _admLoggedIn = true;
     document.getElementById('adm-lock').style.display = 'none';
     document.getElementById('adm-body').style.display = 'block';
     document.getElementById('adm-err').style.display = 'none';
     admLoadAll();
     if(_aTimer) clearInterval(_aTimer);
     _aTimer = setInterval(admLoadAll, 30000);
+    renderBoard(); // 게시판 이름 재렌더링
   } else {
     document.getElementById('adm-err').style.display = 'block';
   }
 };
 window.admLogout = function(){
+  _admLoggedIn = false;
   document.getElementById('adm-lock').style.display = 'block';
   document.getElementById('adm-body').style.display = 'none';
   document.getElementById('adm-pw').value = '';
   if(_aTimer){ clearInterval(_aTimer); _aTimer = null; }
+  renderBoard(); // 게시판 이름 다시 마스킹
 };
 
 async function aFetch(table){
@@ -2150,7 +2155,7 @@ function renderBoard(){
         <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;padding-right:28px;">
           <span class="pb-badge ${q.grade==='1학년'?'pb-badge-1':q.grade==='2학년'?'pb-badge-2':q.grade==='3학년'?'pb-badge-3':''}">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
-          <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${isSample?q.name:formatBoardName(q.name)}</span>
+          <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${isSample?q.name:(_admLoggedIn?`<span style="background:rgba(123,94,167,.12);color:#7B5EA7;border-radius:4px;padding:1px 6px;font-weight:500;">${q.name}</span>`:formatBoardName(q.name))}</span>
         </div>
         <p style="font-family:var(--fb);font-size:16px;line-height:1.9;color:var(--nv1);font-weight:300;">${q.question}</p>
       </div>`;
