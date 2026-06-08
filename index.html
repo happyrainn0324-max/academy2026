@@ -1350,10 +1350,10 @@ const ADM_CONCERNS = [
 let _aData = {};
 let _aTimer = null;
 
-let _admLoggedIn = false;
+window._admLoggedIn = false;
 window.admLogin = function(){
   if(document.getElementById('adm-pw').value === ADM_PW){
-    _admLoggedIn = true;
+    window._admLoggedIn = true;
     document.getElementById('adm-lock').style.display = 'none';
     document.getElementById('adm-body').style.display = 'block';
     document.getElementById('adm-err').style.display = 'none';
@@ -1366,7 +1366,7 @@ window.admLogin = function(){
   }
 };
 window.admLogout = function(){
-  _admLoggedIn = false;
+  window._admLoggedIn = false;
   document.getElementById('adm-lock').style.display = 'block';
   document.getElementById('adm-body').style.display = 'none';
   document.getElementById('adm-pw').value = '';
@@ -2152,17 +2152,17 @@ function renderBoard(){
     ?pageItems.map(q=>{
       const isSample = q._sample;
       const deleteBtnHtml = isSample
-        ? (_admLoggedIn ? `<button onclick="removeSampleCard(this)" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';" data-question="${q.question.replace(/"/g,'&quot;')}">✕</button>` : '')
-        : (_admLoggedIn ? `<button onclick="deleteQuestionDB(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>` : '');
+        ? (window._admLoggedIn ? `<button onclick="removeSampleCard(this)" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';" data-question="${q.question.replace(/"/g,'&quot;')}">✕</button>` : '')
+        : (window._admLoggedIn ? `<button onclick="deleteQuestionDB(${q.id})" style="position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:rgba(200,188,238,.3);border:none;color:var(--nv3);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:all .18s;" onmouseover="this.style.background='rgba(216,88,128,.25)';this.style.color='#C05878';" onmouseout="this.style.background='rgba(200,188,238,.3)';this.style.color='var(--nv3)';">✕</button>` : '');
       const displayName = isSample
         ? q.name
-        : _admLoggedIn
+        : window._admLoggedIn
           ? `<span style="background:rgba(123,94,167,.12);color:#7B5EA7;border-radius:4px;padding:1px 6px;font-weight:500;">${q.real_name||q.name}</span>`
           : formatBoardName(q.name);
       return `
       <div class="pb-card" style="margin-bottom:12px;position:relative;">
         ${deleteBtnHtml}
-        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;${_admLoggedIn?'padding-right:28px;':''}">
+        <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px;align-items:center;${window._admLoggedIn?'padding-right:28px;':''}">
           <span class="pb-badge ${q.grade==='1학년'?'pb-badge-1':q.grade==='2학년'?'pb-badge-2':q.grade==='3학년'?'pb-badge-3':''}">${q.grade}</span>
           ${q.category?`<span class="pb-badge">${q.category}</span>`:''}
           <span style="font-family:var(--fb);font-size:12px;color:var(--nv4);font-weight:300;">${displayName}</span>
@@ -2247,11 +2247,12 @@ async function submitForm(e){
   const q=document.getElementById('f-q').value.trim();
   if(!name||!q)return;
   const displayGrade = userSession ? userSession.grade : document.getElementById('f-grade').value;
-  const displayName = userSession ? userSession.parent[0]+'○ 학부모' : name[0]+'○ 학부모';
+  const realName = userSession ? userSession.parent : name;
+  const displayName = realName[0]+'○ 학부모';
   const category = document.getElementById('f-category')?.value || '';
 
   // 즉시 화면에 추가
-  const newQ = { id: null, name: displayName, grade: displayGrade, question: q, category: category, selected: false };
+  const newQ = { id: null, name: displayName, real_name: realName, grade: displayGrade, question: q, category: category, selected: false };
   questions = [newQ, ...questions];
   boardPage = 1;
   renderBoard();
@@ -2267,7 +2268,7 @@ async function submitForm(e){
   // DB 저장 (실패해도 화면은 이미 반영됨)
   try {
     await supaInsert('board_questions',{
-      name: displayName, grade: displayGrade, question: q, category: category,
+      name: displayName, real_name: realName, grade: displayGrade, question: q, category: category,
       selected: false
     });
   } catch(e) {}
